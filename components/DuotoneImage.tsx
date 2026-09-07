@@ -18,6 +18,8 @@ type DuotoneImageProps = {
  * `className` is for extra treatment only (opacity, rounding), not position.
  */
 export function DuotoneImage({ src, alt, className = "", priority, sizes }: DuotoneImageProps) {
+  const isRemote = /^https?:\/\//.test(src);
+
   return (
     <div className={`absolute inset-0 overflow-hidden ${className}`}>
       <Image
@@ -26,6 +28,10 @@ export function DuotoneImage({ src, alt, className = "", priority, sizes }: Duot
         fill
         priority={priority}
         sizes={sizes ?? "(min-width: 768px) 50vw, 100vw"}
+        // Remote stock photos already carry Unsplash's own resize/format params
+        // (?w=&q=&auto=format), and Vercel's optimization proxy re-fetching them
+        // server-side is what breaks silently in production — skip it for these.
+        unoptimized={isRemote}
         className="object-cover grayscale contrast-110 brightness-[0.85]"
       />
       <div className="absolute inset-0 bg-gradient-to-br from-cyan/25 via-transparent to-ink/60 mix-blend-color" />

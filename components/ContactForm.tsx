@@ -2,11 +2,19 @@
 
 import { useState, type FormEvent } from "react";
 import { services } from "@/lib/services";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 type Status = "idle" | "submitting" | "success" | "error";
-
-const inputClasses =
-  "w-full rounded-xl border border-glass-border bg-white/5 px-4 py-3 text-sm text-fog placeholder:text-fog-dim/60 outline-none transition-colors focus:border-lime/60";
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -46,43 +54,57 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid gap-5 sm:grid-cols-2">
-        <div className="gradient-ring-border rounded-xl">
-          <input name="name" required placeholder="Full name" className={inputClasses} />
+        <div className="gradient-ring-border space-y-2 rounded-xl p-px">
+          <Label htmlFor="name" className="sr-only">
+            Full name
+          </Label>
+          <Input id="name" name="name" required placeholder="Full name" className="h-auto rounded-xl border-glass-border bg-white/5 px-4 py-3 text-sm text-fog placeholder:text-fog-dim/60 focus-visible:ring-0" />
         </div>
-        <div className="gradient-ring-border rounded-xl">
-          <input name="email" type="email" required placeholder="Email" className={inputClasses} />
+        <div className="gradient-ring-border space-y-2 rounded-xl p-px">
+          <Label htmlFor="email" className="sr-only">
+            Email
+          </Label>
+          <Input id="email" name="email" type="email" required placeholder="Email" className="h-auto rounded-xl border-glass-border bg-white/5 px-4 py-3 text-sm text-fog placeholder:text-fog-dim/60 focus-visible:ring-0" />
         </div>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <div className="gradient-ring-border rounded-xl">
-          <input name="phone" placeholder="Phone (optional)" className={inputClasses} />
+        <div className="gradient-ring-border space-y-2 rounded-xl p-px">
+          <Label htmlFor="phone" className="sr-only">
+            Phone
+          </Label>
+          <Input id="phone" name="phone" placeholder="Phone (optional)" className="h-auto rounded-xl border-glass-border bg-white/5 px-4 py-3 text-sm text-fog placeholder:text-fog-dim/60 focus-visible:ring-0" />
         </div>
-        <div className="gradient-ring-border rounded-xl">
-          <input name="company" placeholder="Company / brand" className={inputClasses} />
+        <div className="gradient-ring-border space-y-2 rounded-xl p-px">
+          <Label htmlFor="company" className="sr-only">
+            Company / brand
+          </Label>
+          <Input id="company" name="company" placeholder="Company / brand" className="h-auto rounded-xl border-glass-border bg-white/5 px-4 py-3 text-sm text-fog placeholder:text-fog-dim/60 focus-visible:ring-0" />
         </div>
       </div>
 
-      <div className="gradient-ring-border rounded-xl">
-        <select name="service" required defaultValue="" className={`${inputClasses} appearance-none`}>
-          <option value="" disabled>
-            What do you need help with?
-          </option>
-          {services.map((s) => (
-            <option key={s.slug} value={s.title} className="bg-ink">
-              {s.title}
-            </option>
-          ))}
-        </select>
+      <div className="gradient-ring-border rounded-xl p-px">
+        <Select name="service" required>
+          <SelectTrigger className="h-auto w-full rounded-xl border-glass-border bg-white/5 px-4 py-3 text-sm text-fog data-placeholder:text-fog-dim/60 focus-visible:ring-0">
+            <SelectValue placeholder="What do you need help with?" />
+          </SelectTrigger>
+          <SelectContent>
+            {services.map((s) => (
+              <SelectItem key={s.slug} value={s.title}>
+                {s.title}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
-      <div className="gradient-ring-border rounded-xl">
-        <textarea
+      <div className="gradient-ring-border rounded-xl p-px">
+        <Textarea
           name="message"
           required
           rows={5}
           placeholder="Tell us about the event you're planning"
-          className={`${inputClasses} resize-none`}
+          className="min-h-0 resize-none rounded-xl border-glass-border bg-white/5 px-4 py-3 text-sm text-fog placeholder:text-fog-dim/60 focus-visible:ring-0"
         />
       </div>
 
@@ -90,13 +112,13 @@ export function ContactForm() {
         <p className="text-sm text-amber">Something went wrong sending that — try again or email us directly.</p>
       )}
 
-      <button
+      <Button
         type="submit"
         disabled={status === "submitting"}
-        className="w-full rounded-xl bg-lime px-6 py-3 text-sm font-medium text-ink transition-transform hover:scale-[1.01] disabled:opacity-60 sm:w-auto"
+        className="h-auto w-full rounded-xl bg-lime px-6 py-3 text-sm font-medium text-ink transition-transform hover:scale-[1.01] hover:bg-lime disabled:opacity-60 sm:w-auto"
       >
         {status === "submitting" ? "Sending…" : "Send message"}
-      </button>
+      </Button>
     </form>
   );
 }
