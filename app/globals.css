@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #08090a;
+  --ink-raised: #111316;
+  --ink-deep: #030404;
+  --glass: rgba(255, 255, 255, 0.06);
+  --glass-strong: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --lime: #c6f24e;
+  --cyan: #33c7e0;
+  --amber: #f2b84e;
+  --fog: #f3f4f0;
+  --fog-dim: #9a9da3;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-raised: var(--ink-raised);
+  --color-ink-deep: var(--ink-deep);
+  --color-glass: var(--glass);
+  --color-glass-strong: var(--glass-strong);
+  --color-glass-border: var(--glass-border);
+  --color-lime: var(--lime);
+  --color-cyan: var(--cyan);
+  --color-amber: var(--amber);
+  --color-fog: var(--fog);
+  --color-fog-dim: var(--fog-dim);
+  --font-display: var(--font-space-grotesk);
+  --font-sans: var(--font-inter);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--ink);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--ink);
+  color: var(--fog);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+/* signature cyan -> lime -> amber sweep, used sparingly */
+.gradient-ring-text {
+  background: linear-gradient(100deg, var(--cyan), var(--lime) 55%, var(--amber));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gradient-ring-border {
+  position: relative;
+}
+
+.gradient-ring-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, var(--cyan), var(--lime) 50%, var(--amber));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.gradient-ring-border:hover::before,
+.gradient-ring-border:focus-within::before {
+  opacity: 1;
+}
+
+.glass-panel {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
