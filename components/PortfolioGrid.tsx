@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { DuotoneImage } from "./DuotoneImage";
 import { getMedia } from "@/lib/media";
+import { portfolio } from "@/lib/portfolio";
 import {
   Dialog,
   DialogContent,
@@ -12,46 +14,9 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
-const items = [
-  {
-    slot: "work.1",
-    title: "Founders Summit",
-    tag: "Conference",
-    description: "GN Club brought founders and operators together for a day of talks and networking.",
-  },
-  {
-    slot: "work.2",
-    title: "Chainlink Meetup Manila",
-    tag: "Web3 Activation",
-    description: "A GN Club activation for the Chainlink community in Manila.",
-  },
-  {
-    slot: "work.3",
-    title: "Neon Rooftop Launch",
-    tag: "Product Launch",
-    description: "A rooftop product launch produced end-to-end by GN Club.",
-  },
-  {
-    slot: "work.4",
-    title: "Founders Summit Afterparty",
-    tag: "Party",
-    description: "The after-hours celebration capping off GN Club's Founders Summit.",
-  },
-  {
-    slot: "work.5",
-    title: "Studio Livestream",
-    tag: "Online Event",
-    description: "A studio-produced livestream event hosted by GN Club.",
-  },
-  {
-    slot: "work.6",
-    title: "Regional Roadshow",
-    tag: "Trade Show",
-    description: "GN Club's trade show presence on a multi-city regional roadshow.",
-  },
-];
-
+const items = portfolio;
 const spans = ["md:row-span-2", "", "", "md:row-span-2", "", ""];
 
 export function PortfolioGrid() {
@@ -106,6 +71,12 @@ export function PortfolioGrid() {
                 <DialogTitle>{activeItem.title}</DialogTitle>
                 <DialogDescription>{activeItem.description}</DialogDescription>
               </DialogHeader>
+              <Button
+                render={<Link href={`/work/${activeItem.slug}`} />}
+                className="mt-2 w-full bg-lime text-ink hover:bg-lime sm:w-auto"
+              >
+                View full case study
+              </Button>
             </>
           )}
         </DialogContent>

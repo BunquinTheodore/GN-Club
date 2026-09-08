@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { AlternatingRow } from "@/components/AlternatingRow";
 import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
+import { CompanyTimeline } from "@/components/CompanyTimeline";
+import { TeamGrid } from "@/components/TeamGrid";
 import { getMedia } from "@/lib/media";
 
 export const metadata: Metadata = {
@@ -20,7 +22,7 @@ export default function AboutPage() {
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-fog-dim">
             GN Club creates high-impact event activations for tech and Web3 brands in the
-            Philippines and globally. If you need an event that moves your community, let's talk.
+            Philippines and globally. If you need an event that moves your community, let&apos;s talk.
           </p>
         </Reveal>
       </section>
@@ -34,7 +36,7 @@ export default function AboutPage() {
           >
             <p>
               We plan, build, staff, and run events ourselves — activations, concerts, trade
-              shows, product launches — rather than brokering the work out. That's what keeps a
+              shows, product launches — rather than brokering the work out. That&apos;s what keeps a
               350-person conference and a rooftop product drop feeling like the same level of
               craft.
             </p>
@@ -55,6 +57,26 @@ export default function AboutPage() {
             </p>
           </AlternatingRow>
         </Reveal>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
+        <Reveal className="mb-12 max-w-xl">
+          <p className="text-sm font-medium text-fog-dim">Our story</p>
+          <h2 className="mt-2 font-display text-3xl tracking-tight text-fog sm:text-4xl">
+            From small activations to full-scale production.
+          </h2>
+        </Reveal>
+        <CompanyTimeline />
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
+        <Reveal className="mb-12 max-w-xl">
+          <p className="text-sm font-medium text-fog-dim">The team</p>
+          <h2 className="mt-2 font-display text-3xl tracking-tight text-fog sm:text-4xl">
+            The people who show up on-site.
+          </h2>
+        </Reveal>
+        <TeamGrid />
       </section>
 
       <CTASection />

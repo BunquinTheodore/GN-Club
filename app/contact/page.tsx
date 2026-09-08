@@ -18,7 +18,7 @@ export default function ContactPage() {
       <div className="relative mx-auto max-w-2xl px-6">
         <Reveal>
           <div className="mb-10 text-center">
-            <p className="text-sm font-medium text-fog-dim">Let's talk</p>
+            <p className="text-sm font-medium text-fog-dim">Let&apos;s talk</p>
             <h1 className="mt-2 font-display text-4xl tracking-tight text-fog sm:text-5xl">
               Tell us about the event.
             </h1>
