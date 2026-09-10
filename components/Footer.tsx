@@ -25,11 +25,6 @@ export function Footer() {
                   {site.contact.email}
                 </a>
               </li>
-              <li>
-                <a href={`tel:${site.contact.phone.replace(/\s/g, "")}`} className="hover:text-lime">
-                  {site.contact.phone}
-                </a>
-              </li>
             </ul>
           </div>
 

@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# raw Google Drive asset exports (GBs of source photos/video — never commit;
+# pull only the processed files you need into public/images)
+/1 Q3*/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

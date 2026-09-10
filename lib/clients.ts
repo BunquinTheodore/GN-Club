@@ -1,12 +1,17 @@
 /**
- * Text wordmarks for a "trusted by" strip. Replace with real client names
- * (and swap the component to render actual logo images) once available.
+ * "Trusted by" strip entries. `logo` (a lib/media.ts key) renders a real
+ * mark; entries without one fall back to a text wordmark until a logo
+ * asset is available.
  */
-export const clients: string[] = [
-  "Chainlink",
-  "Founders Summit",
-  "Neon Labs",
-  "Roadshow PH",
-  "Studio One",
-  "Afterparty Co.",
+export type Client = {
+  name: string;
+  logo?: string;
+};
+
+export const clients: Client[] = [
+  { name: "GN Media", logo: "brand.gnMedia" },
+  { name: "MAZAL", logo: "brand.mazal" },
+  { name: "Chainlink" },
+  { name: "Founders Summit" },
+  { name: "Studio One" },
 ];

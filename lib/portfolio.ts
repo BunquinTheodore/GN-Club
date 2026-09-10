@@ -18,6 +18,42 @@ export type CaseStudy = {
  */
 export const portfolio: CaseStudy[] = [
   {
+    slug: "wocee-2026",
+    slot: "wocee.1",
+    title: "WOCEE 2026",
+    tag: "Consumer Electronics Expo",
+    description:
+      "GN Club produced and activated \"The Nexus Stage\" for the World of Consumer Electronics Expo — programming, branded staging, and on-ground crew for a multi-day convention floor.",
+    challenge:
+      "A convention-scale expo needed a dedicated stage that could carry back-to-back programming — panels, product reveals, and awarding ceremonies — without ever feeling like a generic breakout room.",
+    approach:
+      "Designed and built \"The Nexus Stage\" as a fully branded environment (custom signage, lighting rig, LED backdrop), then staffed and ran it end-to-end across the entire expo run: hosting, AV, speaker management, and crowd flow.",
+    results: [
+      { label: "Programming days", value: "Multi-day" },
+      { label: "Sessions hosted", value: "20+" },
+      { label: "Stage", value: "Fully branded build" },
+    ],
+    gallery: ["wocee.1", "wocee.2", "wocee.3", "wocee.4", "wocee.5", "wocee.6", "wocee.7", "wocee.8"],
+  },
+  {
+    slug: "pickleball-edition",
+    slot: "pickleball.1",
+    title: "GN Club Lifestyle: Pickleball Edition",
+    tag: "Community Activation",
+    description:
+      "PLACEHOLDER — GN Club ran a community pickleball activation on-court, featuring an LBank Academy-branded pop-up and giveaways for players. Replace this description with the real client/brief details.",
+    challenge:
+      "PLACEHOLDER — describe what the sponsor/partner needed from this activation (e.g. brand visibility, community goodwill, lead capture) and any constraints.",
+    approach:
+      "PLACEHOLDER — describe what GN Club actually built and ran on-site: signage, giveaways, hosting, content capture, etc.",
+    results: [
+      { label: "Players", value: "TBD" },
+      { label: "Format", value: "TBD" },
+      { label: "Sponsor", value: "LBank Academy" },
+    ],
+    gallery: ["pickleball.1", "pickleball.2", "pickleball.3", "pickleball.4"],
+  },
+  {
     slug: "founders-summit",
     slot: "work.1",
     title: "Founders Summit",

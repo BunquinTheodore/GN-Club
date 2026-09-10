@@ -60,9 +60,9 @@ export const services: Service[] = [
   {
     slug: "video-production",
     title: "Video Production",
-    blurb: "Capturing and cutting the story while it's still happening.",
+    blurb: "Capturing and cutting the story while it's still happening — from live coverage to a dedicated studio shoot.",
     icon: Clapperboard,
-    items: ["Shooting", "Animation", "Video Editing"],
+    items: ["Shooting", "Animation", "Video Editing", "Studio Shoot & Podcast Photoshoot"],
     span: "sm",
     media: "services.video",
   },
@@ -83,7 +83,7 @@ export const services: Service[] = [
     items: [
       "Fabrication",
       "Construction of Permanent Structure",
-      "Brand merchandising",
+      "Brand Merchandising & Shirt Printing",
       "Manpower Deployment",
     ],
     span: "sm",

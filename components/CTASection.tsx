@@ -4,10 +4,10 @@ import { getMedia } from "@/lib/media";
 
 export function CTASection() {
   return (
-    <section className="relative overflow-hidden py-28">
+    <section className="relative overflow-hidden py-16">
       <DuotoneImage src={getMedia("contact.backdrop")} alt=""  />
       <div className="relative mx-auto max-w-3xl px-6 text-center">
-        <h2 className="font-display text-3xl tracking-tight text-fog sm:text-4xl">
+        <h2 className="font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-5xl">
           Have an event that needs to move a community?
         </h2>
         <p className="mt-4 text-base text-fog-dim">

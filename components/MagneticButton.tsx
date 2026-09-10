@@ -28,11 +28,11 @@ export function MagneticButton({ href, children, variant = "solid" }: MagneticBu
   }
 
   const base =
-    "inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors";
+    "inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-[filter,box-shadow] duration-300";
   const styles =
     variant === "solid"
-      ? "bg-lime text-ink hover:bg-fog"
-      : "border border-glass-border text-fog hover:border-lime/60 hover:text-lime";
+      ? "bg-lime text-ink hover:brightness-110 hover:shadow-[0_0_28px_rgba(198,242,78,0.45)]"
+      : "border border-glass-border text-fog hover:border-lime/60 hover:text-lime hover:shadow-[0_0_20px_rgba(198,242,78,0.15)]";
 
   return (
     <motion.div

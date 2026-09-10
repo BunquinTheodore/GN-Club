@@ -15,7 +15,6 @@ export const site = {
     { label: "X", href: "https://x.com/gnclubofficial" },
   ],
   contact: {
-    phone: "0999 000 0000",
     email: "gnclub.contactus@gmail.com",
   },
 };

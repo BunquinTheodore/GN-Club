@@ -3,7 +3,9 @@
 import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { MagneticButton } from "./MagneticButton";
+import { ClientLogos } from "./ClientLogos";
 import { site } from "@/lib/site";
+import { stats } from "@/lib/stats";
 
 export function Hero() {
   const mx = useMotionValue(0);
@@ -20,23 +22,23 @@ export function Hero() {
   return (
     <section
       onMouseMove={handleMouseMove}
-      className="relative flex min-h-screen items-end overflow-hidden pb-24 pt-32"
+      className="relative flex h-full min-h-screen items-end overflow-hidden pb-24 pt-32 md:min-h-0"
     >
       <motion.div
         initial={{ opacity: 0, scale: 1.08 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute inset-0"
+        className="absolute inset-0 bg-ink"
       >
         <Image
           src="/hero-cover.png"
           alt="GN Club activation crew on-site"
           fill
           priority
-          className="object-cover object-center opacity-90"
+          className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-transparent to-ink/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/40 via-transparent to-ink/25" />
       </motion.div>
 
       <div className="relative mx-auto w-full max-w-7xl px-6 lg:px-10">
@@ -63,6 +65,24 @@ export function Hero() {
                 See our work
               </MagneticButton>
             </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-8 flex max-w-3xl flex-wrap items-center gap-x-8 gap-y-4 border-t border-glass-border/60 pt-6"
+        >
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-fog-dim">
+            {stats.map((stat) => (
+              <span key={stat.label}>
+                <span className="font-display text-fog">{stat.value}</span> {stat.label}
+              </span>
+            ))}
+          </div>
+          <div className="flex flex-wrap items-center gap-6 opacity-70">
+            <ClientLogos />
           </div>
         </motion.div>
       </div>
