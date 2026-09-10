@@ -35,7 +35,8 @@ export function Hero() {
           alt="GN Club activation crew on-site"
           fill
           priority
-          className="object-cover object-center"
+          className="object-cover"
+          style={{ objectPosition: "38% center" }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-ink/40 via-transparent to-ink/25" />
