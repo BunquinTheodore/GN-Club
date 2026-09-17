@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 const items = portfolio;
-const spans = ["md:row-span-2", "", "", "md:row-span-2", "", ""];
+const spans = ["md:row-span-2", "", "", "md:row-span-2", "", "", "", "", ""];
 
 // object-cover art-direction overrides, keyed by lib/media.ts slot. Only
 // slots where a blind center crop loses the subject at both the short/wide

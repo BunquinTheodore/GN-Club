@@ -21,6 +21,10 @@ export const media: Record<string, string> = {
     "https://images.unsplash.com/photo-1553413077-190dd305871c?q=80&w=1200&auto=format&fit=crop",
   "services.others":
     "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=1200&auto=format&fit=crop",
+  "services.studio":
+    "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=1200&auto=format&fit=crop",
+  "services.merch":
+    "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?q=80&w=1200&auto=format&fit=crop",
 
   "about.team":
     "https://images.unsplash.com/photo-1612544409025-e1f6a56c1152?q=80&w=1600&auto=format&fit=crop",
@@ -60,6 +64,19 @@ export const media: Record<string, string> = {
   "pickleball.2": "/images/pickleball/pickleball-02-crowd-sponsors.jpg",
   "pickleball.3": "/images/pickleball/pickleball-03-lbank-banner.jpg",
   "pickleball.4": "/images/pickleball/pickleball-04-court-venue.jpg",
+
+  // Real GN Club marketing/content-design work — branded social graphics
+  // produced for Mazal (weekly trading schedules, community co-work posts,
+  // "Join Mazal" onboarding/QR creative). Not on-ground event photography.
+  "mazal.1": "/images/mazal/mazal-01-trade-before-after.png",
+  "mazal.2": "/images/mazal/mazal-02-thursday-cowork.png",
+  "mazal.3": "/images/mazal/mazal-03-wednesday-cowork.png",
+  "mazal.4": "/images/mazal/mazal-04-trading-schedule-v1.png",
+  "mazal.5": "/images/mazal/mazal-05-trading-schedule-v2.png",
+  "mazal.6": "/images/mazal/mazal-06-why-partner-with-mazal.png",
+  "mazal.7": "/images/mazal/mazal-07-free-trading-guide-qr.png",
+  "mazal.8": "/images/mazal/mazal-08-join-mazal-qr.png",
+  "mazal.9": "/images/mazal/mazal-09-beginner-trading-submit.png",
 
   // Sister-brand marks for the "trusted by" strip.
   "brand.gnMedia": "/images/brands/gn-media-logo.jpg",

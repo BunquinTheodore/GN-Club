@@ -54,6 +54,34 @@ export const portfolio: CaseStudy[] = [
     gallery: ["pickleball.1", "pickleball.2", "pickleball.3", "pickleball.4"],
   },
   {
+    slug: "join-mazal-activation",
+    slot: "mazal.1",
+    title: "Join Mazal",
+    tag: "Community Marketing & Activation",
+    description:
+      "GN Club is the events activation and marketing agency behind Mazal, a free Philippine trading community — designing the campaign creative and community programming that turns followers into active members.",
+    challenge:
+      "Mazal needed to convert social followers into a genuinely active trading community without any paywall or hard sell — the brand runs entirely on free education, so growth has to come from content and community experience alone, not a funnel of paid offers.",
+    approach:
+      "GN Club designed and produced Mazal's recurring campaign system: weekly trading-schedule graphics that give members a reason to check in every day, a \"Join Mazal\" onboarding and QR campaign to convert social reach into Discord members, and in-person GN Club co-work sessions that give the online community a physical touchpoint.",
+    results: [
+      { label: "Weekly content cadence", value: "Recurring" },
+      { label: "Programs shipped", value: "Onboarding + co-work + schedule series" },
+      { label: "Partner", value: "Mazal (powered by GN Ventures)" },
+    ],
+    gallery: [
+      "mazal.1",
+      "mazal.2",
+      "mazal.3",
+      "mazal.4",
+      "mazal.5",
+      "mazal.6",
+      "mazal.7",
+      "mazal.8",
+      "mazal.9",
+    ],
+  },
+  {
     slug: "founders-summit",
     slot: "work.1",
     title: "Founders Summit",
