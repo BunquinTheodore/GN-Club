@@ -1,25 +1,20 @@
 "use client";
 
+import { useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
+import { animate, motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import type { CaseStudy } from "@/lib/portfolio";
 import { getMedia } from "@/lib/media";
 import { DuotoneImage } from "@/components/DuotoneImage";
 import { GlassPanel } from "@/components/GlassPanel";
 import { Badge } from "@/components/ui/badge";
-import { CTASection } from "@/components/CTASection";
 import { HorizontalScroll } from "@/components/HorizontalScroll";
 import { PanelReveal } from "@/components/PanelReveal";
 
 type CaseStudyPanelsProps = {
   caseStudy: CaseStudy;
 };
-
-// Wide-panel gallery: keep each panel to at most 4 images (2 columns x 2
-// rows) so it stays legible while still using the extra horizontal room; a
-// gallery longer than that spills into a second wide panel rather than
-// cramming everything into one.
-const GALLERY_CHUNK_SIZE = 4;
 
 // object-cover art-direction, keyed by lib/media.ts slot. Tiles here (the
 // full-bleed intro backdrop and the h-48/sm:h-64 gallery cells) are all
@@ -37,27 +32,66 @@ const positions: Record<string, string> = {
   "pickleball.1": "center 15%",
 };
 
-function chunk<T>(items: T[], size: number): T[][] {
-  const chunks: T[][] = [];
-  for (let i = 0; i < items.length; i += size) {
-    chunks.push(items.slice(i, i + size));
+/**
+ * Result value with a lightweight count-up: parses a leading numeric run
+ * (allowing commas, e.g. "2,400") and animates it in once the tile scrolls
+ * into view, preserving any surrounding text ("350+", "3 days"). Values
+ * with no leading digits (e.g. "TBD", "Recurring") just render as-is.
+ * Skips the animation under prefers-reduced-motion.
+ */
+function StatValue({ value, className }: { value: string; className?: string }) {
+  const match = value.match(/^([\d,]+)(.*)$/);
+  const reducedMotion = useReducedMotion();
+  const [display, setDisplay] = useState(reducedMotion || !match ? value : `0${match[2]}`);
+  const animated = useRef(false);
+
+  if (!match) {
+    return <p className={className}>{value}</p>;
   }
-  return chunks;
+
+  const target = parseInt(match[1].replace(/,/g, ""), 10);
+  const suffix = match[2];
+
+  return (
+    <motion.p
+      className={className}
+      onViewportEnter={() => {
+        if (animated.current || reducedMotion) return;
+        animated.current = true;
+        animate(0, target, {
+          duration: 1.4,
+          ease: [0.16, 1, 0.3, 1],
+          onUpdate: (v) => setDisplay(`${Math.round(v).toLocaleString()}${suffix}`),
+        });
+      }}
+      viewport={{ once: true, margin: "0px" }}
+    >
+      {display}
+    </motion.p>
+  );
 }
 
 export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
-  const galleryChunks = chunk(caseStudy.gallery, GALLERY_CHUNK_SIZE);
-
   return (
     <HorizontalScroll>
-      <section className="relative flex h-full flex-col justify-center px-6 py-10 lg:px-10">
+      {/* Normal top-to-bottom flow, sized to content — no forced viewport
+          height. The intro/backdrop section gets generous py so it reads
+          as a proper hero rather than a cramped strip. */}
+      <section className="relative px-6 pt-20 pb-16 sm:pt-24 sm:pb-20 md:pt-16 lg:px-10">
         <DuotoneImage
           src={getMedia(caseStudy.slot)}
           alt={caseStudy.title}
-          className="opacity-50"
+          className="opacity-35"
           position={positions[caseStudy.slot]}
         />
-        <div className="relative mx-auto w-full max-w-4xl">
+        {/* Extra scrim independent of DuotoneImage's own treatment — the
+            hero backdrop often carries the event's own on-site signage
+            (e.g. stage/session lettering) that reads through the duotone
+            grade and competes with the H1 and stat tiles sitting on top of
+            it. This darkens specifically behind the text/stat column
+            without further flattening the photo itself. */}
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/25 to-ink" />
+        <div className="relative mx-auto w-full max-w-6xl">
           <PanelReveal>
             <Link
               href="/work"
@@ -66,73 +100,72 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
               <ArrowLeft className="h-3.5 w-3.5" />
               Back to work
             </Link>
-            <div className="mt-6 flex items-center gap-2">
+            <div className="mt-3 flex items-center gap-2">
               <Badge variant="outline">{caseStudy.tag}</Badge>
             </div>
-            <h1 className="mt-3 font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-5xl">{caseStudy.title}</h1>
+            <h1 className="mt-3 text-balance font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-5xl">{caseStudy.title}</h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-fog-dim">{caseStudy.description}</p>
           </PanelReveal>
 
-          <PanelReveal delay={0.08} className="mt-8">
+          <PanelReveal delay={0.08} className="mt-10">
             <div className="grid gap-6 sm:grid-cols-3">
-              {caseStudy.results.map((result) => (
-                <GlassPanel key={result.label} className="p-6 text-center">
-                  <p className="gradient-ring-text font-display text-3xl">{result.value}</p>
-                  <p className="mt-1 text-sm text-fog-dim">{result.label}</p>
-                </GlassPanel>
+              {caseStudy.results.map((result, i) => (
+                <motion.div
+                  key={result.label}
+                  initial={{ opacity: 0, scale: 0.92, y: 10 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true, margin: "0px" }}
+                  transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ y: -3 }}
+                >
+                  <GlassPanel
+                    shineDelay={(i % 5) * 0.6}
+                    className="p-6 text-center transition-[border-color,box-shadow] duration-300 hover:border-lime/30 hover:shadow-[0_16px_40px_-16px_rgba(198,242,78,0.35)]"
+                  >
+                    <StatValue value={result.value} className="gradient-ring-text font-display text-3xl tabular-nums" />
+                    <p className="mt-1 text-sm text-fog-dim">{result.label}</p>
+                  </GlassPanel>
+                </motion.div>
               ))}
             </div>
           </PanelReveal>
 
-          <div className="mt-8 grid gap-8 md:grid-cols-2">
+          <div className="mt-14 grid gap-10 md:grid-cols-2 md:gap-16">
             <PanelReveal>
-              <h2 className="font-display text-xl text-fog">The challenge</h2>
+              <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">The challenge</h2>
               <p className="mt-3 text-base leading-relaxed text-fog-dim">{caseStudy.challenge}</p>
             </PanelReveal>
             <PanelReveal delay={0.08}>
-              <h2 className="font-display text-xl text-fog">Our approach</h2>
+              <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">Our approach</h2>
               <p className="mt-3 text-base leading-relaxed text-fog-dim">{caseStudy.approach}</p>
             </PanelReveal>
           </div>
-        </div>
-      </section>
 
-      {galleryChunks.map((slots, chunkIndex) => {
-        const cols = Math.max(1, Math.ceil(slots.length / 2));
-        const width = `${Math.min(220, Math.max(120, cols * 55))}vw`;
-        return (
-          <HorizontalScroll.Panel key={chunkIndex} width={width}>
-            <section className="flex h-full flex-col justify-center px-6 py-8 lg:px-10">
-              <div className="mx-auto w-full max-w-[1600px]">
-                {chunkIndex === 0 && (
-                  <PanelReveal className="mb-3">
-                    <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">Gallery</h2>
-                  </PanelReveal>
-                )}
+          <PanelReveal delay={0.1} className="mt-14">
+            <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">Gallery</h2>
+            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:auto-rows-[220px] md:gap-4">
+              {caseStudy.gallery.map((slot, i) => (
                 <div
-                  className="grid gap-3"
-                  style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
+                  key={`${slot}-${i}`}
+                  className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-glass-border transition-colors duration-300 hover:border-lime/40 md:aspect-auto"
                 >
-                  {slots.map((slot, i) => (
-                    <PanelReveal key={`${slot}-${i}`} delay={i * 0.08}>
-                      <div className="relative h-48 overflow-hidden rounded-2xl border border-glass-border sm:h-64">
-                        <DuotoneImage
-                          src={getMedia(slot)}
-                          alt={`${caseStudy.title} photo ${chunkIndex * GALLERY_CHUNK_SIZE + i + 1}`}
-                          position={positions[slot]}
-                        />
-                      </div>
-                    </PanelReveal>
-                  ))}
+                  <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.08]">
+                    <DuotoneImage
+                      src={getMedia(slot)}
+                      alt={`${caseStudy.title} photo ${i + 1}`}
+                      position={positions[slot]}
+                    />
+                  </div>
+                  <span
+                    aria-hidden="true"
+                    className="card-shine"
+                    style={{ "--shine-delay": `${(i % 5) * 0.6}s` } as CSSProperties}
+                  />
                 </div>
-              </div>
-            </section>
-          </HorizontalScroll.Panel>
-        );
-      })}
-
-      <section className="flex h-full flex-col justify-center">
-        <CTASection />
+              ))}
+            </div>
+          </PanelReveal>
+        </div>
       </section>
     </HorizontalScroll>
   );

@@ -118,6 +118,16 @@ body {
   background: var(--ink);
   color: var(--fog);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  /* Custom site-wide cursor: the GN mascot mid-point, hotspot set at its
+     fingertip (top-right of the 44px art) so clicks register where the
+     finger actually is, not the image's top-left corner. */
+  cursor: url("/cursor/gn-mascot-cursor.png") 36 6, auto;
+  cursor: image-set(
+        url("/cursor/gn-mascot-cursor.png") 1x,
+        url("/cursor/gn-mascot-cursor@2x.png") 2x
+      )
+      36 6,
+    auto;
 }
 
 ::selection {
@@ -164,6 +174,79 @@ body {
   -webkit-backdrop-filter: blur(20px) saturate(140%);
 }
 
+/* Continuous left-to-right marquee track — the track's own content is
+   duplicated by the caller so translating exactly -50% loops seamlessly.
+   Reduced-motion users get this frozen via the existing global override
+   below (animation-duration forced to ~0). */
+@keyframes marquee-x {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.animate-marquee-x {
+  animation: marquee-x 32s linear infinite;
+}
+.animate-marquee-x:hover,
+.animate-marquee-x:focus-within {
+  animation-play-state: paused;
+}
+
+/* Continuous "shining" card treatment — a soft diagonal light band that
+   sweeps across a card on a loop, tuned to read as "occasionally catches
+   the light" rather than a strobe: the visible sweep only occupies the
+   first ~22% of the timeline, then the band parks off-screen (to the
+   right) for the remainder of the duration before the animation restarts
+   invisibly off-screen (to the left). Cards apply this via `.card-shine`
+   on an absolutely-positioned overlay span, alongside — not instead of —
+   their existing hover treatment (lift/border/shadow). Per-card stagger is
+   set with the `--shine-delay` custom property so cards in the same grid
+   don't sweep in unison. This is a real CSS `animation`, so it is already
+   caught by the prefers-reduced-motion override below (forced to a ~0
+   duration, single iteration).
+*/
+@keyframes card-shine-sweep {
+  0% {
+    transform: translateX(-160%) skewX(-20deg);
+  }
+  22% {
+    transform: translateX(220%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(220%) skewX(-20deg);
+  }
+}
+
+.card-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.card-shine::before {
+  content: "";
+  position: absolute;
+  top: -60%;
+  bottom: -60%;
+  left: -30%;
+  width: 55%;
+  background: linear-gradient(
+    75deg,
+    transparent,
+    rgba(255, 255, 255, 0.1) 45%,
+    rgba(198, 242, 78, 0.1) 55%,
+    transparent
+  );
+  transform: translateX(-160%) skewX(-20deg);
+  animation: card-shine-sweep 4.5s ease-in-out infinite;
+  animation-delay: var(--shine-delay, 0s);
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -184,6 +267,44 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Reveal/PanelReveal/CTASection's scroll-triggered entrances are gated on
+   a live IntersectionObserver (whileInView) firing, which never happens
+   when the page is rendered for print/PDF export rather than scrolled —
+   force every .reveal-el visible in that context. */
+@media print {
+  .reveal-el {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Custom scrollbar — thin, ink track, a subtle lime-tinted thumb. Applied
+   site-wide from this one shared file so browser chrome reads as premium
+   everywhere, not just on hand-picked panels. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(198, 242, 78, 0.35) var(--ink);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ink);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(198, 242, 78, 0.28);
+  border-radius: 999px;
+  border: 2px solid var(--ink);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(198, 242, 78, 0.45);
 }
 
 .dark {
@@ -229,5 +350,32 @@ body {
   }
   html {
     @apply font-sans;
+  }
+
+  /* Baseline focus-visible ring for any interactive element that doesn't
+     define its own (shadcn's ring-based focus utilities live in the
+     utilities layer, so they always win over this when present — this is
+     purely the site-wide fallback for plain links/buttons, e.g. nav items,
+     footer links, the header logo). Keeps focus state lime and visible
+     everywhere, per the brand's single-accent rule. */
+  a,
+  button,
+  [role="button"],
+  input,
+  textarea,
+  select,
+  summary,
+  [tabindex]:not([tabindex="-1"]) {
+    outline-color: var(--lime);
+  }
+
+  /* No border-radius here — modern browsers already curve the outline to
+     match each element's own border-radius (pills, cards, etc.). Setting it
+     here would apply to the element's box itself, not just the outline,
+     forcing e.g. a rounded-full button's corners to a near-square 2px
+     while focused. */
+  :focus-visible {
+    outline: 2px solid var(--lime);
+    outline-offset: 3px;
   }
 }

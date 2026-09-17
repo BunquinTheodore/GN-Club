@@ -26,6 +26,42 @@ export const media: Record<string, string> = {
   "services.merch":
     "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?q=80&w=1200&auto=format&fit=crop",
 
+  // Additional gallery photos for each service's /services/[slug] detail
+  // page — supplements the single hero photo above with 2 more stock shots
+  // per service.
+  "services.activations.gallery.2":
+    "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop",
+  "services.activations.gallery.3":
+    "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1200&auto=format&fit=crop",
+  "services.online.gallery.2":
+    "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=1200&auto=format&fit=crop",
+  "services.online.gallery.3":
+    "https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?q=80&w=1200&auto=format&fit=crop",
+  "services.digital.gallery.2":
+    "https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1200&auto=format&fit=crop",
+  "services.digital.gallery.3":
+    "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop",
+  "services.video.gallery.2":
+    "https://images.unsplash.com/photo-1522124624696-7ea32eb43c94?q=80&w=1200&auto=format&fit=crop",
+  "services.video.gallery.3":
+    "https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=1200&auto=format&fit=crop",
+  "services.logistics.gallery.2":
+    "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200&auto=format&fit=crop",
+  "services.logistics.gallery.3":
+    "https://images.unsplash.com/photo-1553413077-190dd305871c?q=80&w=1200&auto=format&fit=crop",
+  "services.others.gallery.2":
+    "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1200&auto=format&fit=crop",
+  "services.others.gallery.3":
+    "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop",
+  "services.studio.gallery.2":
+    "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=1200&auto=format&fit=crop",
+  "services.studio.gallery.3":
+    "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=1200&auto=format&fit=crop",
+  "services.merch.gallery.2":
+    "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1200&auto=format&fit=crop",
+  "services.merch.gallery.3":
+    "https://images.unsplash.com/photo-1503341504253-dff4815485f1?q=80&w=1200&auto=format&fit=crop",
+
   "about.team":
     "https://images.unsplash.com/photo-1612544409025-e1f6a56c1152?q=80&w=1600&auto=format&fit=crop",
   "about.stage":
@@ -44,8 +80,11 @@ export const media: Record<string, string> = {
   "work.6":
     "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?q=80&w=1200&auto=format&fit=crop",
 
-  "contact.backdrop":
-    "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=1600&auto=format&fit=crop",
+  // Real GN Club photography (WOCEE 2026 closing night) — replaces a stock
+  // Unsplash crowd photo that had unrelated text ("ALL I AM IS YOURS")
+  // baked into the image itself, visible behind the CTA/contact copy on
+  // every page.
+  "contact.backdrop": "/images/wocee/wocee-07-closing-night.jpg",
 
   // Real GN Club event photography — WOCEE 2026 (World of Consumer
   // Electronics Expo), "The Nexus Stage" activation.

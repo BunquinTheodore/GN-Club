@@ -1,88 +1,164 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { MagneticButton } from "./MagneticButton";
 import { ClientLogos } from "./ClientLogos";
+import { CountUpValue } from "./CountUpValue";
 import { site } from "@/lib/site";
 import { stats } from "@/lib/stats";
 
-export function Hero() {
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const panelX = useSpring(useTransform(mx, [-1, 1], [-10, 10]), { stiffness: 60, damping: 20 });
-  const panelY = useSpring(useTransform(my, [-1, 1], [-8, 8]), { stiffness: 60, damping: 20 });
+const HEADLINE = "We Build the Events Tech and Web3 Brands Are Remembered For.";
 
-  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    const rect = e.currentTarget.getBoundingClientRect();
-    mx.set(((e.clientX - rect.left) / rect.width) * 2 - 1);
-    my.set(((e.clientY - rect.top) / rect.height) * 2 - 1);
-  }
+const headlineContainer: Variants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.02, delayChildren: 0.1 },
+  },
+};
+
+const wordUp: Variants = {
+  hidden: { opacity: 0, y: 14, rotateX: -25 },
+  show: {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+export function Hero() {
+  const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section
-      onMouseMove={handleMouseMove}
-      className="relative flex h-full min-h-screen items-end overflow-hidden pb-24 pt-32 md:min-h-0"
-    >
-      <motion.div
-        initial={{ opacity: 0, scale: 1.08 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute inset-0 bg-ink"
-      >
-        <Image
-          src="/hero-cover.png"
-          alt="GN Club activation crew on-site"
-          fill
-          priority
-          className="object-cover"
-          style={{ objectPosition: "38% center" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/40 via-transparent to-ink/25" />
-      </motion.div>
+    <section className="relative pt-16 md:pt-0">
+      {/* Mobile keeps a small top clearance (pt-16) so the photo starts below
+          the fixed, opaque mobile top bar instead of hiding under it. Desktop
+          now has a persistent left sidebar instead of a floating transparent
+          header, so the photo goes fully edge-to-edge from the top of the
+          content column (md:pt-0) — that reads as intentional since nothing
+          used to occupy that space, rather than a header-bleed trick.
 
-      <div className="relative mx-auto w-full max-w-7xl px-6 lg:px-10">
+          GN Club logo is baked into the source image already centered
+          (~50% horizontally); "center" keeps it centered in the crop
+          regardless of viewport width. Sized generously but well short of a
+          full-viewport hero — the page is meant to scroll, not be crammed
+          into one screen. */}
+      <div className="relative h-[46vh] min-h-[320px] w-full overflow-hidden sm:h-[52vh] md:h-[58vh] lg:h-[62vh] lg:max-h-[640px]">
         <motion.div
-          style={{ x: panelX, y: panelY }}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="relative max-w-xl"
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={
+            prefersReducedMotion
+              ? { opacity: 1, scale: 1 }
+              : { opacity: 1, scale: [1.05, 1, 1.09] }
+          }
+          transition={
+            prefersReducedMotion
+              ? { duration: 1, ease: [0.16, 1, 0.3, 1] }
+              : {
+                  opacity: { duration: 1, ease: [0.16, 1, 0.3, 1] },
+                  scale: {
+                    duration: 26,
+                    times: [0, 0.045, 1],
+                    ease: ["easeOut", "easeOut", "easeInOut"],
+                    repeat: Infinity,
+                    repeatType: "mirror",
+                  },
+                }
+          }
+          className="absolute inset-0"
         >
-          <div
-            aria-hidden
-            className="absolute -inset-10 -z-10 rounded-[3rem] bg-[radial-gradient(circle_at_30%_30%,rgba(51,199,224,0.25),transparent_60%),radial-gradient(circle_at_70%_70%,rgba(242,184,78,0.2),transparent_60%)] blur-2xl"
+          <Image
+            src="/hero-cover.png"
+            alt="GN Club team at an activation, GN Club logo centered"
+            fill
+            priority
+            className="object-cover"
+            style={{ objectPosition: "center" }}
           />
-          <div className="glass-panel gradient-ring-border rounded-3xl px-8 py-10">
-            <p className="text-sm font-medium text-fog-dim">{site.tagline}</p>
-            <h1 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-5xl">
-              We build the events tech and Web3 brands are remembered for.
-            </h1>
-            <p className="mt-5 text-base leading-relaxed text-fog-dim">{site.bio}</p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <MagneticButton href="/contact">Start a project</MagneticButton>
-              <MagneticButton href="/work" variant="outline">
-                See our work
-              </MagneticButton>
-            </div>
-          </div>
         </motion.div>
+        {/* Thin bottom fade only, so the photo reads edge-to-edge and clean —
+            just enough to settle the seam into the section below. */}
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink to-transparent" />
+      </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-8 flex max-w-3xl flex-wrap items-center gap-x-8 gap-y-4 border-t border-glass-border/60 pt-6"
-        >
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-fog-dim">
-            {stats.map((stat) => (
-              <span key={stat.label}>
-                <span className="font-display text-fog">{stat.value}</span> {stat.label}
+      <div className="mx-auto w-full max-w-7xl px-6 pt-10 pb-16 text-center lg:px-10 md:pt-12 md:pb-20">
+        <div className="mx-auto max-w-4xl">
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="text-sm font-medium text-fog-dim"
+          >
+            {site.tagline}
+          </motion.p>
+
+          <motion.h1
+            variants={headlineContainer}
+            initial="hidden"
+            animate="show"
+            style={{ perspective: 600 }}
+            className="mt-4 font-display text-3xl leading-[1.08] tracking-tight text-fog sm:text-4xl md:text-5xl"
+          >
+            {/* Same 11 words, same copy — forced onto exactly 2 lines. Break
+                after "Web3" (word 7 of 11): line 2 ("Brands Are Remembered
+                For.") has fewer, mostly-short words so it reliably fits on
+                one line without wrapping again, even though line 1 carries
+                more words — line 1's words are individually shorter. */}
+            {HEADLINE.split(" ").map((word, i) => (
+              <span key={`${word}-${i}`}>
+                <motion.span
+                  variants={wordUp}
+                  className="mr-[0.28em] inline-block"
+                  style={{ transformOrigin: "50% 100%" }}
+                >
+                  {word}
+                </motion.span>
+                {i === 6 ? <br /> : null}
               </span>
             ))}
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="mx-auto mt-5 max-w-xl text-sm text-fog-dim sm:whitespace-nowrap sm:text-base"
+          >
+            {site.bioShort}
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-8 flex flex-wrap items-center justify-center gap-4"
+          >
+            <MagneticButton href="/contact">Start a project</MagneticButton>
+            <MagneticButton href="/work" variant="outline">
+              See our work
+            </MagneticButton>
+          </motion.div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="mx-auto mt-12 flex w-full max-w-4xl flex-col items-center gap-14 border-t border-glass-border/60 pt-8"
+        >
+          <div className="flex w-full items-baseline justify-between gap-x-4">
+            {stats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <CountUpValue
+                  value={stat.value}
+                  className="font-display text-3xl tabular-nums text-fog sm:text-4xl md:text-5xl"
+                />
+                <p className="mt-1 text-xs text-fog-dim">{stat.label}</p>
+              </div>
+            ))}
           </div>
-          <div className="flex flex-wrap items-center gap-6 opacity-70">
+          <div className="w-full">
             <ClientLogos />
           </div>
         </motion.div>

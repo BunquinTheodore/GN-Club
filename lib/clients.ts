@@ -9,8 +9,8 @@ export type Client = {
 };
 
 export const clients: Client[] = [
-  { name: "GN Media", logo: "brand.gnMedia" },
-  { name: "MAZAL", logo: "brand.mazal" },
+  { name: "GN Media" },
+  { name: "MAZAL" },
   { name: "Chainlink" },
   { name: "Founders Summit" },
   { name: "Studio One" },

@@ -15,31 +15,30 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <HorizontalScroll>
-      <section className="flex h-full flex-col justify-center px-6 lg:px-10">
+      <section className="px-6 pt-24 pb-10 sm:pt-28 sm:pb-16 md:pt-0 lg:px-10">
         <div className="mx-auto w-full max-w-7xl">
           <PanelReveal>
             <p className="text-sm font-medium text-fog-dim">About GN Club</p>
-            <h1 className="mt-2 max-w-2xl font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-5xl">
+            <h1 className="mt-2 max-w-2xl text-balance font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-5xl">
               From concept to full production and execution.
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-fog-dim">
-              GN Club creates high-impact event activations for tech and Web3 brands in the
-              Philippines and globally. If you need an event that moves your community, let&apos;s
-              talk.
+            <p className="mt-6 max-w-prose text-base leading-relaxed text-fog-dim">
+              GN Club creates high-impact event activations — from 350-person conferences to
+              rooftop product drops — for tech and Web3 brands in the Philippines and globally. If
+              you need an event that moves your community, let&apos;s talk.
             </p>
           </PanelReveal>
         </div>
       </section>
 
-      <section className="flex h-full flex-col justify-center px-6 lg:px-10">
-        <div className="mx-auto w-full max-w-7xl">
+      <section className="px-6 py-20 sm:py-28 lg:px-10">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-20 sm:gap-28">
           <PanelReveal>
             <AlternatingRow
               image={getMedia("about.team")}
               alt="GN Club team on-site at an activation"
               eyebrow="How we work"
               title="One team, from strategy to strike."
-              imagePosition="center 58%"
             >
               <p>
                 We plan, build, staff, and run events ourselves — activations, concerts, trade
@@ -49,11 +48,7 @@ export default function AboutPage() {
               </p>
             </AlternatingRow>
           </PanelReveal>
-        </div>
-      </section>
 
-      <section className="flex h-full flex-col justify-center px-6 lg:px-10">
-        <div className="mx-auto w-full max-w-7xl">
           <PanelReveal>
             <AlternatingRow
               image={getMedia("about.stage")}
@@ -72,11 +67,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="flex h-full flex-col justify-center px-6 py-8 lg:px-10">
-        <div className="mx-auto flex w-full max-w-7xl flex-col">
-          <PanelReveal className="mb-6 max-w-xl">
+      <section className="px-6 py-20 sm:py-28 lg:px-10">
+        <div className="mx-auto w-full max-w-7xl">
+          <PanelReveal className="mb-12 max-w-xl">
             <p className="text-sm font-medium text-fog-dim">Our story</p>
-            <h2 className="mt-2 font-display text-3xl tracking-tight text-fog sm:text-4xl">
+            <h2 className="mt-2 text-balance font-display text-3xl tracking-tight text-fog sm:text-4xl">
               From small activations to full-scale production.
             </h2>
           </PanelReveal>
@@ -84,20 +79,19 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="flex h-full flex-col justify-center px-6 py-10 lg:px-10">
+      <section className="px-6 py-20 sm:py-28 lg:px-10">
         <div className="mx-auto w-full max-w-7xl">
-          <PanelReveal className="mb-8 max-w-xl">
+          <PanelReveal className="mb-12 max-w-xl">
             <p className="text-sm font-medium text-fog-dim">The team</p>
-            <h2 className="mt-2 font-display text-3xl tracking-tight text-fog sm:text-4xl">
+            <h2 className="mt-2 text-balance font-display text-3xl tracking-tight text-fog sm:text-4xl">
               The people who show up on-site.
             </h2>
           </PanelReveal>
           <TeamGrid />
         </div>
-        <div className="mt-8">
-          <CTASection />
-        </div>
       </section>
+
+      <CTASection />
     </HorizontalScroll>
   );
 }

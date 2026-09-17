@@ -31,7 +31,7 @@ export const portfolio: CaseStudy[] = [
     results: [
       { label: "Programming days", value: "Multi-day" },
       { label: "Sessions hosted", value: "20+" },
-      { label: "Stage", value: "Fully branded build" },
+      { label: "Stage build", value: "Custom" },
     ],
     gallery: ["wocee.1", "wocee.2", "wocee.3", "wocee.4", "wocee.5", "wocee.6", "wocee.7", "wocee.8"],
   },
@@ -41,14 +41,14 @@ export const portfolio: CaseStudy[] = [
     title: "GN Club Lifestyle: Pickleball Edition",
     tag: "Community Activation",
     description:
-      "PLACEHOLDER — GN Club ran a community pickleball activation on-court, featuring an LBank Academy-branded pop-up and giveaways for players. Replace this description with the real client/brief details.",
+      "GN Club ran a community pickleball activation on-court for LBank Academy — a branded pop-up, player giveaways, and on-site content capture.",
     challenge:
-      "PLACEHOLDER — describe what the sponsor/partner needed from this activation (e.g. brand visibility, community goodwill, lead capture) and any constraints.",
+      "Full case-study write-up in progress — check back soon for the brief behind this activation.",
     approach:
-      "PLACEHOLDER — describe what GN Club actually built and ran on-site: signage, giveaways, hosting, content capture, etc.",
+      "GN Club handled on-site branding, giveaways, hosting, and content capture for the activation. A full breakdown of the production scope is coming soon.",
     results: [
-      { label: "Players", value: "TBD" },
-      { label: "Format", value: "TBD" },
+      { label: "Format", value: "On-court activation" },
+      { label: "Activation type", value: "Community pop-up" },
       { label: "Sponsor", value: "LBank Academy" },
     ],
     gallery: ["pickleball.1", "pickleball.2", "pickleball.3", "pickleball.4"],

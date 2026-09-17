@@ -12,9 +12,9 @@ type PanelRevealProps = {
 };
 
 const offsets = {
-  up: { x: 0, y: 32 },
-  left: { x: -32, y: 0 },
-  right: { x: 32, y: 0 },
+  up: { x: 0, y: 40 },
+  left: { x: -40, y: 0 },
+  right: { x: 40, y: 0 },
 };
 
 /**
@@ -35,15 +35,18 @@ export function PanelReveal({ children, delay = 0, className = "", from = "up" }
 
   return (
     <motion.div
-      className={className}
-      initial={{ opacity: 0, x: offset.x, y: offset.y }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      className={`reveal-el ${className}`}
+      initial={{ opacity: 0, x: offset.x, y: offset.y, scale: 0.97 }}
+      whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+      // amount: 0 fires as soon as any part of the element is on-screen —
+      // see the matching note in Reveal.tsx. .reveal-el also gets a CSS
+      // print fallback in app/globals.css.
       viewport={{
         once: true,
-        margin: "-10% 0px",
+        amount: 0,
         ...(viewportRef ? { root: viewportRef } : {}),
       }}
-      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
     </motion.div>
