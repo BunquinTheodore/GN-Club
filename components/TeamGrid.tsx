@@ -15,22 +15,16 @@ import {
  * AvatarFallback stays as the loading/no-photo fallback automatically.
  */
 
-// Short one-line bios for the hover/focus reveal — placeholders alongside
-// the placeholder roster in lib/team.ts; swap in real bios as they land.
-const bios: Record<string, string> = {
-  "Gab Navarro": "Started GN Club running one room launches; now runs the whole slate end to end.",
-  "Lex Aquino": "Keeps every production on schedule, on budget, and calm under pressure.",
-  "Rian Mercado": "The person behind the livestream, the AV rig, and the hybrid event stack.",
-  "Dani Ocampo": "First call for new clients — scopes the work and keeps the relationship honest.",
-  "Kai Villaruel": "Sets the visual language for every event, from stage design to signage.",
-  "Sam Bautista": "Moves the trucks, the crew, and the gear — nothing starts without this list.",
-};
+// Short one-line bios for the hover/focus reveal — none written yet for the
+// current roster in lib/team.ts, so every card falls back to the generic
+// line below until real bios land.
+const bios: Record<string, string> = {};
 
 export function TeamGrid() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-6">
+    <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
       {team.map((member, i) => (
         // Local reveal instead of the shared <Reveal> wrapper: the team
         // roster is core About-page content, so each card rests at a
