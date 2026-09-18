@@ -14,6 +14,7 @@ import {
   useScroll,
   useSpring,
   useTransform,
+  type MotionValue,
 } from "framer-motion";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { HorizontalScrollViewportContext } from "@/components/HorizontalScroll";
@@ -87,16 +88,22 @@ function Track({ panels, className }: { panels: ScrollJackPanel[]; className: st
 
   // Vertical scroll of the tall track (height = panels.length * 100vh) is
   // the single source of truth — wheel, trackpad, and the browser's own
-  // scrollbar all drive scrollYProgress natively. We just map that progress
-  // to a horizontal translateX, in even 100%-wide steps since every panel
-  // is exactly one viewport wide.
+  // scrollbar all drive scrollYProgress natively. We spring a numeric
+  // "panel position" (0..panels.length-1) rather than the CSS percentage
+  // string directly, both for a smoother glide (tuned closer to critical
+  // damping than the previous heavily-overdamped spring, which lagged
+  // noticeably behind fast scroll input) and so each panel can derive its
+  // own opacity/scale from that same value below — panels ease in as they
+  // approach the active position instead of popping to full opacity the
+  // instant the math rounds to "active".
   const { scrollYProgress } = useScroll({
     target: trackRef,
     offset: ["start start", "end end"],
   });
 
-  const rawX = useTransform(scrollYProgress, [0, 1], ["0%", `-${(panels.length - 1) * 100}%`]);
-  const x = useSpring(rawX, { stiffness: 260, damping: 40, mass: 0.6 });
+  const rawProgress = useTransform(scrollYProgress, [0, 1], [0, panels.length - 1]);
+  const progress = useSpring(rawProgress, { stiffness: 170, damping: 26, mass: 0.5 });
+  const x = useTransform(progress, (v) => `${-v * 100}%`);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const idx = Math.min(panels.length - 1, Math.max(0, Math.round(latest * (panels.length - 1))));
@@ -135,9 +142,9 @@ function Track({ panels, className }: { panels: ScrollJackPanel[]; className: st
         <HorizontalScrollViewportContext.Provider value={viewportRef}>
           <motion.div className="flex h-full" style={{ x }}>
             {panels.map((panel, i) => (
-              <div key={i} className="h-full w-screen flex-shrink-0 overflow-hidden">
+              <PanelFrame key={i} index={i} progress={progress}>
                 {panel.content}
-              </div>
+              </PanelFrame>
             ))}
           </motion.div>
         </HorizontalScrollViewportContext.Provider>
@@ -160,5 +167,36 @@ function Track({ panels, className }: { panels: ScrollJackPanel[]; className: st
         ))}
       </div>
     </div>
+  );
+}
+
+/**
+ * One panel's slot in the track. Derives its own opacity/scale from the
+ * shared spring value (`progress`) instead of just sitting at flat 1/1 —
+ * the panel currently under focus reads as sharp and full-strength while
+ * its neighbors recede slightly, so the horizontal pan reads as a designed
+ * transition between panels rather than a flat filmstrip being dragged
+ * sideways.
+ */
+function PanelFrame({
+  index,
+  progress,
+  children,
+}: {
+  index: number;
+  progress: MotionValue<number>;
+  children: ReactNode;
+}) {
+  const distance = useTransform(progress, (v) => Math.abs(v - index));
+  const opacity = useTransform(distance, [0, 1], [1, 0.45]);
+  const scale = useTransform(distance, [0, 1], [1, 0.96]);
+
+  return (
+    <motion.div
+      className="h-full w-screen flex-shrink-0 overflow-hidden"
+      style={{ opacity, scale }}
+    >
+      {children}
+    </motion.div>
   );
 }

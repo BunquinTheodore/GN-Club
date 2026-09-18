@@ -9,7 +9,7 @@ import { getMedia } from "@/lib/media";
 import { DuotoneImage } from "@/components/DuotoneImage";
 import { GlassPanel } from "@/components/GlassPanel";
 import { Badge } from "@/components/ui/badge";
-import { HorizontalScroll } from "@/components/HorizontalScroll";
+import { ScrollJackTrack, type ScrollJackPanel } from "@/components/ScrollJackTrack";
 import { PanelReveal } from "@/components/PanelReveal";
 
 type CaseStudyPanelsProps = {
@@ -72,101 +72,119 @@ function StatValue({ value, className }: { value: string; className?: string }) 
 }
 
 export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
-  return (
-    <HorizontalScroll>
-      {/* Normal top-to-bottom flow, sized to content — no forced viewport
-          height. The intro/backdrop section gets generous py so it reads
-          as a proper hero rather than a cramped strip. */}
-      <section className="relative px-6 pt-20 pb-16 sm:pt-24 sm:pb-20 md:pt-16 lg:px-10">
-        <DuotoneImage
-          src={getMedia(caseStudy.slot)}
-          alt={caseStudy.title}
-          className="opacity-35"
-          position={positions[caseStudy.slot]}
-        />
-        {/* Extra scrim independent of DuotoneImage's own treatment — the
-            hero backdrop often carries the event's own on-site signage
-            (e.g. stage/session lettering) that reads through the duotone
-            grade and competes with the H1 and stat tiles sitting on top of
-            it. This darkens specifically behind the text/stat column
-            without further flattening the photo itself. */}
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/25 to-ink" />
-        <div className="relative mx-auto w-full max-w-6xl">
-          <PanelReveal>
-            <Link
-              href="/work"
-              className="inline-flex items-center gap-1.5 text-sm text-fog-dim transition-colors hover:text-lime"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" />
-              Back to work
-            </Link>
-            <div className="mt-3 flex items-center gap-2">
-              <Badge variant="outline">{caseStudy.tag}</Badge>
-            </div>
-            <h1 className="mt-3 text-balance font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-5xl">{caseStudy.title}</h1>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-fog-dim">{caseStudy.description}</p>
-          </PanelReveal>
-
-          <PanelReveal delay={0.08} className="mt-10">
-            <div className="grid gap-6 sm:grid-cols-3">
-              {caseStudy.results.map((result, i) => (
-                <motion.div
-                  key={result.label}
-                  initial={{ opacity: 0, scale: 0.92, y: 10 }}
-                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                  viewport={{ once: true, margin: "0px" }}
-                  transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                  whileHover={{ y: -3 }}
-                >
-                  <GlassPanel
-                    shineDelay={(i % 5) * 0.6}
-                    className="p-6 text-center transition-[border-color,box-shadow] duration-300 hover:border-lime/30 hover:shadow-[0_16px_40px_-16px_rgba(198,242,78,0.35)]"
-                  >
-                    <StatValue value={result.value} className="gradient-ring-text font-display text-3xl tabular-nums" />
-                    <p className="mt-1 text-sm text-fog-dim">{result.label}</p>
-                  </GlassPanel>
-                </motion.div>
-              ))}
-            </div>
-          </PanelReveal>
-
-          <div className="mt-14 grid gap-10 md:grid-cols-2 md:gap-16">
+  const panels: ScrollJackPanel[] = [
+    {
+      label: "Overview",
+      content: (
+        <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+          <DuotoneImage
+            src={getMedia(caseStudy.slot)}
+            alt={caseStudy.title}
+            className="opacity-35"
+            position={positions[caseStudy.slot]}
+          />
+          {/* Extra scrim independent of DuotoneImage's own treatment — the
+              hero backdrop often carries the event's own on-site signage
+              (e.g. stage/session lettering) that reads through the duotone
+              grade and competes with the H1 and stat tiles sitting on top of
+              it. This darkens specifically behind the text/stat column
+              without further flattening the photo itself. */}
+          <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/25 to-ink" />
+          <div className="relative mx-auto w-full max-w-6xl">
             <PanelReveal>
-              <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">The challenge</h2>
-              <p className="mt-3 text-base leading-relaxed text-fog-dim">{caseStudy.challenge}</p>
+              <Link
+                href="/work"
+                className="inline-flex items-center gap-1.5 text-sm text-fog-dim transition-colors hover:text-lime"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+                Back to work
+              </Link>
+              <div className="mt-3 flex items-center gap-2">
+                <Badge variant="outline">{caseStudy.tag}</Badge>
+              </div>
+              <h1 className="mt-3 text-balance font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-5xl">{caseStudy.title}</h1>
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-fog-dim">{caseStudy.description}</p>
             </PanelReveal>
-            <PanelReveal delay={0.08}>
-              <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">Our approach</h2>
-              <p className="mt-3 text-base leading-relaxed text-fog-dim">{caseStudy.approach}</p>
+
+            <PanelReveal delay={0.08} className="mt-8">
+              <div className="grid gap-4 sm:grid-cols-3 sm:gap-6">
+                {caseStudy.results.map((result, i) => (
+                  <motion.div
+                    key={result.label}
+                    initial={{ opacity: 0, scale: 0.92, y: 10 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    viewport={{ once: true, margin: "0px" }}
+                    transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    whileHover={{ y: -3 }}
+                  >
+                    <GlassPanel
+                      shineDelay={(i % 5) * 0.6}
+                      className="p-6 text-center transition-[border-color,box-shadow] duration-300 hover:border-lime/30 hover:shadow-[0_16px_40px_-16px_rgba(198,242,78,0.35)]"
+                    >
+                      <StatValue value={result.value} className="gradient-ring-text font-display text-3xl tabular-nums" />
+                      <p className="mt-1 text-sm text-fog-dim">{result.label}</p>
+                    </GlassPanel>
+                  </motion.div>
+                ))}
+              </div>
             </PanelReveal>
           </div>
-
-          <PanelReveal delay={0.1} className="mt-14">
-            <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">Gallery</h2>
-            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:auto-rows-[220px] md:gap-4">
-              {caseStudy.gallery.map((slot, i) => (
-                <div
-                  key={`${slot}-${i}`}
-                  className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-glass-border transition-colors duration-300 hover:border-lime/40 md:aspect-auto"
-                >
-                  <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.08]">
-                    <DuotoneImage
-                      src={getMedia(slot)}
-                      alt={`${caseStudy.title} photo ${i + 1}`}
-                      position={positions[slot]}
+        </section>
+      ),
+    },
+    {
+      label: "Challenge & approach",
+      content: (
+        <section className="flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+          <div className="mx-auto w-full max-w-6xl">
+            <div className="grid gap-10 md:grid-cols-2 md:gap-16">
+              <PanelReveal>
+                <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">The challenge</h2>
+                <p className="mt-3 text-base leading-relaxed text-fog-dim">{caseStudy.challenge}</p>
+              </PanelReveal>
+              <PanelReveal delay={0.08}>
+                <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">Our approach</h2>
+                <p className="mt-3 text-base leading-relaxed text-fog-dim">{caseStudy.approach}</p>
+              </PanelReveal>
+            </div>
+          </div>
+        </section>
+      ),
+    },
+    {
+      label: "Gallery",
+      content: (
+        <section className="flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+          <div className="mx-auto w-full max-w-6xl">
+            <PanelReveal>
+              <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">Gallery</h2>
+              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:auto-rows-[minmax(150px,auto)] md:gap-4">
+                {caseStudy.gallery.map((slot, i) => (
+                  <div
+                    key={`${slot}-${i}`}
+                    className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-glass-border transition-colors duration-300 hover:border-lime/40 md:aspect-auto"
+                  >
+                    <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.08]">
+                      <DuotoneImage
+                        src={getMedia(slot)}
+                        alt={`${caseStudy.title} photo ${i + 1}`}
+                        position={positions[slot]}
+                      />
+                    </div>
+                    <span
+                      aria-hidden="true"
+                      className="card-shine"
+                      style={{ "--shine-delay": `${(i % 5) * 0.6}s` } as CSSProperties}
                     />
                   </div>
-                  <span
-                    aria-hidden="true"
-                    className="card-shine"
-                    style={{ "--shine-delay": `${(i % 5) * 0.6}s` } as CSSProperties}
-                  />
-                </div>
-              ))}
-            </div>
-          </PanelReveal>
-        </div>
-      </section>
-    </HorizontalScroll>
-  );
+                ))}
+              </div>
+            </PanelReveal>
+          </div>
+        </section>
+      ),
+    },
+  ];
+
+  return <ScrollJackTrack panels={panels} />;
 }

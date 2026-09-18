@@ -43,11 +43,11 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
                   <Icon className="h-[46%] w-[46%] text-lime" strokeWidth={1.5} />
                 </span>
               </div>
-              <h1 className="mt-3 text-balance font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-5xl">
+              <h1 className="mt-3 text-balance font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-6xl">
                 {service.title}
               </h1>
               {service.tagline && (
-                <p className="mt-4 max-w-2xl text-base leading-relaxed text-fog-dim">{service.tagline}</p>
+                <p className="mt-5 max-w-2xl text-lg leading-relaxed text-fog-dim">{service.tagline}</p>
               )}
             </PanelReveal>
           </div>
@@ -55,13 +55,27 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
       ),
     },
     {
+      // Left column carries the "why" (a short framing line + the service
+      // photo, reused from the hero at lower opacity for continuity); the
+      // catalog grid gets the wider right column instead of competing for
+      // space in a single centered text block. Full-width use of a 100vw
+      // panel this way reads as a designed slide rather than a vertical
+      // section that happens to be alone on screen.
       label: "What's included",
       content: (
         <section className="flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-          <div className="mx-auto w-full max-w-6xl">
+          <div className="mx-auto grid w-full max-w-7xl gap-10 md:grid-cols-[0.8fr_1.2fr] md:items-center md:gap-16">
             <PanelReveal>
-              <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">What&apos;s included</h2>
-              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              <div className="relative h-40 overflow-hidden rounded-2xl md:h-56">
+                <DuotoneImage src={getMedia(service.media)} alt="" className="opacity-70" />
+              </div>
+              <h2 className="mt-6 font-display text-2xl tracking-tight text-fog sm:text-3xl">
+                What&apos;s included
+              </h2>
+              <p className="mt-3 max-w-sm text-sm leading-relaxed text-fog-dim">{service.blurb}</p>
+            </PanelReveal>
+            <PanelReveal delay={0.08}>
+              <div className="grid gap-3 sm:grid-cols-2">
                 {service.items.map((item, i) => (
                   <GlassPanel
                     key={item}
@@ -84,18 +98,20 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
     panels.push({
       label: "Details",
       content: (
-        <section className="flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-          <div className="mx-auto w-full max-w-6xl">
+        <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+          <DuotoneImage src={getMedia(service.media)} alt="" className="opacity-10" />
+          <div className="absolute inset-0 bg-ink/70" />
+          <div className="relative mx-auto w-full max-w-7xl">
             <PanelReveal>
-              <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">Overview</h2>
-              <div className="mt-5 grid gap-6 md:grid-cols-2 md:gap-10">
-                {service.overview!.map((paragraph, i) => (
-                  <p key={i} className="text-base leading-relaxed text-fog-dim">
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
+              <h2 className="font-display text-2xl tracking-tight text-fog sm:text-3xl">Overview</h2>
             </PanelReveal>
+            <div className="mt-8 grid gap-x-16 gap-y-6 md:grid-cols-2">
+              {service.overview!.map((paragraph, i) => (
+                <PanelReveal key={i} delay={0.06 + i * 0.06}>
+                  <p className="text-base leading-relaxed text-fog-dim sm:text-lg">{paragraph}</p>
+                </PanelReveal>
+              ))}
+            </div>
           </div>
         </section>
       ),
@@ -104,32 +120,32 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
 
   if (service.process && service.process.length > 0) {
     panels.push({
+      // A horizontal run of steps (not a 2x2 grid) — a process read
+      // left-to-right across the full width of the frame matches the
+      // page's own left-to-right pan instead of cutting against it.
       label: "Process",
       content: (
         <section className="flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-          <div className="mx-auto w-full max-w-6xl">
+          <div className="mx-auto w-full max-w-7xl">
             <PanelReveal>
-              <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">How it runs</h2>
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                {service.process!.map((step, i) => (
-                  <div
-                    key={step.title}
-                    className="glass-panel relative overflow-hidden flex items-start gap-3 rounded-xl px-4 py-4"
-                  >
-                    <p className="font-display text-xs text-lime">{String(i + 1).padStart(2, "0")}</p>
-                    <div>
-                      <p className="font-display text-sm text-fog">{step.title}</p>
-                      <p className="mt-1 text-xs leading-relaxed text-fog-dim">{step.description}</p>
-                    </div>
+              <h2 className="font-display text-2xl tracking-tight text-fog sm:text-3xl">How it runs</h2>
+            </PanelReveal>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {service.process!.map((step, i) => (
+                <PanelReveal key={step.title} delay={0.05 + i * 0.05}>
+                  <div className="glass-panel relative h-full overflow-hidden rounded-xl px-5 py-5">
+                    <p className="font-display text-sm text-lime">{String(i + 1).padStart(2, "0")}</p>
+                    <p className="mt-3 font-display text-base text-fog">{step.title}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-fog-dim">{step.description}</p>
                     <span
                       aria-hidden="true"
                       className="card-shine"
                       style={{ "--shine-delay": `${(i % 5) * 0.6}s` } as CSSProperties}
                     />
                   </div>
-                ))}
-              </div>
-            </PanelReveal>
+                </PanelReveal>
+              ))}
+            </div>
           </div>
         </section>
       ),
@@ -140,10 +156,10 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
     label: "Gallery",
     content: (
       <section className="flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-        <div className="mx-auto w-full max-w-6xl">
+        <div className="mx-auto w-full max-w-7xl">
           <PanelReveal>
-            <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">Gallery</h2>
-            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:auto-rows-[minmax(150px,auto)] md:gap-4">
+            <h2 className="font-display text-2xl tracking-tight text-fog sm:text-3xl">Gallery</h2>
+            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:auto-rows-[minmax(160px,auto)] md:gap-4">
               {gallery.map((slot, i) => (
                 <div
                   key={`${slot}-${i}`}
