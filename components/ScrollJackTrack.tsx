@@ -140,7 +140,7 @@ function Track({ panels, className }: { panels: ScrollJackPanel[]; className: st
           scrolls vertically past the track. */}
       <div ref={viewportRef} className="sticky top-0 h-screen overflow-hidden">
         <HorizontalScrollViewportContext.Provider value={viewportRef}>
-          <motion.div className="flex h-full" style={{ x }}>
+          <motion.div className="flex h-full" style={{ x, willChange: "transform" }}>
             {panels.map((panel, i) => (
               <PanelFrame key={i} index={i} progress={progress}>
                 {panel.content}
@@ -194,7 +194,7 @@ function PanelFrame({
   return (
     <motion.div
       className="h-full w-screen flex-shrink-0 overflow-hidden"
-      style={{ opacity, scale }}
+      style={{ opacity, scale, willChange: "transform, opacity" }}
     >
       {children}
     </motion.div>

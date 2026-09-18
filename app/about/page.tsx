@@ -31,7 +31,7 @@ export default function AboutPage() {
       label: "About GN Club",
       content: (
         <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-          <DuotoneImage src={getMedia("hero.cover")} alt="" className="opacity-30" />
+          <DuotoneImage src={getMedia("hero.cover")} alt="" className="opacity-30" priority sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/30 to-ink" />
           <div className="relative mx-auto w-full max-w-7xl">
             <PanelReveal>

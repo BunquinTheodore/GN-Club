@@ -82,6 +82,8 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
             alt={caseStudy.title}
             className="opacity-35"
             position={positions[caseStudy.slot]}
+            priority
+            sizes="100vw"
           />
           {/* Extra scrim independent of DuotoneImage's own treatment — the
               hero backdrop often carries the event's own on-site signage
@@ -145,6 +147,7 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
             alt=""
             className="opacity-10"
             position={positions[caseStudy.slot]}
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-ink/70" />
           <div className="relative mx-auto w-full max-w-7xl">

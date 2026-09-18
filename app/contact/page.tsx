@@ -25,7 +25,7 @@ export default function ContactPage() {
       label: "Contact",
       content: (
         <section className="relative flex h-full flex-col justify-center overflow-hidden px-6 py-14 sm:py-16 lg:px-10">
-          <DuotoneImage src={getMedia("contact.backdrop")} alt="" className="opacity-30" />
+          <DuotoneImage src={getMedia("contact.backdrop")} alt="" className="opacity-30" priority sizes="100vw" />
 
           <div className="relative mx-auto w-full max-w-7xl">
             <PanelReveal>

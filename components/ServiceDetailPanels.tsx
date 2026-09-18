@@ -27,7 +27,13 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
       label: "Overview",
       content: (
         <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-          <DuotoneImage src={getMedia(service.media)} alt={service.title} className="opacity-35" />
+          <DuotoneImage
+            src={getMedia(service.media)}
+            alt={service.title}
+            className="opacity-35"
+            priority
+            sizes="100vw"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/25 to-ink" />
           <div className="relative mx-auto w-full max-w-6xl">
             <PanelReveal>
@@ -99,7 +105,7 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
       label: "Details",
       content: (
         <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-          <DuotoneImage src={getMedia(service.media)} alt="" className="opacity-10" />
+          <DuotoneImage src={getMedia(service.media)} alt="" className="opacity-10" sizes="100vw" />
           <div className="absolute inset-0 bg-ink/70" />
           <div className="relative mx-auto w-full max-w-7xl">
             <PanelReveal>
