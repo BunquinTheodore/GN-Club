@@ -42,7 +42,7 @@ export const media: Record<string, string> = {
   "services.digital.gallery.3":
     "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop",
   "services.video.gallery.2":
-    "https://images.unsplash.com/photo-1522124624696-7ea32eb43c94?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1585951237318-9ea5e175b891?q=80&w=1200&auto=format&fit=crop",
   "services.video.gallery.3":
     "https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=1200&auto=format&fit=crop",
   "services.logistics.gallery.2":
