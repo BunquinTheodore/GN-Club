@@ -4,6 +4,7 @@ import { CTASection } from "@/components/CTASection";
 import { PanelReveal } from "@/components/PanelReveal";
 import { CompanyTimeline } from "@/components/CompanyTimeline";
 import { TeamGrid } from "@/components/TeamGrid";
+import { DuotoneImage } from "@/components/DuotoneImage";
 import { ScrollJackTrack, type ScrollJackPanel } from "@/components/ScrollJackTrack";
 import { getMedia } from "@/lib/media";
 
@@ -22,16 +23,23 @@ export default function AboutPage() {
   // reading order (intro -> story -> team -> CTA).
   const introPanels: ScrollJackPanel[] = [
     {
+      // Full-bleed background photo wash (same pattern as
+      // ServiceDetailPanels' "Overview" hero) instead of a left-aligned text
+      // block floating in empty space — the real Facebook cover photo
+      // ("hero.cover") is distinct from the "about.team"/"about.stage" shots
+      // used lower on the page, so it doesn't repeat imagery.
       label: "About GN Club",
       content: (
-        <section className="flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-          <div className="mx-auto w-full max-w-7xl">
+        <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+          <DuotoneImage src={getMedia("hero.cover")} alt="" className="opacity-30" />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/30 to-ink" />
+          <div className="relative mx-auto w-full max-w-7xl">
             <PanelReveal>
               <p className="text-sm font-medium text-fog-dim">About GN Club</p>
-              <h1 className="mt-2 max-w-2xl text-balance font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-5xl">
+              <h1 className="mt-2 max-w-3xl text-balance font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-6xl">
                 From concept to full production and execution.
               </h1>
-              <p className="mt-6 max-w-prose text-base leading-relaxed text-fog-dim">
+              <p className="mt-6 max-w-prose text-lg leading-relaxed text-fog-dim">
                 GN Club creates high impact event activations — from 350 person conferences to
                 rooftop product drops — for tech and Web3 brands in the Philippines and globally.
                 If you need an event that moves your community, let&apos;s talk.

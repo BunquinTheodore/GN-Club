@@ -55,7 +55,7 @@ export function AlternatingRow({
         style={{ y: imageY }}
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative h-72 overflow-hidden rounded-2xl shadow-none transition-shadow duration-500 ease-out hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.6)] md:h-[420px]"
+        className="relative h-72 overflow-hidden rounded-2xl shadow-none transition-shadow duration-500 ease-out hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.6)] md:h-[460px]"
       >
         <DuotoneImage src={image} alt={alt} position={imagePosition} />
       </motion.div>

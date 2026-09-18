@@ -133,18 +133,29 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
       ),
     },
     {
+      // Full-bleed text panel, matching ServiceDetailPanels' "Details"
+      // pattern: a faint background photo wash for visual weight, with the
+      // two-column copy stretched across a max-w-7xl frame instead of a
+      // narrower centered column, so it actually uses the 100vw slide.
       label: "Challenge & approach",
       content: (
-        <section className="flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-          <div className="mx-auto w-full max-w-6xl">
-            <div className="grid gap-10 md:grid-cols-2 md:gap-16">
+        <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+          <DuotoneImage
+            src={getMedia(caseStudy.slot)}
+            alt=""
+            className="opacity-10"
+            position={positions[caseStudy.slot]}
+          />
+          <div className="absolute inset-0 bg-ink/70" />
+          <div className="relative mx-auto w-full max-w-7xl">
+            <div className="grid gap-x-16 gap-y-10 md:grid-cols-2">
               <PanelReveal>
                 <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">The challenge</h2>
-                <p className="mt-3 text-base leading-relaxed text-fog-dim">{caseStudy.challenge}</p>
+                <p className="mt-3 text-base leading-relaxed text-fog-dim sm:text-lg">{caseStudy.challenge}</p>
               </PanelReveal>
               <PanelReveal delay={0.08}>
                 <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">Our approach</h2>
-                <p className="mt-3 text-base leading-relaxed text-fog-dim">{caseStudy.approach}</p>
+                <p className="mt-3 text-base leading-relaxed text-fog-dim sm:text-lg">{caseStudy.approach}</p>
               </PanelReveal>
             </div>
           </div>
@@ -155,7 +166,7 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
       label: "Gallery",
       content: (
         <section className="flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-          <div className="mx-auto w-full max-w-6xl">
+          <div className="mx-auto w-full max-w-7xl">
             <PanelReveal>
               <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">Gallery</h2>
               <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:auto-rows-[minmax(150px,auto)] md:gap-4">

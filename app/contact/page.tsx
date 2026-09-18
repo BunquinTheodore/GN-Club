@@ -27,15 +27,15 @@ export default function ContactPage() {
         <section className="relative flex h-full flex-col justify-center overflow-hidden px-6 py-14 sm:py-16 lg:px-10">
           <DuotoneImage src={getMedia("contact.backdrop")} alt="" className="opacity-30" />
 
-          <div className="relative mx-auto w-full max-w-6xl">
+          <div className="relative mx-auto w-full max-w-7xl">
             <PanelReveal>
-              <div className="grid gap-10 md:grid-cols-[0.85fr_1.15fr] md:items-start md:gap-16 lg:gap-20">
+              <div className="grid gap-10 md:grid-cols-[0.85fr_1.15fr] md:items-start md:gap-16 lg:gap-24">
                 <div className="text-center md:text-left">
                   <p className="text-sm font-medium text-fog-dim">Let&apos;s talk</p>
-                  <h1 className="mt-2 text-balance font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-5xl">
+                  <h1 className="mt-2 text-balance font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-5xl lg:text-6xl">
                     Tell us about the event.
                   </h1>
-                  <p className="mt-4 text-sm text-fog-dim">
+                  <p className="mt-4 text-sm text-fog-dim lg:text-base">
                     Reach us directly at{" "}
                     <a href={`mailto:${site.contact.email}`} className="text-lime hover:underline">
                       {site.contact.email}
@@ -79,7 +79,7 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <GlassPanel className="p-8 sm:p-10">
+                <GlassPanel className="p-8 sm:p-10 lg:p-12">
                   <ContactForm />
                 </GlassPanel>
 
