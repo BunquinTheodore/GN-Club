@@ -81,32 +81,51 @@ export function ScrollJackTrack({ panels, className = "" }: ScrollJackTrackProps
   return <Track panels={panels} className={className} />;
 }
 
+// Extra scroll distance appended after the last panel's nominal position,
+// in vh. The spring below trails the raw scroll input by design (that's
+// what makes it feel smooth) — but with zero slack at the end, the sticky
+// pin released at the exact scroll position the spring was still catching
+// up to, so a fast scroll left the final panel (typically the gallery)
+// visibly mid-pan and cropped, with no way to scroll back to a settled
+// view. This buffer gives the spring real time to reach the last panel
+// before the pin actually releases.
+const END_BUFFER_VH = 45;
+
 function Track({ panels, className }: { panels: ScrollJackPanel[]; className: string }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Vertical scroll of the tall track (height = panels.length * 100vh) is
-  // the single source of truth — wheel, trackpad, and the browser's own
-  // scrollbar all drive scrollYProgress natively. We spring a numeric
-  // "panel position" (0..panels.length-1) rather than the CSS percentage
-  // string directly, both for a smoother glide (tuned closer to critical
-  // damping than the previous heavily-overdamped spring, which lagged
-  // noticeably behind fast scroll input) and so each panel can derive its
-  // own opacity/scale from that same value below — panels ease in as they
-  // approach the active position instead of popping to full opacity the
-  // instant the math rounds to "active".
+  const panelsVh = panels.length * 100;
+  const trackVh = panelsVh + END_BUFFER_VH;
+  // Fraction of the track's total scroll distance during which the panel
+  // position actually advances — the remaining END_BUFFER_VH worth of
+  // scroll holds scrollYProgress (and so rawProgress, clamped below) at its
+  // max while still pinned, purely to let the spring settle.
+  const panelsFraction = panelsVh / trackVh;
+
+  // Vertical scroll of the tall track is the single source of truth —
+  // wheel, trackpad, and the browser's own scrollbar all drive
+  // scrollYProgress natively. We spring a numeric "panel position"
+  // (0..panels.length-1) rather than the CSS percentage string directly,
+  // both for a smoother glide (tuned closer to critical damping than the
+  // previous heavily-overdamped spring, which lagged noticeably behind
+  // fast scroll input) and so each panel can derive its own opacity/scale
+  // from that same value below — panels ease in as they approach the
+  // active position instead of popping to full opacity the instant the
+  // math rounds to "active".
   const { scrollYProgress } = useScroll({
     target: trackRef,
     offset: ["start start", "end end"],
   });
 
-  const rawProgress = useTransform(scrollYProgress, [0, 1], [0, panels.length - 1]);
+  const rawProgress = useTransform(scrollYProgress, [0, panelsFraction], [0, panels.length - 1]);
   const progress = useSpring(rawProgress, { stiffness: 170, damping: 26, mass: 0.5 });
   const x = useTransform(progress, (v) => `${-v * 100}%`);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const idx = Math.min(panels.length - 1, Math.max(0, Math.round(latest * (panels.length - 1))));
+    const panelProgress = Math.min(1, latest / panelsFraction) * (panels.length - 1);
+    const idx = Math.min(panels.length - 1, Math.max(0, Math.round(panelProgress)));
     setActiveIndex((prev) => (prev === idx ? prev : idx));
   });
 
@@ -121,7 +140,7 @@ function Track({ panels, className }: { panels: ScrollJackPanel[]; className: st
   function goToIndex(i: number) {
     const el = trackRef.current;
     if (!el || panels.length <= 1) return;
-    const targetProgress = i / (panels.length - 1);
+    const targetProgress = (i / (panels.length - 1)) * panelsFraction;
     const top = el.offsetTop + targetProgress * (el.offsetHeight - window.innerHeight);
     window.scrollTo({ top, behavior: "smooth" });
   }
@@ -130,7 +149,7 @@ function Track({ panels, className }: { panels: ScrollJackPanel[]; className: st
     <div
       ref={trackRef}
       className={`relative ${className}`}
-      style={{ height: `${panels.length * 100}vh` }}
+      style={{ height: `${trackVh}vh` }}
       tabIndex={0}
       onKeyDown={handleKeyDown}
       aria-label="Horizontal scroll section"
@@ -193,7 +212,15 @@ function PanelFrame({
 
   return (
     <motion.div
-      className="h-full w-screen flex-shrink-0 overflow-hidden"
+      // w-full (not w-screen) so each panel's actual rendered width matches
+      // the pinned viewport's real width — the viewport is a normal block
+      // box inside the sidebar-padded body, not the full window, so it's
+      // narrower than 100vw by the sidebar's width on desktop. A w-screen
+      // panel used to overflow that box; translateX(-N * 100%), a
+      // percentage of the row's own (correctly-sized) box, then undershot
+      // by the difference on every step, worse with each panel — by the
+      // last panel on a page with several, it was visibly cropped.
+      className="h-full w-full flex-shrink-0 overflow-hidden"
       style={{ opacity, scale, willChange: "transform, opacity" }}
     >
       {children}
