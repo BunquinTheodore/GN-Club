@@ -32,6 +32,6 @@ export const timeline: Milestone[] = [
   {
     year: "2025",
     title: "150+ events and counting",
-    description: "Full stack production — activations, online events, digital, video, and logistics — under one team.",
+    description: "Full stack production: activations, online events, digital, video, and logistics, under one team.",
   },
 ];

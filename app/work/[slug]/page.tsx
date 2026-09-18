@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const caseStudy = getCaseStudy(slug);
   if (!caseStudy) return {};
   return {
-    title: `${caseStudy.title} — GN Club`,
+    title: `${caseStudy.title}: GN Club`,
     description: caseStudy.description,
   };
 }

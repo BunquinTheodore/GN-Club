@@ -22,7 +22,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     quote:
-      "The kind of team you call once and then just keep calling. Production, logistics, livestream — all one point of contact.",
+      "The kind of team you call once and then just keep calling. Production, logistics, livestream: all one point of contact.",
     name: "Andrea Reyes",
     role: "Founder, Studio One",
   },

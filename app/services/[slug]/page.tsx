@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const service = services.find((s) => s.slug === slug);
   if (!service) return {};
   return {
-    title: `${service.title} — GN Club`,
+    title: `${service.title}: GN Club`,
     description: service.tagline ?? service.blurb,
   };
 }

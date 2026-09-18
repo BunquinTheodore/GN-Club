@@ -9,7 +9,7 @@ import { getMedia } from "@/lib/media";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact — GN Club",
+  title: "Contact: GN Club",
   description: "Tell GN Club about the event you're planning.",
 };
 
@@ -40,7 +40,7 @@ export default function ContactPage() {
                     <a href={`mailto:${site.contact.email}`} className="text-lime hover:underline">
                       {site.contact.email}
                     </a>
-                    , or through the form — we reply personally within one business day.
+                    , or through the form. We reply personally within one business day.
                   </p>
 
                   <div className="mt-6 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs text-fog-dim md:justify-start">
@@ -68,7 +68,7 @@ export default function ContactPage() {
                       >
                         <p className="font-display text-xs text-lime">{s.step}</p>
                         <p className="font-display text-xs text-fog">{s.label}</p>
-                        <p className="text-xs text-fog-dim">— {s.detail}</p>
+                        <p className="text-xs text-fog-dim">{s.detail}</p>
                         <span
                           aria-hidden="true"
                           className="card-shine"

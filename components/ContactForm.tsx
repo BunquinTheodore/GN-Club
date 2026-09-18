@@ -54,7 +54,7 @@ export function ContactForm() {
       form.reset();
       setStatus("success");
       toast.success("Message sent.", {
-        description: "We read every inquiry personally — expect a reply within one business day.",
+        description: "We read every inquiry personally. Expect a reply within one business day.",
       });
       setTimeout(() => setStatus("idle"), 2200);
     } catch {
@@ -123,7 +123,7 @@ export function ContactForm() {
           name="message"
           required
           rows={6}
-          placeholder="Tell us about the event you're planning — dates, scale, goals"
+          placeholder="Tell us about the event you're planning: dates, scale, goals"
           className={`min-h-0 resize-none ${fieldClassName}`}
         />
       </div>
@@ -159,7 +159,7 @@ export function ContactForm() {
               className="flex items-center justify-center gap-2"
             >
               <X className="h-4 w-4" />
-              Couldn&apos;t send — try again
+              Couldn&apos;t send. Try again
             </motion.span>
           ) : submitting ? (
             <motion.span
@@ -189,7 +189,7 @@ export function ContactForm() {
       </Button>
 
       <p className="text-center text-xs text-fog-dim sm:text-left">
-        We read every inquiry personally — expect a reply within one business day.
+        We read every inquiry personally. Expect a reply within one business day.
       </p>
     </form>
   );

@@ -23,9 +23,9 @@ export const portfolio: CaseStudy[] = [
     title: "WOCEE 2026",
     tag: "Consumer Electronics Expo",
     description:
-      "GN Club produced and activated \"The Nexus Stage\" for the World of Consumer Electronics Expo — programming, branded staging, and on ground crew for a multi day convention floor.",
+      "GN Club produced and activated \"The Nexus Stage\" for the World of Consumer Electronics Expo: programming, branded staging, and on ground crew for a multi day convention floor.",
     challenge:
-      "A convention scale expo needed a dedicated stage that could carry back to back programming — panels, product reveals, and awarding ceremonies — without ever feeling like a generic breakout room.",
+      "A convention scale expo needed a dedicated stage that could carry back to back programming (panels, product reveals, and awarding ceremonies) without ever feeling like a generic breakout room.",
     approach:
       "Designed and built \"The Nexus Stage\" as a fully branded environment (custom signage, lighting rig, LED backdrop), then staffed and ran it end to end across the entire expo run: hosting, AV, speaker management, and crowd flow.",
     results: [
@@ -41,9 +41,9 @@ export const portfolio: CaseStudy[] = [
     title: "GN Club Lifestyle: Pickleball Edition",
     tag: "Community Activation",
     description:
-      "GN Club ran a community pickleball activation on court for LBank Academy — a branded pop up, player giveaways, and on site content capture.",
+      "GN Club ran a community pickleball activation on court for LBank Academy: a branded pop up, player giveaways, and on site content capture.",
     challenge:
-      "Full case study write up in progress — check back soon for the brief behind this activation.",
+      "Full case study write up in progress. Check back soon for the brief behind this activation.",
     approach:
       "GN Club handled on site branding, giveaways, hosting, and content capture for the activation. A full breakdown of the production scope is coming soon.",
     results: [
@@ -59,9 +59,9 @@ export const portfolio: CaseStudy[] = [
     title: "Join Mazal",
     tag: "Community Marketing & Activation",
     description:
-      "GN Club is the events activation and marketing agency behind Mazal, a free Philippine trading community — designing the campaign creative and community programming that turns followers into active members.",
+      "GN Club is the events activation and marketing agency behind Mazal, a free Philippine trading community: designing the campaign creative and community programming that turns followers into active members.",
     challenge:
-      "Mazal needed to convert social followers into a genuinely active trading community without any paywall or hard sell — the brand runs entirely on free education, so growth has to come from content and community experience alone, not a funnel of paid offers.",
+      "Mazal needed to convert social followers into a genuinely active trading community without any paywall or hard sell. The brand runs entirely on free education, so growth has to come from content and community experience alone, not a funnel of paid offers.",
     approach:
       "GN Club designed and produced Mazal's recurring campaign system: weekly trading schedule graphics that give members a reason to check in every day, a \"Join Mazal\" onboarding and QR campaign to convert social reach into Discord members, and in person GN Club coworking sessions that give the online community a physical touchpoint.",
     results: [
@@ -90,7 +90,7 @@ export const portfolio: CaseStudy[] = [
     challenge:
       "A 350 person, single day conference needed to feel premium on a tight production window, with a livestream that matched the in room quality.",
     approach:
-      "Ran the full stack ourselves — stage build, AV, speaker management, and simultaneous streaming — so the online and in room audiences got the same show.",
+      "Ran the full stack ourselves, stage build, AV, speaker management, and simultaneous streaming, so the online and in room audiences got the same show.",
     results: [
       { label: "Attendees", value: "350+" },
       { label: "Livestream peak viewers", value: "2,400" },
@@ -122,7 +122,7 @@ export const portfolio: CaseStudy[] = [
     tag: "Product Launch",
     description: "A rooftop product launch produced end to end by GN Club.",
     challenge:
-      "Launching a physical product needed a venue and mood that outside vendors don't offer as a package — lighting, sound, and staging all had to feel custom.",
+      "Launching a physical product needed a venue and mood that outside vendors don't offer as a package: lighting, sound, and staging all had to feel custom.",
     approach:
       "Sourced and built out a rooftop venue from scratch: lighting design, staging, and a run of show built around the product reveal moment.",
     results: [
@@ -158,7 +158,7 @@ export const portfolio: CaseStudy[] = [
     challenge:
       "An online only audience with no physical venue still needed a broadcast quality show, not a webinar.",
     approach:
-      "Built the segment entirely in GN Club's virtual production studio — multi camera, live graphics, and real time audience interaction.",
+      "Built the segment entirely in GN Club's virtual production studio: multi camera, live graphics, and real time audience interaction.",
     results: [
       { label: "Peak concurrent viewers", value: "3,100" },
       { label: "Watch time", value: "42 min avg" },

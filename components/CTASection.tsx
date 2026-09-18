@@ -21,7 +21,7 @@ export function CTASection() {
             Have an event that needs to move a community?
           </h2>
           <p className="mt-2 text-sm text-fog-dim">
-            Tell us the brief — we&apos;ll tell you what it takes to pull it off.
+            Tell us the brief. We&apos;ll tell you what it takes to pull it off.
           </p>
         </div>
         <MagneticButton href="/contact">Start a project</MagneticButton>

@@ -57,16 +57,16 @@ export const services: Service[] = [
     span: "lg",
     media: "services.activations",
     tagline:
-      "Product reveals, conventions, roadshows, and everything in between — planned, built, staffed, and run in house.",
+      "Product reveals, conventions, roadshows, and everything in between: planned, built, staffed, and run in house.",
     overview: [
       "Activations and Events is the widest service GN Club runs, and the one most tech and Web3 brands come to us for first. It covers a flagship convention booth, a single night product launch, a trading competition floor, a press and influencer event, a multi city roadshow, or a full scale concert or consumer trade show. Whatever the format, the work is the same: a site or venue turned into a branded environment that a crowd actually moves through, on a schedule that holds.",
-      "Because we plan, build, staff, and run every activation ourselves, there's one team accountable from the layout sketch to the last teardown truck — not a chain of vendors handing off risk to each other. That's what lets us take on the events other production houses turn down: a conference hall that needs full fit out overnight, a roadshow that hits three cities in a week, or a launch where the run of show has to survive last minute changes from the client's side.",
+      "Because we plan, build, staff, and run every activation ourselves, there's one team accountable from the layout sketch to the last teardown truck, not a chain of vendors handing off risk to each other. That's what lets us take on the events other production houses turn down: a conference hall that needs full fit out overnight, a roadshow that hits three cities in a week, or a launch where the run of show has to survive last minute changes from the client's side.",
     ],
     process: [
       {
         title: "Brief and site walk",
         description:
-          "We take the format, audience size, and venue (or shortlist of venues) and map out what the space needs to become — floor plan, flow, and the moments that need to land.",
+          "We take the format, audience size, and venue (or shortlist of venues) and map out what the space needs to become: floor plan, flow, and the moments that need to land.",
       },
       {
         title: "Design and build plan",
@@ -96,8 +96,8 @@ export const services: Service[] = [
     media: "services.online",
     tagline: "A studio and a control room behind every livestream, hybrid session, and virtual set.",
     overview: [
-      "Online Events covers the productions where the audience is watching through a screen instead of standing in a room — a livestream, a prerecorded broadcast cut and released on schedule, a hybrid event running a stage and a stream in parallel, or a session built entirely in a 3D virtual set. For Web3 and tech clients whose communities are spread across time zones and platforms, this is often the primary format, not a backup for when travel isn't possible.",
-      "We run this the same way we run a physical activation: in house, from virtual set design and 3D production management through the live switch and stream delivery. A hybrid event gets a single production team managing both the in room stage and the remote feed, so the two don't drift out of sync — the stream sees what the room sees, cued off the same run of show.",
+      "Online Events covers the productions where the audience is watching through a screen instead of standing in a room: a livestream, a prerecorded broadcast cut and released on schedule, a hybrid event running a stage and a stream in parallel, or a session built entirely in a 3D virtual set. For Web3 and tech clients whose communities are spread across time zones and platforms, this is often the primary format, not a backup for when travel isn't possible.",
+      "We run this the same way we run a physical activation: in house, from virtual set design and 3D production management through the live switch and stream delivery. A hybrid event gets a single production team managing both the in room stage and the remote feed, so the two don't drift out of sync. The stream sees what the room sees, cued off the same run of show.",
     ],
     process: [
       {
@@ -129,13 +129,13 @@ export const services: Service[] = [
     media: "services.digital",
     tagline: "The website, app, and marketing work that carries an activation before and after the event day.",
     overview: [
-      "Digital is where the event stops being a single day and becomes a campaign. This covers the website that sells tickets and holds the agenda, the app that guests use on site, the digital marketing that fills the room in the first place, and augmented reality builds that extend a booth or launch beyond what's physically on the floor. It's the layer most agencies bolt on from outside — we run it alongside the physical build because the two are describing the same event.",
+      "Digital is where the event stops being a single day and becomes a campaign. This covers the website that sells tickets and holds the agenda, the app that guests use on site, the digital marketing that fills the room in the first place, and augmented reality builds that extend a booth or launch beyond what's physically on the floor. It's the layer most agencies bolt on from outside. We run it alongside the physical build because the two are describing the same event.",
       "That proximity matters most in the run up and the aftermath: a landing page that needs to reflect a last minute lineup change the same day a floor plan changes, or an AR activation that has to match the physical booth it's tied to down to the branding. Having the digital team sit next to the event team means those changes move once, not twice.",
     ],
     process: [
       {
         title: "Scope the digital surface",
-        description: "We map which pieces the event needs — site, app, campaign, AR — against the activation timeline it has to support.",
+        description: "We map which pieces the event needs (site, app, campaign, AR) against the activation timeline it has to support.",
       },
       {
         title: "Design and build",
@@ -155,15 +155,15 @@ export const services: Service[] = [
   {
     slug: "video-production",
     title: "Video Production",
-    blurb: "Capturing and cutting the story while it's still happening — from live coverage to a dedicated studio shoot.",
+    blurb: "Capturing and cutting the story while it's still happening: from live coverage to a dedicated studio shoot.",
     icon: Clapperboard,
     items: ["Shooting", "Same Day Edit", "Animation", "Video Editing", "Photo Ops"],
     span: "sm",
     media: "services.video",
     tagline: "Cameras rolling before the crowd arrives, cuts delivered before they've left.",
     overview: [
-      "Video production at GN Club runs alongside the event, not after it. A shoot crew covers stage moments, reactions, and b roll while the room is live, and an editor is already cutting on site so a recap or highlight reel can go out the same day instead of a week later. This applies across shooting, same day edit, animation, general video editing, and photo ops — all run in house with our own crew and equipment, no outside production house brought in to cover a gap.",
-      "Because the crew is the same one running the rest of the event, coverage plans get built into the run of show instead of bolted on afterward: camera positions that don't block sightlines, an edit bay that doesn't need a separate power or network drop, and a shot list that already accounts for the keynote, the booth activity, and the candid moments in between. Animation work — explainer cuts, title cards, motion graphics for a stage screen — gets scoped the same way a shoot does, against what the event actually needs on screen, not a generic template.",
+      "Video production at GN Club runs alongside the event, not after it. A shoot crew covers stage moments, reactions, and b roll while the room is live, and an editor is already cutting on site so a recap or highlight reel can go out the same day instead of a week later. This applies across shooting, same day edit, animation, general video editing, and photo ops, all run in house with our own crew and equipment, no outside production house brought in to cover a gap.",
+      "Because the crew is the same one running the rest of the event, coverage plans get built into the run of show instead of bolted on afterward: camera positions that don't block sightlines, an edit bay that doesn't need a separate power or network drop, and a shot list that already accounts for the keynote, the booth activity, and the candid moments in between. Animation work, such as explainer cuts, title cards, and motion graphics for a stage screen, gets scoped the same way a shoot does, against what the event actually needs on screen, not a generic template.",
     ],
     process: [
       {
@@ -180,7 +180,7 @@ export const services: Service[] = [
       },
       {
         title: "Delivery",
-        description: "Final cuts, raw selects, and photo op assets are handed off in the formats the brand actually needs — social, internal recap, or sponsor deliverables.",
+        description: "Final cuts, raw selects, and photo op assets are handed off in the formats the brand actually needs: social, internal recap, or sponsor deliverables.",
       },
     ],
     gallery: ["services.video", "services.video.gallery.2", "services.video.gallery.3"],
@@ -196,7 +196,7 @@ export const services: Service[] = [
     tagline: "The backend work nobody sees, running so the front of house never stalls.",
     overview: [
       "Logistics at GN Club covers the two things that quietly break events when they're not handled: data and physical movement. Data processing means every registration, badge scan, lead capture form, and attendee list gets managed with a clean pipeline in and out, so the numbers a client asks for mid event or after are actually accurate. Corporate courier servicing means getting materials, signage, equipment, and documents to and from a venue on schedule, without depending on a client's own staff to shuttle boxes across town.",
-      "This is deliberately unglamorous work, and that's the point — it's infrastructure, not a showcase. A trading competition or a multi day convention generates a constant stream of lists, printed materials, and last minute item runs, and having that handled by the same team running the event means fewer handoffs and fewer things that fall through the cracks between vendors.",
+      "This is deliberately unglamorous work, and that's the point: it's infrastructure, not a showcase. A trading competition or a multi day convention generates a constant stream of lists, printed materials, and last minute item runs, and having that handled by the same team running the event means fewer handoffs and fewer things that fall through the cracks between vendors.",
     ],
     process: [
       {
@@ -233,10 +233,10 @@ export const services: Service[] = [
     ],
     span: "sm",
     media: "services.others",
-    tagline: "Build it, permit it, staff it, book it — the parts an event stands on.",
+    tagline: "Build it, permit it, staff it, book it: the parts an event stands on.",
     overview: [
-      "This is fabrication and build in the fullest sense: physical fabrication and booth builds, construction of permanent structures, the permit and LGU coordination that lets any of it legally happen, the manpower to staff it, and the speaker booking that fills the stage. It's the category that covers everything an event needs to physically exist, get approved, get staffed, and get remembered after the last day — booth structures for a trade show floor, a permanent installation that outlives the event, or the paperwork trail with local government that keeps a build from getting shut down mid setup.",
-      "Permits and LGU coordination in particular is work that's easy to underestimate until it's missing — a booth or structure without the right sign offs doesn't go up on schedule, no matter how good the build is. Manpower deployment and speaker booking round this out on the people side: crew to run the floor and talent to fill the program, sourced and confirmed the same way the physical build is — directly, without a chain of subcontractors between the client and the people actually showing up.",
+      "This is fabrication and build in the fullest sense: physical fabrication and booth builds, construction of permanent structures, the permit and LGU coordination that lets any of it legally happen, the manpower to staff it, and the speaker booking that fills the stage. It's the category that covers everything an event needs to physically exist, get approved, get staffed, and get remembered after the last day: booth structures for a trade show floor, a permanent installation that outlives the event, or the paperwork trail with local government that keeps a build from getting shut down mid setup.",
+      "Permits and LGU coordination in particular is work that's easy to underestimate until it's missing. A booth or structure without the right sign offs doesn't go up on schedule, no matter how good the build is. Manpower deployment and speaker booking round this out on the people side: crew to run the floor and talent to fill the program, sourced and confirmed the same way the physical build is, directly, without a chain of subcontractors between the client and the people actually showing up.",
     ],
     process: [
       {
@@ -268,13 +268,13 @@ export const services: Service[] = [
     media: "services.studio",
     tagline: "A room built for record, not rented for a day.",
     overview: [
-      "Studio & Podcast Production covers everything that happens inside four controlled walls: brand shoots that need consistent light and a clean backdrop, podcast recording for a host and their guests, and photoshoot sessions for product or portrait work. Because GN Club runs this in house alongside the rest of its event operation, a studio booking can sit on its own or plug straight into a bigger activation — same crew, same gear inventory, no handoff between vendors.",
+      "Studio & Podcast Production covers everything that happens inside four controlled walls: brand shoots that need consistent light and a clean backdrop, podcast recording for a host and their guests, and photoshoot sessions for product or portrait work. Because GN Club runs this in house alongside the rest of its event operation, a studio booking can sit on its own or plug straight into a bigger activation: same crew, same gear inventory, no handoff between vendors.",
       "Studio Shoot covers the space and setup: lighting, backdrop, and camera position built around what's being shot, whether that's a talking head interview, a product table, or a full brand campaign day. Podcast Recording & Photoshoot pairs multi mic audio capture with a photo pass in the same session, so a brand walks out with an episode and a set of stills without booking two separate days.",
     ],
     process: [
       {
         title: "Brief",
-        description: "Walk through the format — brand shoot, podcast episode, or photoshoot — and lock the shot list, guest count, and run of show.",
+        description: "Walk through the format (brand shoot, podcast episode, or photoshoot) and lock the shot list, guest count, and run of show.",
       },
       {
         title: "Set",
@@ -301,7 +301,7 @@ export const services: Service[] = [
     media: "services.merch",
     tagline: "Put the brand on people, not just on a screen.",
     overview: [
-      "Brand Merchandising is the physical layer of a brand's presence at an event — shirts, giveaways, and staff uniforms that attendees actually take home and wear again. It starts with Custom Merch Design, turning a brand's identity into something that works printed on fabric, then moves through Shirt Printing for production and Bulk Fulfillment to get finished merch to a venue, a booth, or a warehouse on schedule.",
+      "Brand Merchandising is the physical layer of a brand's presence at an event: shirts, giveaways, and staff uniforms that attendees actually take home and wear again. It starts with Custom Merch Design, turning a brand's identity into something that works printed on fabric, then moves through Shirt Printing for production and Bulk Fulfillment to get finished merch to a venue, a booth, or a warehouse on schedule.",
       "This service exists because merch orders have a habit of showing up late or wrong when they're handled by a separate print shop with no stake in the event date. Running design, printing, and fulfillment under the same roof as the rest of GN Club's event production means the merch timeline is tied to the event timeline, not a separate vendor's queue.",
     ],
     process: [

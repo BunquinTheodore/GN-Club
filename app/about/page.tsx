@@ -9,7 +9,7 @@ import { ScrollJackTrack, type ScrollJackPanel } from "@/components/ScrollJackTr
 import { getMedia } from "@/lib/media";
 
 export const metadata: Metadata = {
-  title: "About — GN Club",
+  title: "About: GN Club",
   description: "From concept to full production and execution.",
 };
 
@@ -40,8 +40,8 @@ export default function AboutPage() {
                 From concept to full production and execution.
               </h1>
               <p className="mt-6 max-w-prose text-lg leading-relaxed text-fog-dim">
-                GN Club creates high impact event activations — from 350 person conferences to
-                rooftop product drops — for tech and Web3 brands in the Philippines and globally.
+                GN Club creates high impact event activations, from 350 person conferences to
+                rooftop product drops, for tech and Web3 brands in the Philippines and globally.
                 If you need an event that moves your community, let&apos;s talk.
               </p>
             </PanelReveal>
@@ -62,8 +62,8 @@ export default function AboutPage() {
                 title="One team, from strategy to strike."
               >
                 <p>
-                  We plan, build, staff, and run events ourselves — activations, concerts, trade
-                  shows, product launches — rather than brokering the work out. That&apos;s what
+                  We plan, build, staff, and run events ourselves: activations, concerts, trade
+                  shows, product launches, rather than brokering the work out. That&apos;s what
                   keeps a 350 person conference and a rooftop product drop feeling like the same
                   level of craft.
                 </p>
@@ -87,7 +87,7 @@ export default function AboutPage() {
                 reverse
               >
                 <p>
-                  Most of our clients are tech and Web3 brands — audiences who expect a livestream
+                  Most of our clients are tech and Web3 brands, audiences who expect a livestream
                   as polished as the room itself. So the same team that builds the stage also runs
                   the 3D virtual production behind it.
                 </p>
