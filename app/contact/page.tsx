@@ -22,7 +22,7 @@ const steps = [
 export default function ContactPage() {
   return (
     <HorizontalScroll>
-      <section className="relative overflow-hidden px-6 pt-24 pb-20 sm:pt-28 sm:pb-28 md:pt-0 lg:px-10">
+      <section className="relative flex flex-col overflow-hidden px-6 pt-24 pb-20 sm:pt-28 sm:pb-28 md:min-h-screen md:justify-center md:py-16 lg:px-10">
         <DuotoneImage src={getMedia("contact.backdrop")} alt="" className="opacity-30" />
 
         <div className="relative mx-auto w-full max-w-6xl">

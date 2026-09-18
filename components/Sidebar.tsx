@@ -27,14 +27,35 @@ export function Sidebar() {
       {/* Desktop: fixed left column */}
       <aside
         style={{ width: SIDEBAR_WIDTH }}
-        className="fixed inset-y-0 left-0 z-50 hidden flex-col border-r border-glass-border bg-ink-deep/60 backdrop-blur-md md:flex"
+        className="fixed inset-y-0 left-0 z-50 hidden flex-col overflow-hidden border-r border-glass-border bg-ink-deep/60 shadow-[12px_0_48px_-28px_rgba(0,0,0,0.75)] backdrop-blur-md md:flex"
       >
-        <div className="flex h-full flex-col overflow-y-auto px-6 py-8">
+        {/* Surface wash: a faint top-down glow in the brand sweep so the
+            panel reads as a lit surface (like a card catching light) rather
+            than a flat color stopping at a border. Kept very low-opacity and
+            fixed (no animation) so it never competes with the nav text. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(120% 60% at 0% 0%, rgba(51,199,224,0.10), transparent 55%), radial-gradient(90% 50% at 100% 0%, rgba(198,242,78,0.08), transparent 60%), linear-gradient(180deg, rgba(255,255,255,0.03), transparent 30%)",
+          }}
+        />
+        {/* Right-edge hairline: the same cyan -> lime -> amber sweep used for
+            the active-nav accent bar, stretched the full height so the
+            sidebar's edge reads as a deliberate seam, not a CSS border. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 w-px bg-gradient-to-b from-cyan/40 via-lime/25 to-amber/40"
+        />
+
+        <div className="relative flex h-full flex-col overflow-y-auto px-6 py-8">
           <Link href="/" className="flex items-center">
             <motion.div
               whileHover={{ scale: 1.06, rotate: -1.5 }}
               whileTap={{ scale: 0.96 }}
               transition={{ type: "spring", stiffness: 300, damping: 15 }}
+              className="group flex h-14 w-14 items-center justify-center rounded-xl border border-glass-border bg-glass backdrop-blur-sm transition-[border-color,box-shadow] duration-300 ease-out hover:border-lime/40 hover:shadow-[0_0_20px_rgba(198,242,78,0.2)]"
             >
               <Image src="/logo.jpg" alt="GN Club" width={40} height={31} className="h-[31px] w-10 rounded-md" />
             </motion.div>
@@ -44,14 +65,14 @@ export function Sidebar() {
 
           <Link
             href="/contact"
-            className="mt-8 inline-block rounded-full bg-lime px-5 py-2 text-center text-sm font-medium text-ink outline-none transition-[transform,box-shadow] duration-300 hover:scale-105 hover:shadow-[0_10px_24px_-8px_rgba(198,242,78,0.5)] focus-visible:scale-105 focus-visible:shadow-[0_10px_24px_-8px_rgba(198,242,78,0.5)] focus-visible:ring-2 focus-visible:ring-lime focus-visible:ring-offset-2 focus-visible:ring-offset-ink active:scale-95"
+            className="mt-8 inline-block rounded-full bg-lime px-5 py-2 text-center text-sm font-medium text-ink shadow-[0_10px_28px_-14px_rgba(198,242,78,0.55)] outline-none transition-[transform,box-shadow] duration-300 hover:scale-105 hover:shadow-[0_10px_24px_-8px_rgba(198,242,78,0.5)] focus-visible:scale-105 focus-visible:shadow-[0_10px_24px_-8px_rgba(198,242,78,0.5)] focus-visible:ring-2 focus-visible:ring-lime focus-visible:ring-offset-2 focus-visible:ring-offset-ink active:scale-95"
           >
             Start a project
           </Link>
 
           <div className="flex-1" />
 
-          <div className="flex flex-col gap-3 border-t border-glass-border pt-5 text-xs text-fog-dim">
+          <div className="flex flex-col gap-3.5 border-t border-glass-border pt-6 text-xs text-fog-dim">
             <a
               href={`mailto:${site.contact.email}`}
               className="inline-flex items-center gap-2 transition-colors duration-200 hover:text-lime"
@@ -60,7 +81,7 @@ export function Sidebar() {
               <span className="truncate">{site.contact.email}</span>
             </a>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               {site.socials.map((s) => {
                 const Icon = socialIcons[s.label];
                 return (
@@ -70,7 +91,7 @@ export function Sidebar() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={s.label}
-                    className="text-fog-dim transition-colors duration-200 hover:text-lime"
+                    className="flex h-7 w-7 items-center justify-center rounded-full text-fog-dim transition-[color,background-color] duration-200 hover:bg-glass hover:text-lime"
                   >
                     {Icon ? <Icon className="h-3.5 w-3.5" aria-hidden /> : s.label}
                   </a>
@@ -78,7 +99,7 @@ export function Sidebar() {
               })}
             </div>
 
-            <span className="text-fog-dim/70">© {new Date().getFullYear()} GN Club</span>
+            <span className="tabular-nums text-fog-dim/70">© {new Date().getFullYear()} GN Club</span>
           </div>
         </div>
       </aside>

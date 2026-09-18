@@ -7,12 +7,14 @@ import { ArrowRight } from "lucide-react";
 import { services } from "@/lib/services";
 import { getMedia } from "@/lib/media";
 import { DuotoneImage } from "./DuotoneImage";
-import { MagneticButton } from "./MagneticButton";
 
 const spanClasses: Record<string, string> = {
-  lg: "md:col-span-4 md:row-span-2",
-  md: "md:col-span-4 md:row-span-1",
-  sm: "md:col-span-2 md:row-span-1",
+  lg: "md:col-span-6 md:row-span-2",
+  md: "md:col-span-6 md:row-span-1",
+  // Three "sm" tiles fall consecutively (Video Production, Logistics,
+  // Fabrication & Build) and need to fill a row exactly — col-span-4 on a
+  // 12-column grid (below) makes 3 x 33% = 100%, no leftover gap.
+  sm: "md:col-span-4 md:row-span-1",
 };
 
 // Title/blurb scale follows tile size, so the flagship tile reads as the
@@ -32,18 +34,10 @@ const iconChipClasses: Record<string, string> = {
 };
 
 export function ServiceBento({ full = false }: { full?: boolean }) {
-  // On the homepage teaser (full=false), the full item list is tucked
-  // behind hover so the section stays a compact preview. On the services
-  // page (full=true) every service's full offering list is visible inline
-  // at all times — nothing is gated behind a hover or a dialog.
-  const listClasses = full
-    ? "mt-3"
-    : "mt-3 max-h-0 overflow-hidden opacity-0 transition-all duration-500 ease-out group-hover:mt-3 group-hover:max-h-40 group-hover:opacity-100";
-
   return (
     <div
-      className={`grid grid-cols-1 gap-4 md:grid-cols-8 ${
-        full ? "md:auto-rows-[minmax(280px,auto)]" : "md:auto-rows-[168px]"
+      className={`grid grid-cols-1 gap-4 md:grid-cols-12 ${
+        full ? "md:auto-rows-[minmax(230px,auto)]" : "md:auto-rows-[minmax(210px,auto)]"
       }`}
     >
       {services.map((service, i) => {
@@ -92,21 +86,9 @@ export function ServiceBento({ full = false }: { full?: boolean }) {
               <h3 className={`font-display leading-tight tracking-tight text-fog ${titleClasses[service.span]}`}>
                 {service.title}
               </h3>
-              <p className={`mt-1.5 text-sm leading-snug text-fog-dim ${full ? "" : "line-clamp-2"}`}>
+              <p className="mt-1.5 line-clamp-2 text-sm leading-snug text-fog-dim">
                 {service.blurb}
               </p>
-
-              <ul className={listClasses}>
-                {service.items.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-center gap-2 py-px text-xs leading-tight text-fog-dim"
-                  >
-                    <span className="h-1 w-1 flex-shrink-0 rounded-full bg-lime/60" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
 
               <span className="mt-4 inline-flex w-fit items-center gap-1.5 self-start rounded-full border border-lime/40 bg-ink/50 px-3.5 py-1.5 text-xs font-medium text-lime backdrop-blur-sm transition-colors duration-300 ease-out group-hover:bg-lime group-hover:text-ink">
                 Explore more
@@ -123,14 +105,6 @@ export function ServiceBento({ full = false }: { full?: boolean }) {
           </motion.div>
         );
       })}
-
-      {!full && (
-        <div className="flex justify-center py-2 md:col-span-8">
-          <MagneticButton href="/services" variant="outline">
-            View full services breakdown
-          </MagneticButton>
-        </div>
-      )}
     </div>
   );
 }

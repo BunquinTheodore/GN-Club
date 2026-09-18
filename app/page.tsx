@@ -14,7 +14,7 @@ export default function Home() {
       <Hero />
 
       {/* What we do */}
-      <section className="px-6 py-20 sm:py-28 lg:px-10">
+      <section className="px-6 pt-20 pb-12 sm:pt-28 sm:pb-16 lg:px-10">
         <div className="mx-auto w-full max-w-7xl">
           <Reveal>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">

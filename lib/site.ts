@@ -1,8 +1,8 @@
 export const site = {
   name: "GN Club",
   tagline: "Activations · Events · Full Production · Global Experience",
-  bio: "From concept to full production and execution. GN Club creates high-impact event activations for tech and Web3 brands in the Philippines and globally. If you need an event that moves your community, let's talk.",
-  bioShort: "High-impact event activations for tech and Web3 brands.",
+  bio: "From concept to full production and execution. GN Club creates high impact event activations for tech and Web3 brands in the Philippines and globally. If you need an event that moves your community, let's talk.",
+  bioShort: "High impact event activations for tech and Web3 brands.",
   handle: "@GNClubOfficial",
   nav: [
     { href: "/services", label: "Services" },

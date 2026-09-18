@@ -11,17 +11,17 @@ export const faq: FaqItem[] = [
   {
     question: "What kind of events does GN Club take on?",
     answer:
-      "Mostly activations, conferences, product launches, and community events for tech and Web3 brands — anywhere from a single-day activation to a multi-day convention presence.",
+      "Mostly activations, conferences, product launches, and community events for tech and Web3 brands — anywhere from a single day activation to a multi day convention presence.",
   },
   {
-    question: "Do you handle everything in-house, or do you subcontract?",
+    question: "Do you handle everything in house, or do you subcontract?",
     answer:
-      "We plan, build, staff, and run events ourselves rather than brokering the work out — the same team that designs the stage also runs the livestream and the on-ground crew.",
+      "We plan, build, staff, and run events ourselves rather than brokering the work out — the same team that designs the stage also runs the livestream and the on ground crew.",
   },
   {
     question: "How far in advance should we book?",
     answer:
-      "It depends on scope — a small activation can come together in a few weeks, but a multi-day production benefits from a longer lead time. Reach out early and we'll scope it together.",
+      "It depends on scope — a small activation can come together in a few weeks, but a multi day production benefits from a longer lead time. Reach out early and we'll scope it together.",
   },
   {
     question: "Can you support events outside the Philippines?",
@@ -31,6 +31,6 @@ export const faq: FaqItem[] = [
   {
     question: "What does a typical engagement look like?",
     answer:
-      "We start with a brief, scope the production plan and budget together, then handle everything through setup, run-of-show, and strike — with one team accountable end to end.",
+      "We start with a brief, scope the production plan and budget together, then handle everything through setup, run of show, and strike — with one team accountable end to end.",
   },
 ];

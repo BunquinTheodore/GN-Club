@@ -3,6 +3,7 @@
 import { useState, type CSSProperties } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { DuotoneImage } from "./DuotoneImage";
 import { getMedia } from "@/lib/media";
 import { portfolio } from "@/lib/portfolio";
@@ -74,7 +75,7 @@ export function PortfolioGrid() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:auto-rows-[220px] md:gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:auto-rows-[minmax(220px,auto)] md:gap-4">
         {visible.map(({ item, i }) => (
           <motion.div
             key={item.slot}
@@ -108,6 +109,10 @@ export function PortfolioGrid() {
             <div className="pointer-events-none absolute inset-x-0 bottom-0 p-3 transition-transform duration-300 group-hover:-translate-y-1 md:p-4">
               <p className="text-[10px] text-lime opacity-90 transition-opacity duration-300 group-hover:opacity-100 md:text-xs">{item.tag}</p>
               <p className="font-display text-sm tracking-tight text-fog md:text-base">{item.title}</p>
+              <span className="mt-2 inline-flex w-fit items-center gap-1 rounded-full border border-lime/40 bg-ink/50 px-2.5 py-1 text-[10px] font-medium text-lime backdrop-blur-sm transition-colors duration-300 ease-out group-hover:bg-lime group-hover:text-ink">
+                View event
+                <ArrowRight className="h-3 w-3 transition-transform duration-300 ease-out group-hover:translate-x-0.5" strokeWidth={2} />
+              </span>
             </div>
             <span
               aria-hidden="true"
