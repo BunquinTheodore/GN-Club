@@ -7,6 +7,7 @@ import { ArrowLeft } from "lucide-react";
 import type { CaseStudy } from "@/lib/portfolio";
 import { getMedia } from "@/lib/media";
 import { DuotoneImage } from "@/components/DuotoneImage";
+import { PersistentPanelBackground } from "@/components/PersistentPanelBackground";
 import { GlassPanel } from "@/components/GlassPanel";
 import { Badge } from "@/components/ui/badge";
 import { ScrollJackTrack, type ScrollJackPanel } from "@/components/ScrollJackTrack";
@@ -77,20 +78,12 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
       label: "Overview",
       content: (
         <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-          <DuotoneImage
-            src={getMedia(caseStudy.slot)}
-            alt={caseStudy.title}
-            className="opacity-35"
-            position={positions[caseStudy.slot]}
-            priority
-            sizes="100vw"
-          />
-          {/* Extra scrim independent of DuotoneImage's own treatment — the
-              hero backdrop often carries the event's own on-site signage
-              (e.g. stage/session lettering) that reads through the duotone
-              grade and competes with the H1 and stat tiles sitting on top of
-              it. This darkens specifically behind the text/stat column
-              without further flattening the photo itself. */}
+          {/* Scrim over the shared persistent background — the hero backdrop
+              often carries the event's own on-site signage (e.g.
+              stage/session lettering) that competes with the H1 and stat
+              tiles sitting on top of it. This darkens specifically behind
+              the text/stat column without further flattening the photo
+              itself. */}
           <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/25 to-ink" />
           <div className="relative mx-auto w-full max-w-6xl">
             <PanelReveal>
@@ -142,14 +135,11 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
       label: "Challenge & approach",
       content: (
         <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-          <DuotoneImage
-            src={getMedia(caseStudy.slot)}
-            alt=""
-            className="opacity-10"
-            position={positions[caseStudy.slot]}
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-ink/70" />
+          {/* Darker than the Overview panel's scrim (this one is
+              text-heavy, two columns of body copy), but no longer near-opaque
+              — the persistent background behind the whole track stays
+              visible through it instead of fading to nothing. */}
+          <div className="absolute inset-0 bg-ink/55" />
           <div className="relative mx-auto w-full max-w-7xl">
             <div className="grid gap-x-16 gap-y-10 md:grid-cols-2">
               <PanelReveal>
@@ -168,8 +158,13 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
     {
       label: "Gallery",
       content: (
-        <section className="flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-          <div className="mx-auto w-full max-w-7xl">
+        <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+          {/* Soft scrim only, not the near-opaque one the text panel gets —
+              the gallery's own photos carry the panel, but the persistent
+              hero background still bleeds through around/behind the grid so
+              the cut into the gallery doesn't read as a different page. */}
+          <div className="absolute inset-0 bg-ink/45" />
+          <div className="relative mx-auto w-full max-w-7xl">
             <PanelReveal>
               <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">Gallery</h2>
               <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:auto-rows-[minmax(150px,auto)] md:gap-4">
@@ -200,5 +195,16 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
     },
   ];
 
-  return <ScrollJackTrack panels={panels} />;
+  return (
+    <ScrollJackTrack
+      panels={panels}
+      background={
+        <PersistentPanelBackground
+          src={getMedia(caseStudy.slot)}
+          alt={caseStudy.title}
+          position={positions[caseStudy.slot]}
+        />
+      }
+    />
+  );
 }

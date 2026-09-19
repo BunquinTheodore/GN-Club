@@ -14,7 +14,6 @@ import {
   useScroll,
   useSpring,
   useTransform,
-  type MotionValue,
 } from "framer-motion";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { HorizontalScrollViewportContext } from "@/components/HorizontalScroll";
@@ -43,6 +42,15 @@ function useIsMounted(): boolean {
 type ScrollJackTrackProps = {
   panels: ScrollJackPanel[];
   className?: string;
+  /**
+   * Rendered once behind the whole pinned viewport (desktop) or behind the
+   * stacked fallback (mobile/reduced-motion), instead of each panel
+   * re-rendering its own copy of the hero image at a different opacity.
+   * Typically a <PersistentPanelBackground />. Panels layer their own
+   * scrim on top of this for text legibility — they no longer own the
+   * photo itself.
+   */
+  background?: ReactNode;
 };
 
 /**
@@ -59,7 +67,7 @@ type ScrollJackTrackProps = {
  * not affect the shared <HorizontalScroll> (used elsewhere as a plain
  * vertical stack).
  */
-export function ScrollJackTrack({ panels, className = "" }: ScrollJackTrackProps) {
+export function ScrollJackTrack({ panels, className = "", background }: ScrollJackTrackProps) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const prefersReducedMotion = useReducedMotion();
   const mounted = useIsMounted();
@@ -68,17 +76,20 @@ export function ScrollJackTrack({ panels, className = "" }: ScrollJackTrackProps
 
   if (!useJack) {
     return (
-      <div className={`flex flex-col ${className}`}>
-        {panels.map((panel, i) => (
-          <div key={i} className="w-full">
-            {panel.content}
-          </div>
-        ))}
+      <div className={`relative flex flex-col ${className}`}>
+        {background && <div className="absolute inset-0 z-0">{background}</div>}
+        <div className="relative z-10 flex flex-col">
+          {panels.map((panel, i) => (
+            <div key={i} className="w-full">
+              {panel.content}
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
 
-  return <Track panels={panels} className={className} />;
+  return <Track panels={panels} className={className} background={background} />;
 }
 
 // Extra scroll distance appended after the last panel's nominal position,
@@ -91,7 +102,15 @@ export function ScrollJackTrack({ panels, className = "" }: ScrollJackTrackProps
 // before the pin actually releases.
 const END_BUFFER_VH = 45;
 
-function Track({ panels, className }: { panels: ScrollJackPanel[]; className: string }) {
+function Track({
+  panels,
+  className,
+  background,
+}: {
+  panels: ScrollJackPanel[];
+  className: string;
+  background?: ReactNode;
+}) {
   const trackRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -158,12 +177,15 @@ function Track({ panels, className }: { panels: ScrollJackPanel[]; className: st
           track below, while `x` pans its contents horizontally as the user
           scrolls vertically past the track. */}
       <div ref={viewportRef} className="sticky top-0 h-screen overflow-hidden">
+        {/* Single persistent background layer for the whole pinned viewport
+            — sits behind every panel so the hero photo stays visually
+            continuous as the track pans, instead of each panel re-rendering
+            its own copy at a different (fading) opacity. */}
+        {background && <div className="absolute inset-0 z-0">{background}</div>}
         <HorizontalScrollViewportContext.Provider value={viewportRef}>
-          <motion.div className="flex h-full" style={{ x, willChange: "transform" }}>
+          <motion.div className="relative z-10 flex h-full" style={{ x, willChange: "transform" }}>
             {panels.map((panel, i) => (
-              <PanelFrame key={i} index={i} progress={progress}>
-                {panel.content}
-              </PanelFrame>
+              <PanelFrame key={i}>{panel.content}</PanelFrame>
             ))}
           </motion.div>
         </HorizontalScrollViewportContext.Provider>
@@ -190,40 +212,36 @@ function Track({ panels, className }: { panels: ScrollJackPanel[]; className: st
 }
 
 /**
- * One panel's slot in the track. Derives its own opacity/scale from the
- * shared spring value (`progress`) instead of just sitting at flat 1/1 —
- * the panel currently under focus reads as sharp and full-strength while
- * its neighbors recede slightly, so the horizontal pan reads as a designed
- * transition between panels rather than a flat filmstrip being dragged
- * sideways.
+ * One panel's slot in the track.
+ *
+ * This used to derive its own opacity/scale from the shared spring value
+ * (fading/shrinking neighbors as they receded from focus), so the pan read
+ * as a designed transition rather than a flat filmstrip being dragged
+ * sideways. But every panel here sits on top of one shared, non-moving
+ * `PersistentPanelBackground` layer specifically so the hero photo reads as
+ * continuous across the whole track — and each panel additionally paints
+ * its own local scrim (an `ink/NN` wash) over that shared layer for text
+ * contrast. Fading a panel's opacity faded its scrim along with it, and
+ * during a transition *two* adjacent panels are simultaneously below full
+ * opacity/scale at once, both under-scrimmed at the same moment — which let
+ * the brighter, un-scrimmed shared background bleed through right at the
+ * seam between them (worse still, the scale-down physically pulled each
+ * panel's edge inward, opening a real gap onto that raw background). That
+ * showed up as a visible lighter band exactly at the panel boundary while
+ * panning — the opposite of the "one continuous background" effect this
+ * whole component exists for. Removed; panels now stay flush at opacity 1
+ * so nothing exposes the shared background layer between them.
  */
-function PanelFrame({
-  index,
-  progress,
-  children,
-}: {
-  index: number;
-  progress: MotionValue<number>;
-  children: ReactNode;
-}) {
-  const distance = useTransform(progress, (v) => Math.abs(v - index));
-  const opacity = useTransform(distance, [0, 1], [1, 0.45]);
-  const scale = useTransform(distance, [0, 1], [1, 0.96]);
-
+function PanelFrame({ children }: { children: ReactNode }) {
   return (
-    <motion.div
-      // w-full (not w-screen) so each panel's actual rendered width matches
-      // the pinned viewport's real width — the viewport is a normal block
-      // box inside the sidebar-padded body, not the full window, so it's
-      // narrower than 100vw by the sidebar's width on desktop. A w-screen
-      // panel used to overflow that box; translateX(-N * 100%), a
-      // percentage of the row's own (correctly-sized) box, then undershot
-      // by the difference on every step, worse with each panel — by the
-      // last panel on a page with several, it was visibly cropped.
-      className="h-full w-full flex-shrink-0 overflow-hidden"
-      style={{ opacity, scale, willChange: "transform, opacity" }}
-    >
-      {children}
-    </motion.div>
+    // w-full (not w-screen) so each panel's actual rendered width matches
+    // the pinned viewport's real width — the viewport is a normal block
+    // box inside the sidebar-padded body, not the full window, so it's
+    // narrower than 100vw by the sidebar's width on desktop. A w-screen
+    // panel used to overflow that box; translateX(-N * 100%), a
+    // percentage of the row's own (correctly-sized) box, then undershot
+    // by the difference on every step, worse with each panel — by the
+    // last panel on a page with several, it was visibly cropped.
+    <div className="h-full w-full flex-shrink-0 overflow-hidden">{children}</div>
   );
 }

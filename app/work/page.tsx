@@ -2,6 +2,7 @@
 
 import { PortfolioGrid } from "@/components/PortfolioGrid";
 import { PanelReveal } from "@/components/PanelReveal";
+import { EventsTimeline } from "@/components/EventsTimeline";
 
 export default function WorkPage() {
   return (
@@ -19,6 +20,10 @@ export default function WorkPage() {
 
       <div className="mx-auto mt-10 w-full max-w-7xl px-6 md:mt-16 lg:px-10">
         <PortfolioGrid />
+      </div>
+
+      <div className="mx-auto mt-16 w-full max-w-7xl px-6 sm:mt-20 md:mt-28 lg:px-10">
+        <EventsTimeline />
       </div>
     </div>
   );

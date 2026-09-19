@@ -6,6 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { services } from "@/lib/services";
 import { getMedia } from "@/lib/media";
 import { DuotoneImage } from "@/components/DuotoneImage";
+import { PersistentPanelBackground } from "@/components/PersistentPanelBackground";
 import { GlassPanel } from "@/components/GlassPanel";
 import { ScrollJackTrack, type ScrollJackPanel } from "@/components/ScrollJackTrack";
 import { PanelReveal } from "@/components/PanelReveal";
@@ -27,13 +28,6 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
       label: "Overview",
       content: (
         <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-          <DuotoneImage
-            src={getMedia(service.media)}
-            alt={service.title}
-            className="opacity-35"
-            priority
-            sizes="100vw"
-          />
           <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/25 to-ink" />
           <div className="relative mx-auto w-full max-w-6xl">
             <PanelReveal>
@@ -69,8 +63,12 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
       // section that happens to be alone on screen.
       label: "What's included",
       content: (
-        <section className="flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-          <div className="mx-auto grid w-full max-w-7xl gap-10 md:grid-cols-[0.8fr_1.2fr] md:items-center md:gap-16">
+        <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+          {/* Scrim for the shared persistent background — this panel is
+              text-heavy (heading + blurb) like Details/Process, so it needs
+              the same contrast protection they have. */}
+          <div className="absolute inset-0 bg-ink/50" />
+          <div className="relative mx-auto grid w-full max-w-7xl gap-10 md:grid-cols-[0.8fr_1.2fr] md:items-center md:gap-16">
             <PanelReveal>
               <div className="relative h-40 overflow-hidden rounded-2xl md:h-56">
                 <DuotoneImage src={getMedia(service.media)} alt="" className="opacity-70" />
@@ -105,8 +103,10 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
       label: "Details",
       content: (
         <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-          <DuotoneImage src={getMedia(service.media)} alt="" className="opacity-10" sizes="100vw" />
-          <div className="absolute inset-0 bg-ink/70" />
+          {/* Darker than the Overview panel's scrim (this one is
+              text-heavy), but no longer near-opaque — the persistent
+              background behind the whole track stays visible through it. */}
+          <div className="absolute inset-0 bg-ink/55" />
           <div className="relative mx-auto w-full max-w-7xl">
             <PanelReveal>
               <h2 className="font-display text-2xl tracking-tight text-fog sm:text-3xl">Overview</h2>
@@ -131,8 +131,13 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
       // page's own left-to-right pan instead of cutting against it.
       label: "Process",
       content: (
-        <section className="flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-          <div className="mx-auto w-full max-w-7xl">
+        <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+          {/* This panel previously had no background image at all, which is
+              exactly the abrupt cut the persistent background fixes — it now
+              shows through directly, with only a light scrim for the
+              heading/step-card text. */}
+          <div className="absolute inset-0 bg-ink/30" />
+          <div className="relative mx-auto w-full max-w-7xl">
             <PanelReveal>
               <h2 className="font-display text-2xl tracking-tight text-fog sm:text-3xl">How it runs</h2>
             </PanelReveal>
@@ -161,8 +166,12 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
   panels.push({
     label: "Gallery",
     content: (
-      <section className="flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
-        <div className="mx-auto w-full max-w-7xl">
+      <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+        {/* Soft scrim only — the gallery's own photos carry the panel, but
+            the persistent hero background still bleeds through around/behind
+            the grid so the cut into the gallery reads as continuous. */}
+        <div className="absolute inset-0 bg-ink/45" />
+        <div className="relative mx-auto w-full max-w-7xl">
           <PanelReveal>
             <h2 className="font-display text-2xl tracking-tight text-fog sm:text-3xl">Gallery</h2>
             <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:auto-rows-[minmax(160px,auto)] md:gap-4">
@@ -191,11 +200,23 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
   panels.push({
     label: "Get in touch",
     content: (
-      <div className="flex h-full items-center">
-        <CTASection />
+      <div className="relative flex h-full items-center">
+        {/* CTASection carries its own DuotoneImage at opacity-40, and only
+            over its own (flex-centered, not full-height) content box — it
+            doesn't fully occlude the shared persistent background, which
+            would otherwise bleed through above/below it unmasked. */}
+        <div className="absolute inset-0 bg-ink/50" />
+        <div className="relative w-full">
+          <CTASection />
+        </div>
       </div>
     ),
   });
 
-  return <ScrollJackTrack panels={panels} />;
+  return (
+    <ScrollJackTrack
+      panels={panels}
+      background={<PersistentPanelBackground src={getMedia(service.media)} alt={service.title} />}
+    />
+  );
 }
