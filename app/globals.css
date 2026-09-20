@@ -135,6 +135,67 @@ body {
   color: var(--ink);
 }
 
+/* GN Club intro splash: fullscreen ink screen with the wordmark, holds for
+   1s then animates away. Pure CSS (animation-delay), so it appears in the
+   server-rendered HTML with no JS/hydration dependency. Lives once in the
+   root layout (not template.tsx), so it never re-plays on client-side
+   route transitions, only on a real page load or hard refresh. */
+.gn-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  animation: gn-splash-out 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 1s;
+}
+
+.gn-splash__title {
+  font-family: var(--font-display), var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.75rem, 5.25vw, 3.125rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fog);
+}
+
+@keyframes gn-splash-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.015);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.06);
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gn-splash {
+    animation: gn-splash-out-reduced 0.2s ease-out forwards;
+    animation-delay: 0.15s;
+  }
+}
+
+@keyframes gn-splash-out-reduced {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
 /* signature cyan -> lime -> amber sweep, used sparingly */
 .gradient-ring-text {
   background: linear-gradient(100deg, var(--cyan), var(--lime) 55%, var(--amber));

@@ -5,6 +5,7 @@ import { Sidebar } from "@/components/Sidebar";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { ClickSoundProvider } from "@/components/ClickSoundProvider";
+import { SplashScreen } from "@/components/SplashScreen";
 import { cn } from "@/lib/utils";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={cn("h-full", "antialiased", inter.variable, spaceGrotesk.variable, "font-sans", geist.variable)}
     >
       <body className="min-h-full bg-ink md:pl-[260px]">
+        <SplashScreen />
         <Sidebar />
         <div className="flex min-h-full flex-col">
           <main className="flex-1">{children}</main>

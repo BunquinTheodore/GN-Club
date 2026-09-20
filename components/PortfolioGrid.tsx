@@ -18,7 +18,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 const items = portfolio;
-const spans = ["md:row-span-2", "", "", "md:row-span-2", "", "", "", "", ""];
+const spans = ["lg:row-span-2", "", "", "lg:row-span-2", "", "", "", "", ""];
 
 // object-cover art-direction overrides, keyed by lib/media.ts slot. Only
 // slots where a blind center crop loses the subject at both the short/wide
@@ -51,7 +51,7 @@ export function PortfolioGrid() {
         <button
           type="button"
           onClick={() => setActiveTag(null)}
-          className={`rounded-full border px-3 py-1 text-[11px] font-medium transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-lime md:text-xs ${
+          className={`rounded-full border px-3 py-2 text-[11px] font-medium transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-lime md:py-1 md:text-xs ${
             activeTag === null
               ? "border-lime/50 bg-lime/10 text-lime"
               : "border-glass-border text-fog-dim hover:border-lime/30 hover:text-fog"
@@ -64,7 +64,7 @@ export function PortfolioGrid() {
             key={tag}
             type="button"
             onClick={() => setActiveTag(tag)}
-            className={`rounded-full border px-3 py-1 text-[11px] font-medium transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-lime md:text-xs ${
+            className={`rounded-full border px-3 py-2 text-[11px] font-medium transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-lime md:py-1 md:text-xs ${
               activeTag === tag
                 ? "border-lime/50 bg-lime/10 text-lime"
                 : "border-glass-border text-fog-dim hover:border-lime/30 hover:text-fog"
@@ -75,7 +75,7 @@ export function PortfolioGrid() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:auto-rows-[minmax(220px,auto)] md:gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:auto-rows-[minmax(220px,auto)] lg:gap-4">
         {visible.map(({ item, i }) => (
           <motion.div
             key={item.slot}
@@ -85,7 +85,7 @@ export function PortfolioGrid() {
             transition={{ duration: 0.6, delay: (i % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.98 }}
-            className={`group relative aspect-[4/3] overflow-hidden rounded-xl border border-glass-border transition-[border-color,box-shadow] duration-300 hover:border-lime/40 hover:shadow-[0_18px_40px_-16px_rgba(0,0,0,0.55)] sm:aspect-auto md:h-full md:rounded-2xl ${spans[i]}`}
+            className={`group relative aspect-[4/3] overflow-hidden rounded-xl border border-glass-border transition-[border-color,box-shadow] duration-300 hover:border-lime/40 hover:shadow-[0_18px_40px_-16px_rgba(0,0,0,0.55)] md:rounded-2xl lg:aspect-auto lg:h-full ${spans[i]}`}
           >
             <button
               type="button"

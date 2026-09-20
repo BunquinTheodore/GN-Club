@@ -27,7 +27,7 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
     {
       label: "Overview",
       content: (
-        <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+        <section className="relative flex h-full flex-col justify-center px-6 pb-14 pt-24 sm:pb-16 sm:pt-16 md:pt-16 lg:px-10">
           <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/25 to-ink" />
           <div className="relative mx-auto w-full max-w-6xl">
             <PanelReveal>
@@ -63,7 +63,7 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
       // section that happens to be alone on screen.
       label: "What's included",
       content: (
-        <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+        <section className="relative flex h-full flex-col justify-center px-6 pb-14 pt-24 sm:pb-16 sm:pt-16 md:pt-16 lg:px-10">
           {/* Scrim for the shared persistent background — this panel is
               text-heavy (heading + blurb) like Details/Process, so it needs
               the same contrast protection they have. */}
@@ -102,7 +102,7 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
     panels.push({
       label: "Details",
       content: (
-        <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+        <section className="relative flex h-full flex-col justify-center px-6 pb-14 pt-24 sm:pb-16 sm:pt-16 md:pt-16 lg:px-10">
           {/* Darker than the Overview panel's scrim (this one is
               text-heavy), but no longer near-opaque — the persistent
               background behind the whole track stays visible through it. */}
@@ -131,7 +131,7 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
       // page's own left-to-right pan instead of cutting against it.
       label: "Process",
       content: (
-        <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+        <section className="relative flex h-full flex-col justify-center px-6 pb-14 pt-24 sm:pb-16 sm:pt-16 md:pt-16 lg:px-10">
           {/* This panel previously had no background image at all, which is
               exactly the abrupt cut the persistent background fixes — it now
               shows through directly, with only a light scrim for the
@@ -166,7 +166,7 @@ export function ServiceDetailPanels({ slug }: ServiceDetailPanelsProps) {
   panels.push({
     label: "Gallery",
     content: (
-      <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+      <section className="relative flex h-full flex-col justify-center px-6 pb-14 pt-24 sm:pb-16 sm:pt-16 md:pt-16 lg:px-10">
         {/* Soft scrim only — the gallery's own photos carry the panel, but
             the persistent hero background still bleeds through around/behind
             the grid so the cut into the gallery reads as continuous. */}

@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  useEffect,
   useRef,
   useState,
   useSyncExternalStore,
@@ -39,6 +40,75 @@ function useIsMounted(): boolean {
   );
 }
 
+/**
+ * Guards a fresh visit to this page against landing mid-track instead of at
+ * the top.
+ *
+ * Case-study/service pages are opened from a preview Dialog (see
+ * PortfolioGrid) that applies Base UI's scroll lock while it's open. That
+ * lock restores the *document's* scroll position — captured when the dialog
+ * opened, from whatever the referring page (home, /work) was scrolled to —
+ * once the dialog finishes its close transition. Because the whole previous
+ * page (including the dialog) unmounts as part of navigating away, that
+ * restore doesn't fire until after Next.js has already committed the new
+ * route and reset scroll to 0, so it silently snaps the *new* page back down
+ * to the old page's scroll offset a couple hundred ms later. On a normal
+ * page that's a small, easy-to-miss jump; on a tall pinned ScrollJackTrack
+ * (2-4x viewport height) that same offset lands mid-pan, typically on the
+ * gallery panel, looking like the link ignored the "go to top" expectation
+ * entirely.
+ *
+ * We can't fix the timing of a third-party scroll lock we don't own, so
+ * instead we watch for it: force scroll to 0 on mount, then keep watching
+ * for just over a second. If scroll drifts away from 0 *and* the visitor
+ * hasn't actually scrolled/panned themselves in the meantime, that drift can
+ * only be the stray restore landing late — snap it back. A visitor who
+ * genuinely scrolled is left alone. The reset is an instant `scrollTop`
+ * assignment rather than `scrollTo`, since this site sets a global
+ * `scroll-behavior: smooth` on <html> — animating "back" to the top a beat
+ * after landing mid-page would look worse than the bug it's fixing.
+ */
+function useLandOnTop() {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let interacted = false;
+    const markInteracted = () => {
+      interacted = true;
+    };
+    const opts: AddEventListenerOptions = { passive: true };
+    window.addEventListener("wheel", markInteracted, opts);
+    window.addEventListener("touchmove", markInteracted, opts);
+    window.addEventListener("keydown", markInteracted);
+
+    function snapToTop() {
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+    snapToTop();
+
+    // Poll for ~1.2s (comfortably past the dialog's own close-transition)
+    // rather than checking once at a fixed delay — the exact timing of the
+    // stray restore isn't something we control.
+    const start = performance.now();
+    let frameId = requestAnimationFrame(function tick() {
+      if (!interacted && window.scrollY !== 0) {
+        snapToTop();
+      }
+      if (!interacted && performance.now() - start < 1200) {
+        frameId = requestAnimationFrame(tick);
+      }
+    });
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("wheel", markInteracted);
+      window.removeEventListener("touchmove", markInteracted);
+      window.removeEventListener("keydown", markInteracted);
+    };
+  }, []);
+}
+
 type ScrollJackTrackProps = {
   panels: ScrollJackPanel[];
   className?: string;
@@ -71,6 +141,8 @@ export function ScrollJackTrack({ panels, className = "", background }: ScrollJa
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const prefersReducedMotion = useReducedMotion();
   const mounted = useIsMounted();
+
+  useLandOnTop();
 
   const useJack = mounted && isDesktop && !prefersReducedMotion && panels.length > 1;
 

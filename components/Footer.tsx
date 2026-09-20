@@ -53,7 +53,7 @@ export function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={s.label}
-                className="text-fog-dim transition-colors duration-200 hover:text-lime"
+                className="-m-3 flex items-center justify-center p-3 text-fog-dim transition-colors duration-200 hover:text-lime"
               >
                 {Icon ? <Icon className="h-4 w-4" aria-hidden /> : s.label}
               </a>

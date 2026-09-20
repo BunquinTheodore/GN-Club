@@ -8,7 +8,12 @@ import { getMedia } from "@/lib/media";
 export function CTASection() {
   return (
     <section className="relative overflow-hidden border-y border-glass-border">
-      <DuotoneImage src={getMedia("contact.backdrop")} alt="" className="opacity-40" />
+      <DuotoneImage
+        src={getMedia("contact.backdrop")}
+        alt=""
+        className="opacity-40"
+        position="center 25%"
+      />
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}

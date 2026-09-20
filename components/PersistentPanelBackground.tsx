@@ -20,6 +20,13 @@ type PersistentPanelBackgroundProps = {
  */
 export function PersistentPanelBackground({ src, alt, position }: PersistentPanelBackgroundProps) {
   return (
-    <DuotoneImage src={src} alt={alt} className="opacity-30" position={position} priority sizes="100vw" />
+    <DuotoneImage
+      src={src}
+      alt={alt}
+      className="opacity-30"
+      position={position}
+      priority
+      sizes="100vw"
+    />
   );
 }

@@ -208,7 +208,7 @@ function MobileTopBar({ pathname }: { pathname: string }) {
         <button
           aria-label="Toggle menu"
           onClick={() => setOpen((v) => !v)}
-          className="flex h-9 w-9 flex-col items-center justify-center gap-1.5"
+          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5"
         >
           <span className={`h-px w-5 bg-fog transition-transform ${open ? "translate-y-[3px] rotate-45" : ""}`} />
           <span className={`h-px w-5 bg-fog transition-opacity ${open ? "opacity-0" : ""}`} />

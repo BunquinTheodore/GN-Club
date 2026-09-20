@@ -33,6 +33,19 @@ const positions: Record<string, string> = {
   "pickleball.1": "center 15%",
 };
 
+// Matches the gallery grid's md:grid-cols-3 — one row of images per
+// ScrollJackTrack panel (see the Gallery panel construction below for why
+// panel content must stay to a single row).
+const GALLERY_ROW_SIZE = 3;
+
+function chunkGallery(slots: string[], size: number): string[][] {
+  const chunks: string[][] = [];
+  for (let i = 0; i < slots.length; i += size) {
+    chunks.push(slots.slice(i, i + size));
+  }
+  return chunks;
+}
+
 /**
  * Result value with a lightweight count-up: parses a leading numeric run
  * (allowing commas, e.g. "2,400") and animates it in once the tile scrolls
@@ -77,7 +90,7 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
     {
       label: "Overview",
       content: (
-        <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+        <section className="relative flex h-full flex-col justify-center px-6 pb-14 pt-24 sm:pb-16 sm:pt-16 md:pt-16 lg:px-10">
           {/* Scrim over the shared persistent background — the hero backdrop
               often carries the event's own on-site signage (e.g.
               stage/session lettering) that competes with the H1 and stat
@@ -134,7 +147,7 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
       // narrower centered column, so it actually uses the 100vw slide.
       label: "Challenge & approach",
       content: (
-        <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+        <section className="relative flex h-full flex-col justify-center px-6 pb-14 pt-24 sm:pb-16 sm:pt-16 md:pt-16 lg:px-10">
           {/* Darker than the Overview panel's scrim (this one is
               text-heavy, two columns of body copy), but no longer near-opaque
               — the persistent background behind the whole track stays
@@ -155,10 +168,19 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
         </section>
       ),
     },
-    {
+    // ScrollJackTrack pins each panel to a single viewport with
+    // overflow-hidden and no inner scroll (see PanelFrame's comment there) —
+    // a panel's content MUST fit in one screen or it gets hard-clipped top
+    // and bottom. A 3-column grid of 9 (or 8) gallery images runs to 3 full
+    // rows, which is taller than most viewports, so the previous single
+    // "Gallery" panel was clipping its first and last row (badges/headings
+    // cut off). Splitting into one panel per row of GALLERY_ROW_SIZE images
+    // keeps every panel comfortably short regardless of viewport height,
+    // and gives every image room to display in full.
+    ...chunkGallery(caseStudy.gallery, GALLERY_ROW_SIZE).map((slots, chunkIndex) => ({
       label: "Gallery",
       content: (
-        <section className="relative flex h-full flex-col justify-center px-6 py-14 sm:py-16 lg:px-10">
+        <section className="relative flex h-full flex-col justify-center px-6 pb-14 pt-24 sm:pb-16 sm:pt-16 md:pt-16 lg:px-10">
           {/* Soft scrim only, not the near-opaque one the text panel gets —
               the gallery's own photos carry the panel, but the persistent
               hero background still bleeds through around/behind the grid so
@@ -166,33 +188,51 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
           <div className="absolute inset-0 bg-ink/45" />
           <div className="relative mx-auto w-full max-w-7xl">
             <PanelReveal>
-              <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">Gallery</h2>
-              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:auto-rows-[minmax(150px,auto)] md:gap-4">
-                {caseStudy.gallery.map((slot, i) => (
-                  <div
-                    key={`${slot}-${i}`}
-                    className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-glass-border transition-colors duration-300 hover:border-lime/40 md:aspect-auto"
-                  >
-                    <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.08]">
-                      <DuotoneImage
-                        src={getMedia(slot)}
-                        alt={`${caseStudy.title} photo ${i + 1}`}
-                        position={positions[slot]}
+              <h2 className="font-display text-xl tracking-tight text-fog sm:text-2xl">
+                Gallery
+              </h2>
+              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 md:gap-4">
+                {slots.map((slot, i) => {
+                  const globalIndex = chunkIndex * GALLERY_ROW_SIZE + i;
+                  return (
+                    <div
+                      key={`${slot}-${globalIndex}`}
+                      // These tiles hold designed marketing graphics (headings,
+                      // badges, QR codes) rather than photography, so any crop
+                      // risks slicing off text. The Mazal set's source files are
+                      // all a uniform 940x788 canvas — aspect-[235/197] matches
+                      // that exactly (940/788 reduced), so object-cover below
+                      // scales without cropping instead of forcing a mismatched
+                      // 4:3 box. Other case studies' galleries are real event
+                      // photography, art-directed to crop via `positions`
+                      // above, so they keep the original 4:3 tile.
+                      className={
+                        slot.startsWith("mazal.")
+                          ? "group relative aspect-[235/197] overflow-hidden rounded-2xl border border-glass-border transition-colors duration-300 hover:border-lime/40"
+                          : "group relative aspect-[4/3] overflow-hidden rounded-2xl border border-glass-border transition-colors duration-300 hover:border-lime/40"
+                      }
+                    >
+                      <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.08]">
+                        <DuotoneImage
+                          src={getMedia(slot)}
+                          alt={`${caseStudy.title} photo ${globalIndex + 1}`}
+                          position={positions[slot]}
+                        />
+                      </div>
+                      <span
+                        aria-hidden="true"
+                        className="card-shine"
+                        style={{ "--shine-delay": `${(globalIndex % 5) * 0.6}s` } as CSSProperties}
                       />
                     </div>
-                    <span
-                      aria-hidden="true"
-                      className="card-shine"
-                      style={{ "--shine-delay": `${(i % 5) * 0.6}s` } as CSSProperties}
-                    />
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </PanelReveal>
           </div>
         </section>
       ),
-    },
+    })),
   ];
 
   return (
