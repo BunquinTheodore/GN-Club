@@ -80,6 +80,12 @@ function useLandOnTop() {
     window.addEventListener("wheel", markInteracted, opts);
     window.addEventListener("touchmove", markInteracted, opts);
     window.addEventListener("keydown", markInteracted);
+    // Dragging the native scrollbar thumb doesn't fire wheel/touchmove/
+    // keydown, so without this the poll below fights a legitimate
+    // scrollbar drag for up to 1.2s. pointerdown only fires from a real
+    // input device, never from our own programmatic `snapToTop()` scroll,
+    // so it's safe to treat as genuine interaction.
+    window.addEventListener("pointerdown", markInteracted);
 
     function snapToTop() {
       document.documentElement.scrollTop = 0;
@@ -105,6 +111,7 @@ function useLandOnTop() {
       window.removeEventListener("wheel", markInteracted);
       window.removeEventListener("touchmove", markInteracted);
       window.removeEventListener("keydown", markInteracted);
+      window.removeEventListener("pointerdown", markInteracted);
     };
   }, []);
 }

@@ -177,8 +177,13 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
     // cut off). Splitting into one panel per row of GALLERY_ROW_SIZE images
     // keeps every panel comfortably short regardless of viewport height,
     // and gives every image room to display in full.
-    ...chunkGallery(caseStudy.gallery, GALLERY_ROW_SIZE).map((slots, chunkIndex) => ({
-      label: "Gallery",
+    ...chunkGallery(caseStudy.gallery, GALLERY_ROW_SIZE).map((slots, chunkIndex, allChunks) => ({
+      // Visible heading always reads plain "Gallery" (the pagination dot's
+      // aria-label is the only thing that needs disambiguating when a case
+      // study's photos span multiple chunked panels, so screen reader/
+      // keyboard users don't get several identically-labeled "Go to
+      // Gallery" buttons).
+      label: allChunks.length > 1 ? `Gallery, row ${chunkIndex + 1}` : "Gallery",
       content: (
         <section className="relative flex h-full flex-col justify-center px-6 pb-14 pt-24 sm:pb-16 sm:pt-16 md:pt-16 lg:px-10">
           {/* Soft scrim only, not the near-opaque one the text panel gets —
