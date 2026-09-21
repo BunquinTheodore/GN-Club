@@ -33,7 +33,15 @@ const slotPosition: Record<string, string> = {
 
 const tags = Array.from(new Set(items.map((item) => item.tag)));
 
-export function PortfolioGrid() {
+type PortfolioGridProps = {
+  /** Eager-load the first N tiles' images. Only true when the grid itself
+   * renders above the fold (e.g. /work) — on the homepage it sits below
+   * Hero/stats/ClientLogos, so eager-loading here would compete with the
+   * real LCP image for early network priority. */
+  priorityCount?: number;
+};
+
+export function PortfolioGrid({ priorityCount = 0 }: PortfolioGridProps) {
   const [selected, setSelected] = useState<number | null>(null);
   const [activeTag, setActiveTag] = useState<string | null>(null);
   const activeItem = selected !== null ? items[selected] : null;
@@ -101,7 +109,7 @@ export function PortfolioGrid() {
                 src={getMedia(item.slot)}
                 alt={item.title}
                 position={slotPosition[item.slot]}
-                priority={i < 3}
+                priority={i < priorityCount}
                 sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
               />
             </div>

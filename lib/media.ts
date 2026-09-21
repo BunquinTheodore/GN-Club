@@ -1,84 +1,116 @@
 /**
  * Named image slots -> source. Every slot below is a stock placeholder —
  * curated free-license Unsplash photography standing in for GN Club's own
- * event photography — except "hero.cover" (a real Facebook cover photo) and
- * the wocee, pickleball, and brand slots (real GN Club assets, see below).
+ * event photography — except "hero.cover" (a real Facebook cover photo), the
+ * wocee, pickleball, mazal, and brand slots (real GN Club assets, see below),
+ * the about.stage, about.team, services.activations, services.studio,
+ * and services.others slots (real GN Club community-event photos from the
+ * Mazal Naos co-work, Aug 29, see naos/ below), and the work.1-6,
+ * services.logistics, services.merch, services.digital, services.video,
+ * services.online, and every listed .gallery.2/.gallery.3 slot (real GN
+ * Club event photography sourced from the team's Google Drive — GN Club x
+ * OKX "Trading Battlegrounds", CJC Race, and Gate Zone/Coinfest Asia — see
+ * drive/ below). A few .gallery.3 slots (services.video, services.studio)
+ * are still stock — no genuinely good real-photo match was found for those
+ * specifically, so they were left rather than forced.
  * Swap any URL here to replace imagery site-wide without touching component
  * code.
  */
 export const media: Record<string, string> = {
-  "hero.cover": "/hero-cover.png",
+  "hero.cover": "/hero-cover.jpg",
 
-  "services.activations":
-    "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=1600&auto=format&fit=crop",
-  "services.online":
-    "https://images.unsplash.com/photo-1764664035176-8e92ff4f128e?q=80&w=1200&auto=format&fit=crop",
-  "services.digital":
-    "https://images.unsplash.com/photo-1754548930550-be9fa88874f4?q=80&w=1200&auto=format&fit=crop",
-  "services.video":
-    "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1200&auto=format&fit=crop",
-  "services.logistics":
-    "https://images.unsplash.com/photo-1553413077-190dd305871c?q=80&w=1200&auto=format&fit=crop",
-  "services.others":
-    "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=1200&auto=format&fit=crop",
-  "services.studio":
-    "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=1200&auto=format&fit=crop",
-  "services.merch":
-    "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?q=80&w=1200&auto=format&fit=crop",
+  // Real GN Club community-event photography — Mazal Naos co-work (Aug 29),
+  // replacing a stock Unsplash placeholder.
+  "services.activations": "/images/naos/naos-activations.jpg",
+  // Real GN Club event photography — Google Drive, WOCEE 2026 broadcast
+  // desk, replacing a stock Unsplash placeholder.
+  "services.online": "/images/drive/drive-online.jpg",
+  // Real GN Club event photography — Google Drive, live event laptop/
+  // trading-chart shot, replacing a stock Unsplash placeholder.
+  "services.digital": "/images/drive/drive-digital.jpg",
+  // Real GN Club event photography — Google Drive, WOCEE 2026 Expo Stage
+  // (videographer filming the presenter interview), replacing a stock
+  // Unsplash placeholder.
+  "services.video": "/images/drive/drive-wocee-videographer.jpg",
+  // Real GN Club event photography — Google Drive, GN Club x OKX "Trading
+  // Battlegrounds" (CEX vs DEX) activation, full stage/laptop-row setup,
+  // replacing a stock Unsplash placeholder.
+  "services.logistics": "/images/drive/drive-logistics.jpg",
+  // Real GN Club community-event photography — Mazal Naos co-work (Aug 29),
+  // replacing stock Unsplash placeholders.
+  "services.others": "/images/naos/naos-others.jpg",
+  "services.studio": "/images/naos/naos-studio.jpg",
+  // Real GN Club event photography — Google Drive, CJC Race community
+  // members holding branded event merchandise, replacing a stock Unsplash
+  // placeholder.
+  "services.merch": "/images/drive/drive-merch.jpg",
 
   // Additional gallery photos for each service's /services/[slug] detail
   // page — supplements the single hero photo above with 2 more stock shots
   // per service.
-  "services.activations.gallery.2":
-    "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop",
-  "services.activations.gallery.3":
-    "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1200&auto=format&fit=crop",
-  "services.online.gallery.2":
-    "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=1200&auto=format&fit=crop",
-  "services.online.gallery.3":
-    "https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?q=80&w=1200&auto=format&fit=crop",
-  "services.digital.gallery.2":
-    "https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1200&auto=format&fit=crop",
-  "services.digital.gallery.3":
-    "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop",
-  "services.video.gallery.2":
-    "https://images.unsplash.com/photo-1585951237318-9ea5e175b891?q=80&w=1200&auto=format&fit=crop",
+  // Real GN Club event photography — Google Drive, GN Club x OKX "Trading
+  // Battlegrounds" crowd/banner moments, replacing stock Unsplash placeholders.
+  "services.activations.gallery.2": "/images/drive/drive-activations-gallery-2.jpg",
+  "services.activations.gallery.3": "/images/drive/drive-activations-gallery-3.jpg",
+  // Real GN Club event photography — Google Drive, WOCEE 2026 broadcast
+  // desk, replacing a stock Unsplash placeholder.
+  "services.online.gallery.2": "/images/drive/drive-online.jpg",
+  // Real GN Club event photography — Google Drive, Gate Zone (Coinfest Asia
+  // side event) panel/host moment, replacing a stock Unsplash placeholder.
+  "services.online.gallery.3": "/images/drive/drive-online-gallery-3.jpg",
+  // Real GN Club event photography — Google Drive, GN Club x OKX "Trading
+  // Battlegrounds" laptop-row shots, replacing stock Unsplash placeholders.
+  "services.digital.gallery.2": "/images/drive/drive-digital-gallery-2.jpg",
+  "services.digital.gallery.3": "/images/drive/drive-digital-gallery-3.jpg",
+  // Real GN Club event photography — Google Drive, WOCEE 2026 gimbal camera
+  // filming "The Nexus Stage", replacing a stock Unsplash placeholder.
+  "services.video.gallery.2": "/images/drive/drive-video-gallery-2.jpg",
   "services.video.gallery.3":
     "https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=1200&auto=format&fit=crop",
-  "services.logistics.gallery.2":
-    "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200&auto=format&fit=crop",
-  "services.logistics.gallery.3":
-    "https://images.unsplash.com/photo-1553413077-190dd305871c?q=80&w=1200&auto=format&fit=crop",
-  "services.others.gallery.2":
-    "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1200&auto=format&fit=crop",
-  "services.others.gallery.3":
-    "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop",
-  "services.studio.gallery.2":
-    "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=1200&auto=format&fit=crop",
+  // Real GN Club event photography — Google Drive, GN Club x OKX "Trading
+  // Battlegrounds" activation setup, replacing stock Unsplash placeholders.
+  "services.logistics.gallery.2": "/images/drive/drive-logistics-gallery-2.jpg",
+  "services.logistics.gallery.3": "/images/drive/drive-logistics-gallery-3.jpg",
+  // Real GN Club event photography — Google Drive, GN Club x OKX post-event
+  // celebration dinner and a Gate Zone stage moment, replacing stock
+  // Unsplash placeholders.
+  "services.others.gallery.2": "/images/drive/drive-others-gallery-2.jpg",
+  "services.others.gallery.3": "/images/drive/drive-others-gallery-3.jpg",
+  // Real GN Club event photography — Google Drive, Gate Zone (Coinfest Asia
+  // side event) panel discussion, seated interview-style format, replacing
+  // a stock Unsplash placeholder.
+  "services.studio.gallery.2": "/images/drive/drive-studio-gallery-2.jpg",
   "services.studio.gallery.3":
     "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=1200&auto=format&fit=crop",
-  "services.merch.gallery.2":
-    "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1200&auto=format&fit=crop",
-  "services.merch.gallery.3":
-    "https://images.unsplash.com/photo-1503341504253-dff4815485f1?q=80&w=1200&auto=format&fit=crop",
+  // Real GN Club event photography — Google Drive, CJC Race community
+  // members holding branded event merchandise, replacing stock Unsplash
+  // placeholders.
+  "services.merch.gallery.2": "/images/drive/drive-merch-gallery-2.jpg",
+  "services.merch.gallery.3": "/images/drive/drive-merch-gallery-3.jpg",
 
-  "about.team":
-    "https://images.unsplash.com/photo-1612544409025-e1f6a56c1152?q=80&w=1600&auto=format&fit=crop",
-  "about.stage":
-    "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1600&auto=format&fit=crop",
+  // Real GN Club community-event photography — Mazal Naos co-work (Aug 29),
+  // replacing stock Unsplash placeholders.
+  "about.team": "/images/naos/naos-team.jpg",
+  "about.stage": "/images/naos/naos-stage.jpg",
 
-  "work.1":
-    "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop",
-  "work.2":
-    "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=1200&auto=format&fit=crop",
-  "work.3":
-    "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1200&auto=format&fit=crop",
-  "work.4":
-    "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=1200&auto=format&fit=crop",
-  "work.5":
-    "https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?q=80&w=1200&auto=format&fit=crop",
-  "work.6":
-    "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?q=80&w=1200&auto=format&fit=crop",
+  // Real GN Club event photography — Google Drive, WOCEE 2026 Expo Stage
+  // (videographer filming the presenter interview), replacing a stock
+  // Unsplash placeholder.
+  "work.1": "/images/drive/drive-wocee-videographer.jpg",
+  // Real GN Club event photography — Google Drive, GN Club x Paradex event
+  // group photo, replacing a stock Unsplash placeholder.
+  "work.2": "/images/drive/drive-work-2.jpg",
+  // Real GN Club event photography — Google Drive, GN Club x OKX "Trading
+  // Battlegrounds" full-crowd banner photo, replacing a stock Unsplash
+  // placeholder.
+  "work.3": "/images/drive/drive-work-3.jpg",
+  // Real GN Club event photography — Google Drive, CJC Race community
+  // group moments, replacing stock Unsplash placeholders.
+  "work.4": "/images/drive/drive-work-4.jpg",
+  "work.5": "/images/drive/drive-work-5.jpg",
+  // Real GN Club event photography — Google Drive, GN Club x OKX "Trading
+  // Battlegrounds" laptop-row shot, replacing a stock Unsplash placeholder.
+  "work.6": "/images/drive/drive-work-6.jpg",
 
   // Real GN Club photography (WOCEE 2026 closing night) — replaces a stock
   // Unsplash crowd photo that had unrelated text ("ALL I AM IS YOURS")

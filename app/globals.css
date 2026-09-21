@@ -149,7 +149,10 @@ body {
   justify-content: center;
   background: var(--ink);
   animation: gn-splash-out 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  animation-delay: 1s;
+  /* Shortened from 1s — a flat, unconditional hold before the fade even
+     starts adds perceived-load delay on every hard load beyond what a
+     fast connection actually needs. */
+  animation-delay: 0.4s;
 }
 
 .gn-splash__title {
@@ -287,6 +290,11 @@ body {
   z-index: 1;
   overflow: hidden;
   pointer-events: none;
+  /* Skip paint/animation ticking for shine layers scrolled out of view —
+     a 9-card grid or multi-tile bento would otherwise keep every ::before
+     compositing and its will-change layer promoted indefinitely. */
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 1px;
 }
 
 .card-shine::before {

@@ -93,15 +93,21 @@ function useLandOnTop() {
     }
     snapToTop();
 
-    // Poll for ~1.2s (comfortably past the dialog's own close-transition)
-    // rather than checking once at a fixed delay — the exact timing of the
-    // stray restore isn't something we control.
+    // Poll for ~3s rather than checking once at a fixed delay — the exact
+    // timing of the stray restore isn't something we control, and 1.2s
+    // measured too tight in practice: instrumenting window.scrollY across
+    // repeated real navigations showed the restore sometimes landing after
+    // that cutoff (worse under dev-mode/HMR overhead), which let it slip
+    // through the old window and land the track mid-pan. A visitor who
+    // actually wants to scroll within 3s of arriving cancels this via the
+    // `interacted` flag on their first wheel/touch/key/pointerdown, so the
+    // wider margin costs nothing for a genuine scroll.
     const start = performance.now();
     let frameId = requestAnimationFrame(function tick() {
       if (!interacted && window.scrollY !== 0) {
         snapToTop();
       }
-      if (!interacted && performance.now() - start < 1200) {
+      if (!interacted && performance.now() - start < 3000) {
         frameId = requestAnimationFrame(tick);
       }
     });

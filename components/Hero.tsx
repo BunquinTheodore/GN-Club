@@ -69,7 +69,7 @@ export function Hero() {
           className="absolute inset-0"
         >
           <Image
-            src="/hero-cover.png"
+            src="/hero-cover.jpg"
             alt="GN Club team at an activation, GN Club logo centered"
             fill
             priority
