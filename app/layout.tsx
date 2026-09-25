@@ -22,6 +22,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.gnclubs.events"),
   title: "GN Club: Activations, Events & Full Production",
   description:
     "From concept to full production and execution. GN Club creates high impact event activations for tech and Web3 brands in the Philippines and globally.",
