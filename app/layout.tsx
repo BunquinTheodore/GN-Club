@@ -3,7 +3,7 @@ import { Inter, Space_Grotesk, Geist } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "@/components/Sidebar";
 import { Footer } from "@/components/Footer";
-import { Toaster } from "@/components/ui/sonner";
+import { DynamicToaster as Toaster } from "@/components/DynamicToaster";
 import { ClickSoundProvider } from "@/components/ClickSoundProvider";
 import { SplashScreen } from "@/components/SplashScreen";
 import { cn } from "@/lib/utils";

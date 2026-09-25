@@ -57,7 +57,7 @@ export function Sidebar() {
               transition={{ type: "spring", stiffness: 300, damping: 15 }}
               className="group flex h-14 w-14 items-center justify-center rounded-xl border border-glass-border bg-glass backdrop-blur-sm transition-[border-color,box-shadow] duration-300 ease-out hover:border-lime/40 hover:shadow-[0_0_20px_rgba(198,242,78,0.2)]"
             >
-              <Image src="/logo.jpg" alt="GN Club" width={40} height={31} className="h-[31px] w-10 rounded-md" />
+              <Image src="/logo.jpg" alt="GN Club" width={40} height={40} className="h-10 w-10 rounded-md" />
             </motion.div>
           </Link>
 
@@ -201,7 +201,7 @@ function MobileTopBar({ pathname }: { pathname: string }) {
       <div className="flex items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center" onClick={() => setOpen(false)}>
           <motion.div whileHover={{ scale: 1.06, rotate: -1.5 }} whileTap={{ scale: 0.96 }} transition={{ type: "spring", stiffness: 300, damping: 15 }}>
-            <Image src="/logo.jpg" alt="GN Club" width={40} height={31} className="h-[31px] w-10 rounded-md" />
+            <Image src="/logo.jpg" alt="GN Club" width={40} height={40} className="h-10 w-10 rounded-md" />
           </motion.div>
         </Link>
 

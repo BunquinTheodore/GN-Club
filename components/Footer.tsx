@@ -37,6 +37,7 @@ export function Footer() {
 
         <a
           href={`mailto:${site.contact.email}`}
+          aria-label={`Email ${site.contact.email}`}
           className="inline-flex items-center gap-2 transition-colors duration-200 hover:text-lime"
         >
           <Mail className="h-4 w-4" aria-hidden />

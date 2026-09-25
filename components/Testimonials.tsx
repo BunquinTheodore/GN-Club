@@ -1,17 +1,19 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { testimonials } from "@/lib/testimonials";
 import { GlassPanel } from "./GlassPanel";
 import { Reveal } from "./Reveal";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-} from "@/components/ui/carousel";
 
-function QuoteCard({ t, index = 0 }: { t: (typeof testimonials)[number]; index?: number }) {
+// embla-carousel only powers the md:hidden mobile layout below — dynamically
+// import it so desktop viewports (which render the marquee instead) never
+// pull its module into the bundle.
+const MobileTestimonialCarousel = dynamic(
+  () => import("./TestimonialCarousel").then((m) => m.TestimonialCarousel),
+  { ssr: false, loading: () => <div className="h-64 w-full" aria-hidden /> },
+);
+
+export function QuoteCard({ t, index = 0 }: { t: (typeof testimonials)[number]; index?: number }) {
   return (
     <GlassPanel
       shineDelay={(index % 5) * 0.6}
@@ -33,19 +35,7 @@ export function Testimonials() {
           and this reads as a deliberate, premium touch rather than cramped
           stacked cards. */}
       <div className="md:hidden">
-        <Carousel opts={{ align: "start", loop: true }} className="w-full">
-          <CarouselContent>
-            {testimonials.map((t, i) => (
-              <CarouselItem key={t.name} className="basis-[88%]">
-                <QuoteCard t={t} index={i} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <div className="mt-6 flex justify-center gap-3">
-            <CarouselPrevious className="static h-10 w-10 translate-x-0 translate-y-0" />
-            <CarouselNext className="static h-10 w-10 translate-x-0 translate-y-0" />
-          </div>
-        </Carousel>
+        <MobileTestimonialCarousel testimonials={testimonials} />
       </div>
 
       {/* md+: a continuous left-to-right marquee instead of a static grid.

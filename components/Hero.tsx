@@ -46,24 +46,17 @@ export function Hero() {
           into one screen. */}
       <div className="relative h-[46vh] min-h-[320px] w-full overflow-hidden sm:h-[52vh] md:h-[58vh] lg:h-[62vh] lg:max-h-[640px]">
         <motion.div
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={
-            prefersReducedMotion
-              ? { opacity: 1, scale: 1 }
-              : { opacity: 1, scale: [1.05, 1, 1.09] }
-          }
+          initial={{ scale: 1.05 }}
+          animate={prefersReducedMotion ? { scale: 1 } : { scale: [1.05, 1, 1.09] }}
           transition={
             prefersReducedMotion
               ? { duration: 1, ease: [0.16, 1, 0.3, 1] }
               : {
-                  opacity: { duration: 1, ease: [0.16, 1, 0.3, 1] },
-                  scale: {
-                    duration: 26,
-                    times: [0, 0.045, 1],
-                    ease: ["easeOut", "easeOut", "easeInOut"],
-                    repeat: Infinity,
-                    repeatType: "mirror",
-                  },
+                  duration: 26,
+                  times: [0, 0.045, 1],
+                  ease: ["easeOut", "easeOut", "easeInOut"],
+                  repeat: Infinity,
+                  repeatType: "mirror",
                 }
           }
           className="absolute inset-0"
