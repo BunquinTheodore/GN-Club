@@ -9,7 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import {
-  motion,
+  m,
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
@@ -268,11 +268,11 @@ function Track({
             its own copy at a different (fading) opacity. */}
         {background && <div className="absolute inset-0 z-0">{background}</div>}
         <HorizontalScrollViewportContext.Provider value={viewportRef}>
-          <motion.div className="relative z-10 flex h-full" style={{ x, willChange: "transform" }}>
+          <m.div className="relative z-10 flex h-full" style={{ x, willChange: "transform" }}>
             {panels.map((panel, i) => (
               <PanelFrame key={i}>{panel.content}</PanelFrame>
             ))}
-          </motion.div>
+          </m.div>
         </HorizontalScrollViewportContext.Provider>
       </div>
 

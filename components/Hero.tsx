@@ -1,7 +1,5 @@
-"use client";
-
 import Image from "next/image";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import type { CSSProperties } from "react";
 import { MagneticButton } from "./MagneticButton";
 import { ClientLogos } from "./ClientLogos";
 import { CountUpValue } from "./CountUpValue";
@@ -10,26 +8,20 @@ import { stats } from "@/lib/stats";
 
 const HEADLINE = "We Build the Events Tech and Web3 Brands Are Remembered For.";
 
-const headlineContainer: Variants = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.02, delayChildren: 0.1 },
-  },
-};
+/** Entrance timing as CSS custom properties; the keyframes live in globals.css (.gn-rise, .gn-word).
+ * CSS keeps the text visible from the first paint instead of waiting on JS hydration. */
+function riseStyle(delay: number, distance: number, duration = 0.5): CSSProperties {
+  return {
+    "--gn-delay": `${delay}s`,
+    "--gn-rise-y": `${distance}px`,
+    "--gn-rise-d": `${duration}s`,
+  } as CSSProperties;
+}
 
-const wordUp: Variants = {
-  hidden: { opacity: 0, y: 14, rotateX: -25 },
-  show: {
-    opacity: 1,
-    y: 0,
-    rotateX: 0,
-    transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
-  },
-};
+const WORD_STAGGER_S = 0.02;
+const WORD_DELAY_S = 0.1;
 
 export function Hero() {
-  const prefersReducedMotion = useReducedMotion();
-
   return (
     <section className="relative pt-16 md:pt-0">
       {/* Mobile keeps a small top clearance (pt-16) so the photo starts below
@@ -45,31 +37,20 @@ export function Hero() {
           full-viewport hero — the page is meant to scroll, not be crammed
           into one screen. */}
       <div className="relative h-[46vh] min-h-[320px] w-full overflow-hidden sm:h-[52vh] md:h-[58vh] lg:h-[62vh] lg:max-h-[640px]">
-        <motion.div
-          initial={{ scale: 1.05 }}
-          animate={prefersReducedMotion ? { scale: 1 } : { scale: [1.05, 1, 1.09] }}
-          transition={
-            prefersReducedMotion
-              ? { duration: 1, ease: [0.16, 1, 0.3, 1] }
-              : {
-                  duration: 26,
-                  times: [0, 0.045, 1],
-                  ease: ["easeOut", "easeOut", "easeInOut"],
-                  repeat: Infinity,
-                  repeatType: "mirror",
-                }
-          }
-          className="absolute inset-0"
-        >
+        {/* Slow zoom drift runs as a CSS animation on the compositor (see .gn-hero-drift) instead of an
+            infinite JS-driven framer-motion loop, which kept the main thread busy for the whole visit. */}
+        <div className="gn-hero-drift absolute inset-0">
           <Image
             src="/hero-cover.jpg"
             alt="GN Club team at an activation, GN Club logo centered"
             fill
             priority
+            fetchPriority="high"
+            sizes="(min-width: 768px) calc(100vw - 260px), 100vw"
             className="object-cover"
             style={{ objectPosition: "center" }}
           />
-        </motion.div>
+        </div>
         {/* Thin bottom fade only, so the photo reads edge-to-edge and clean —
             just enough to settle the seam into the section below. */}
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink to-transparent" />
@@ -77,68 +58,50 @@ export function Hero() {
 
       <div className="mx-auto w-full max-w-7xl px-6 pt-4 pb-16 text-center lg:px-10 md:pt-6 md:pb-20">
         <div className="mx-auto max-w-4xl">
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="text-sm font-medium text-fog-dim"
-          >
+          <p className="gn-rise text-sm font-medium text-fog-dim" style={riseStyle(0, 8)}>
             {site.tagline}
-          </motion.p>
+          </p>
 
-          <motion.h1
-            variants={headlineContainer}
-            initial="hidden"
-            animate="show"
+          <h1
             style={{ perspective: 600 }}
-            className="mt-4 font-display text-3xl leading-[1.08] tracking-tight text-fog sm:text-4xl md:text-5xl"
+            className="mt-4 font-display text-3xl leading-[1.08] tracking-tight text-balance text-fog sm:text-4xl md:text-5xl"
           >
-            {/* Same 11 words, same copy — forced onto exactly 2 lines. Break
-                after "Web3" (word 7 of 11): line 2 ("Brands Are Remembered
-                For.") has fewer, mostly-short words so it reliably fits on
-                one line without wrapping again, even though line 1 carries
-                more words — line 1's words are individually shorter. */}
+            {/* Same 11 words, same copy. The wrap is left to the browser with
+                text-balance: the Josefin caps are wide, so a forced break after
+                "Web3" left that word alone on a line at desktop widths. */}
             {HEADLINE.split(" ").map((word, i) => (
               <span key={`${word}-${i}`}>
-                <motion.span
-                  variants={wordUp}
-                  className="mr-[0.28em] inline-block"
-                  style={{ transformOrigin: "50% 100%" }}
+                <span
+                  className="gn-word mr-[0.28em] inline-block"
+                  style={{ "--gn-delay": `${WORD_DELAY_S + i * WORD_STAGGER_S}s` } as CSSProperties}
                 >
                   {word}
-                </motion.span>
-                {i === 6 ? <br /> : null}
+                </span>
               </span>
             ))}
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="mx-auto mt-5 max-w-xl text-sm text-fog-dim sm:whitespace-nowrap sm:text-base"
+          <p
+            className="gn-rise mx-auto mt-5 max-w-xl text-sm text-fog-dim sm:whitespace-nowrap sm:text-base"
+            style={riseStyle(0.35, 10)}
           >
             {site.bioShort}
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-8 flex flex-wrap items-center justify-center gap-4"
+          <div
+            className="gn-rise mt-8 flex flex-wrap items-center justify-center gap-4"
+            style={riseStyle(0.45, 10)}
           >
             <MagneticButton href="/contact">Start a project</MagneticButton>
             <MagneticButton href="/work" variant="outline">
               See our work
             </MagneticButton>
-          </motion.div>
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="mx-auto mt-12 flex w-full max-w-4xl flex-col items-center gap-14 border-t border-glass-border/60 pt-8"
+        <div
+          className="gn-rise mx-auto mt-12 flex w-full max-w-4xl flex-col items-center gap-14 border-t border-glass-border/60 pt-8"
+          style={riseStyle(0.55, 12, 0.6)}
         >
           <div className="flex w-full items-baseline justify-between gap-x-4">
             {stats.map((stat) => (
@@ -154,7 +117,7 @@ export function Hero() {
           <div className="w-full">
             <ClientLogos />
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

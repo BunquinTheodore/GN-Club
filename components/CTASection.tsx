@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { MagneticButton } from "./MagneticButton";
 import { DuotoneImage } from "./DuotoneImage";
 import { getMedia } from "@/lib/media";
@@ -14,7 +14,7 @@ export function CTASection() {
         className="opacity-40"
         position="center 25%"
       />
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0 }}
@@ -30,7 +30,7 @@ export function CTASection() {
           </p>
         </div>
         <MagneticButton href="/contact">Start a project</MagneticButton>
-      </motion.div>
+      </m.div>
     </section>
   );
 }

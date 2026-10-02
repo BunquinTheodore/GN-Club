@@ -2,7 +2,7 @@
 
 import { useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
-import { animate, motion, useReducedMotion } from "framer-motion";
+import { animate, m, useReducedMotion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import type { CaseStudy } from "@/lib/portfolio";
 import { getMedia } from "@/lib/media";
@@ -67,7 +67,7 @@ function StatValue({ value, className }: { value: string; className?: string }) 
   const suffix = match[2];
 
   return (
-    <motion.p
+    <m.p
       className={className}
       onViewportEnter={() => {
         if (animated.current || reducedMotion) return;
@@ -81,7 +81,7 @@ function StatValue({ value, className }: { value: string; className?: string }) 
       viewport={{ once: true, margin: "0px" }}
     >
       {display}
-    </motion.p>
+    </m.p>
   );
 }
 
@@ -117,7 +117,7 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
             <PanelReveal delay={0.08} className="mt-8">
               <div className="grid gap-4 sm:grid-cols-3 sm:gap-6">
                 {caseStudy.results.map((result, i) => (
-                  <motion.div
+                  <m.div
                     key={result.label}
                     initial={{ opacity: 0, scale: 0.92, y: 10 }}
                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -132,7 +132,7 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
                       <StatValue value={result.value} className="gradient-ring-text font-display text-3xl tabular-nums" />
                       <p className="mt-1 text-sm text-fog-dim">{result.label}</p>
                     </GlassPanel>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
             </PanelReveal>

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { m, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useContext, useRef, type ReactNode } from "react";
 import { DuotoneImage } from "./DuotoneImage";
 import { HorizontalScrollViewportContext } from "./HorizontalScroll";
@@ -51,20 +51,20 @@ export function AlternatingRow({
       ref={ref}
       className={`grid items-center gap-8 md:grid-cols-2 md:gap-16 ${reverse ? "md:[&>*:first-child]:order-2" : ""}`}
     >
-      <motion.div
+      <m.div
         style={{ y: imageY }}
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="relative h-72 overflow-hidden rounded-2xl shadow-none transition-shadow duration-500 ease-out hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.6)] md:h-[460px]"
       >
         <DuotoneImage src={image} alt={alt} position={imagePosition} />
-      </motion.div>
+      </m.div>
 
-      <motion.div style={{ y: panelY }}>
+      <m.div style={{ y: panelY }}>
         {eyebrow ? <p className="text-sm font-medium text-fog-dim">{eyebrow}</p> : null}
         <h2 className="text-balance font-display text-3xl tracking-tight text-fog sm:text-4xl">{title}</h2>
         <div className="mt-4 max-w-[62ch] space-y-4 text-base leading-relaxed text-fog-dim">{children}</div>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

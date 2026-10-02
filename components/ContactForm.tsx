@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { toast } from "sonner";
 import { Check, Loader2, X } from "lucide-react";
 import { services } from "@/lib/services";
@@ -138,7 +138,7 @@ export function ContactForm() {
       >
         <AnimatePresence mode="wait" initial={false}>
           {status === "success" ? (
-            <motion.span
+            <m.span
               key="success"
               initial={{ opacity: 0, y: reducedMotion ? 0 : 6 }}
               animate={{ opacity: 1, y: 0 }}
@@ -148,9 +148,9 @@ export function ContactForm() {
             >
               <Check className="h-4 w-4" />
               Sent
-            </motion.span>
+            </m.span>
           ) : status === "error" ? (
-            <motion.span
+            <m.span
               key="error"
               initial={{ opacity: 0, y: reducedMotion ? 0 : 6 }}
               animate={{ opacity: 1, y: 0 }}
@@ -160,9 +160,9 @@ export function ContactForm() {
             >
               <X className="h-4 w-4" />
               Couldn&apos;t send. Try again
-            </motion.span>
+            </m.span>
           ) : submitting ? (
-            <motion.span
+            <m.span
               key="submitting"
               initial={{ opacity: 0, y: reducedMotion ? 0 : 6 }}
               animate={{ opacity: 1, y: 0 }}
@@ -172,9 +172,9 @@ export function ContactForm() {
             >
               <Loader2 className={`h-4 w-4 ${reducedMotion ? "" : "animate-spin"}`} />
               Sending…
-            </motion.span>
+            </m.span>
           ) : (
-            <motion.span
+            <m.span
               key="idle"
               initial={{ opacity: 0, y: reducedMotion ? 0 : 6 }}
               animate={{ opacity: 1, y: 0 }}
@@ -183,7 +183,7 @@ export function ContactForm() {
               className="block"
             >
               Send message
-            </motion.span>
+            </m.span>
           )}
         </AnimatePresence>
       </Button>

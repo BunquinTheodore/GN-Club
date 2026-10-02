@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { NearViewport } from "./NearViewport";
 
 type DuotoneImageProps = {
   src: string;
@@ -29,21 +30,27 @@ type DuotoneImageProps = {
 export function DuotoneImage({ src, alt, className = "", priority, sizes, position }: DuotoneImageProps) {
   const isRemote = /^https?:\/\//.test(src);
 
+  const photo = (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      priority={priority}
+      fetchPriority={priority ? "high" : undefined}
+      sizes={sizes ?? "(min-width: 768px) 50vw, 100vw"}
+      style={position ? { objectPosition: position } : undefined}
+      // Remote stock photos already carry Unsplash's own resize/format params
+      // (?w=&q=&auto=format), and Vercel's optimization proxy re-fetching them
+      // server-side is what breaks silently in production — skip it for these.
+      unoptimized={isRemote}
+      className="object-cover"
+    />
+  );
+
   return (
     <div className={`absolute inset-0 overflow-hidden bg-ink ${className}`}>
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        priority={priority}
-        sizes={sizes ?? "(min-width: 768px) 50vw, 100vw"}
-        style={position ? { objectPosition: position } : undefined}
-        // Remote stock photos already carry Unsplash's own resize/format params
-        // (?w=&q=&auto=format), and Vercel's optimization proxy re-fetching them
-        // server-side is what breaks silently in production — skip it for these.
-        unoptimized={isRemote}
-        className="object-cover"
-      />
+      {/* Priority images load straight away; everything else waits until it is near the viewport. */}
+      {priority ? photo : <NearViewport>{photo}</NearViewport>}
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/10 to-transparent" />
     </div>
   );

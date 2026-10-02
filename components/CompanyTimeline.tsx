@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useSpring, useReducedMotion } from "framer-motion";
+import { m, useScroll, useSpring, useReducedMotion } from "framer-motion";
 import { timeline } from "@/lib/timeline";
 
 export function CompanyTimeline() {
@@ -20,12 +20,12 @@ export function CompanyTimeline() {
   return (
     <div ref={ref} className="relative space-y-10 pl-8 sm:space-y-12">
       <div className="absolute top-0 left-0 h-full border-l border-glass-border" />
-      <motion.div
+      <m.div
         className="absolute top-0 left-0 w-px origin-top bg-lime/70"
         style={{ height: "100%", scaleY: reduceMotion ? 1 : lineProgress }}
       />
       {timeline.map((milestone, i) => (
-        <motion.div
+        <m.div
           key={milestone.year}
           initial={reduceMotion ? false : { opacity: 0.5, x: -16 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -39,7 +39,7 @@ export function CompanyTimeline() {
           <p className="mt-2 max-w-prose text-base leading-relaxed text-fog-dim">
             {milestone.description}
           </p>
-        </motion.div>
+        </m.div>
       ))}
     </div>
   );

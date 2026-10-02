@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Mail } from "lucide-react";
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
@@ -51,14 +51,14 @@ export function Sidebar() {
 
         <div className="relative flex h-full flex-col overflow-y-auto px-6 py-8">
           <Link href="/" className="flex items-center">
-            <motion.div
+            <m.div
               whileHover={{ scale: 1.06, rotate: -1.5 }}
               whileTap={{ scale: 0.96 }}
               transition={{ type: "spring", stiffness: 300, damping: 15 }}
               className="group flex h-14 w-14 items-center justify-center rounded-xl border border-glass-border bg-glass backdrop-blur-sm transition-[border-color,box-shadow] duration-300 ease-out hover:border-lime/40 hover:shadow-[0_0_20px_rgba(198,242,78,0.2)]"
             >
               <Image src="/logo.jpg" alt="GN Club" width={40} height={40} className="h-10 w-10 rounded-md" />
-            </motion.div>
+            </m.div>
           </Link>
 
           <SidebarNav pathname={pathname} />
@@ -144,7 +144,7 @@ function SidebarNav({ pathname }: { pathname: string }) {
               <Link
                 href={item.href}
                 aria-expanded={subItems ? isOpen : undefined}
-                className="flex flex-1 items-center py-2.5 pl-4 text-sm text-fog-dim tracking-normal transition-[color,letter-spacing] duration-300 hover:text-fog hover:tracking-wide"
+                className="flex flex-1 items-center py-2.5 pl-4 text-[13px] font-medium uppercase tracking-[0.1em] text-fog-dim transition-[color,letter-spacing] duration-300 hover:text-fog hover:tracking-[0.13em]"
               >
                 <span
                   className={`absolute left-0 top-1/2 h-4 w-px -translate-y-1/2 origin-center bg-gradient-to-b from-cyan via-lime to-amber transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
@@ -158,7 +158,7 @@ function SidebarNav({ pathname }: { pathname: string }) {
             {subItems && (
               <AnimatePresence initial={false}>
                 {isOpen && (
-                  <motion.div
+                  <m.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
@@ -172,7 +172,7 @@ function SidebarNav({ pathname }: { pathname: string }) {
                           <li key={sub.href}>
                             <Link
                               href={sub.href}
-                              className={`block py-1.5 pl-8 text-xs tracking-normal transition-colors duration-200 ${
+                              className={`block py-1.5 pl-8 text-[11px] uppercase tracking-[0.08em] transition-colors duration-200 ${
                                 subActive ? "text-lime" : "text-fog-dim hover:text-lime"
                               }`}
                             >
@@ -182,7 +182,7 @@ function SidebarNav({ pathname }: { pathname: string }) {
                         );
                       })}
                     </ul>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             )}
@@ -200,9 +200,9 @@ function MobileTopBar({ pathname }: { pathname: string }) {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-glass-border bg-ink/80 backdrop-blur-md md:hidden">
       <div className="flex items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center" onClick={() => setOpen(false)}>
-          <motion.div whileHover={{ scale: 1.06, rotate: -1.5 }} whileTap={{ scale: 0.96 }} transition={{ type: "spring", stiffness: 300, damping: 15 }}>
+          <m.div whileHover={{ scale: 1.06, rotate: -1.5 }} whileTap={{ scale: 0.96 }} transition={{ type: "spring", stiffness: 300, damping: 15 }}>
             <Image src="/logo.jpg" alt="GN Club" width={40} height={40} className="h-10 w-10 rounded-md" />
-          </motion.div>
+          </m.div>
         </Link>
 
         <button
@@ -218,7 +218,7 @@ function MobileTopBar({ pathname }: { pathname: string }) {
 
       <AnimatePresence>
         {open && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
@@ -227,7 +227,7 @@ function MobileTopBar({ pathname }: { pathname: string }) {
           >
             <nav className="flex flex-col gap-1 px-6 py-4">
               {site.nav.map((item, i) => (
-                <motion.div
+                <m.div
                   key={item.href}
                   initial={{ opacity: 0, x: -12 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -236,15 +236,15 @@ function MobileTopBar({ pathname }: { pathname: string }) {
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className={`inline-block py-2 text-base transition-colors ${
+                    className={`inline-block py-2 text-sm font-medium uppercase tracking-[0.12em] transition-colors ${
                       pathname === item.href ? "text-lime" : "text-fog-dim hover:text-fog"
                     }`}
                   >
                     {item.label}
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -12 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: 0.05 + site.nav.length * 0.04, ease: [0.16, 1, 0.3, 1] }}
@@ -256,9 +256,9 @@ function MobileTopBar({ pathname }: { pathname: string }) {
                 >
                   Start a project
                 </Link>
-              </motion.div>
+              </m.div>
             </nav>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>

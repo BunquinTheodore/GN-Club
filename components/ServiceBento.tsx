@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { services } from "@/lib/services";
 import { getMedia } from "@/lib/media";
@@ -43,7 +43,7 @@ export function ServiceBento({ full = false }: { full?: boolean }) {
       {services.map((service, i) => {
         const Icon = service.icon;
         return (
-          <motion.div
+          <m.div
             key={service.slug}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -102,7 +102,7 @@ export function ServiceBento({ full = false }: { full?: boolean }) {
               style={{ "--shine-delay": `${(i % 5) * 0.6}s` } as CSSProperties}
             />
             </Link>
-          </motion.div>
+          </m.div>
         );
       })}
     </div>

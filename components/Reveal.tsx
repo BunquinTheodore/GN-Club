@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { type ReactNode } from "react";
 
 type RevealProps = {
@@ -19,7 +19,7 @@ const offsets = {
 export function Reveal({ children, delay = 0, className = "", from = "up" }: RevealProps) {
   const offset = offsets[from];
   return (
-    <motion.div
+    <m.div
       className={`reveal-el ${className}`}
       initial={{ opacity: 0, x: offset.x, y: offset.y, scale: 0.97 }}
       whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
@@ -33,6 +33,6 @@ export function Reveal({ children, delay = 0, className = "", from = "up" }: Rev
       transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

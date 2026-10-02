@@ -1,35 +1,21 @@
 "use client";
 
 import { useState, type CSSProperties } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
+import dynamic from "next/dynamic";
+import { m } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { DuotoneImage } from "./DuotoneImage";
 import { getMedia } from "@/lib/media";
 import { portfolio } from "@/lib/portfolio";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { slotPosition } from "./portfolioSlots";
+
+// The preview dialog (and the Base UI primitives behind it) only matters after a click, so it is
+// requested on first interaction with the grid instead of shipping with the page.
+const loadDialog = () => import("./PortfolioDialog");
+const PortfolioDialog = dynamic(loadDialog);
 
 const items = portfolio;
 const spans = ["lg:row-span-2", "", "", "lg:row-span-2", "", "", "", "", ""];
-
-// object-cover art-direction overrides, keyed by lib/media.ts slot. Only
-// slots where a blind center crop loses the subject at both the short/wide
-// grid-tile shape and the wider aspect-video dialog shape need an entry —
-// most of these are wide concert/crowd photos that center-crop fine as-is.
-const slotPosition: Record<string, string> = {
-  // Group photo: heads (including the back row, flush with the top edge)
-  // sit in the top ~60% of a 16:9 frame. The grid tile is much wider than
-  // 16:9, so a center crop trims enough off the top to cut into hair/heads.
-  "pickleball.1": "center 20%",
-};
 
 const tags = Array.from(new Set(items.map((item) => item.tag)));
 
@@ -44,6 +30,7 @@ type PortfolioGridProps = {
 export function PortfolioGrid({ priorityCount = 0 }: PortfolioGridProps) {
   const [selected, setSelected] = useState<number | null>(null);
   const [activeTag, setActiveTag] = useState<string | null>(null);
+  const [dialogRequested, setDialogRequested] = useState(false);
   const activeItem = selected !== null ? items[selected] : null;
 
   // Filter client-side but keep each card's original index (for `spans`,
@@ -85,19 +72,27 @@ export function PortfolioGrid({ priorityCount = 0 }: PortfolioGridProps) {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:auto-rows-[minmax(220px,auto)] lg:gap-4">
         {visible.map(({ item, i }) => (
-          <motion.div
+          <m.div
             key={item.slot}
-            initial={{ opacity: 0.4, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            // Tiles that render above the fold (priority) play the same fade and rise as a CSS
+            // animation from first paint; the JS-driven version only started after hydration, which
+            // held the largest image on /work back from being painted for about a second.
+            initial={i < priorityCount ? false : { opacity: 0.4, y: 12 }}
+            whileInView={i < priorityCount ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10% 0px" }}
             transition={{ duration: 0.6, delay: (i % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.98 }}
-            className={`group relative aspect-[4/3] overflow-hidden rounded-xl border border-glass-border transition-[border-color,box-shadow] duration-300 hover:border-lime/40 hover:shadow-[0_18px_40px_-16px_rgba(0,0,0,0.55)] md:rounded-2xl lg:aspect-auto lg:h-full ${spans[i]}`}
+            className={`group relative aspect-[4/3] overflow-hidden rounded-xl border border-glass-border transition-[border-color,box-shadow] duration-300 hover:border-lime/40 hover:shadow-[0_18px_40px_-16px_rgba(0,0,0,0.55)] md:rounded-2xl lg:aspect-auto lg:h-full ${spans[i]} ${i < priorityCount ? "gn-tile-in" : ""}`}
           >
             <button
               type="button"
-              onClick={() => setSelected(i)}
+              onClick={() => {
+                setDialogRequested(true);
+                setSelected(i);
+              }}
+              onPointerEnter={() => void loadDialog()}
+              onFocus={() => void loadDialog()}
               className="absolute inset-0 z-10 h-full w-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime"
               aria-label={`View ${item.title}`}
             >
@@ -110,13 +105,14 @@ export function PortfolioGrid({ priorityCount = 0 }: PortfolioGridProps) {
                 alt={item.title}
                 position={slotPosition[item.slot]}
                 priority={i < priorityCount}
-                sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+                // Single column on phones: the tile is the viewport minus the 24px page padding on each side.
+                sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, calc(100vw - 48px)"
               />
             </div>
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-ink via-ink/50 to-transparent transition-opacity duration-300" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-ink via-ink/80 to-transparent transition-opacity duration-300" />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 p-3 transition-transform duration-300 group-hover:-translate-y-1 md:p-4">
-              <p className="text-[10px] text-lime opacity-90 transition-opacity duration-300 group-hover:opacity-100 md:text-xs">{item.tag}</p>
-              <p className="font-display text-sm tracking-tight text-fog md:text-base">{item.title}</p>
+              <p className="text-[10px] text-lime opacity-90 [text-shadow:0_1px_6px_rgb(0_0_0/0.7)] transition-opacity duration-300 group-hover:opacity-100 md:text-xs">{item.tag}</p>
+              <p className="font-display text-sm tracking-tight text-fog [text-shadow:0_1px_8px_rgb(0_0_0/0.7)] md:text-base">{item.title}</p>
               <span className="mt-2 inline-flex w-fit items-center gap-1 rounded-full border border-lime/40 bg-ink/50 px-2.5 py-1 text-[10px] font-medium text-lime backdrop-blur-sm transition-colors duration-300 ease-out group-hover:bg-lime group-hover:text-ink">
                 View event
                 <ArrowRight className="h-3 w-3 transition-transform duration-300 ease-out group-hover:translate-x-0.5" strokeWidth={2} />
@@ -127,53 +123,11 @@ export function PortfolioGrid({ priorityCount = 0 }: PortfolioGridProps) {
               className="card-shine"
               style={{ "--shine-delay": `${(i % 5) * 0.6}s` } as CSSProperties}
             />
-          </motion.div>
+          </m.div>
         ))}
       </div>
 
-      <Dialog
-        open={activeItem !== null}
-        onOpenChange={(open) => {
-          if (!open) setSelected(null);
-        }}
-      >
-        <DialogContent
-          className="duration-300 ease-out sm:max-w-lg data-open:zoom-in-95 data-open:slide-in-from-bottom-2 data-closed:zoom-out-95 data-closed:slide-out-to-bottom-1"
-        >
-          <AnimatePresence mode="wait">
-            {activeItem && (
-              <motion.div
-                key={activeItem.slug}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="grid gap-4"
-              >
-                <div className="relative aspect-video w-full overflow-hidden rounded-xl">
-                  <DuotoneImage
-                    src={getMedia(activeItem.slot)}
-                    alt={activeItem.title}
-                    position={slotPosition[activeItem.slot]}
-                  />
-                </div>
-                <DialogHeader>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="outline">{activeItem.tag}</Badge>
-                  </div>
-                  <DialogTitle>{activeItem.title}</DialogTitle>
-                  <DialogDescription>{activeItem.description}</DialogDescription>
-                </DialogHeader>
-                <Button
-                  render={<Link href={`/work/${activeItem.slug}`} />}
-                  className="mt-2 w-full bg-lime text-ink transition-transform duration-200 hover:scale-[1.02] hover:bg-lime sm:w-auto"
-                >
-                  View full case study
-                </Button>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </DialogContent>
-      </Dialog>
+      {dialogRequested && <PortfolioDialog activeItem={activeItem} onClose={() => setSelected(null)} />}
     </>
   );
 }

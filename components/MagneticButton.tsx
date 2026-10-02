@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, type ReactNode } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 
 type MagneticButtonProps = {
@@ -47,7 +47,7 @@ export function MagneticButton({ href, children, variant = "solid" }: MagneticBu
       : "border border-glass-border bg-[color-mix(in_srgb,var(--fog)_12%,transparent)] text-fog shadow-[inset_0_1px_0_0_rgba(255,255,255,0.18)] hover:border-lime/50 hover:bg-[color-mix(in_srgb,var(--fog)_18%,transparent)] hover:text-lime hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.22),0_14px_28px_-12px_rgba(198,242,78,0.3)] focus-visible:border-lime/50 focus-visible:bg-[color-mix(in_srgb,var(--fog)_18%,transparent)] focus-visible:text-lime focus-visible:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.22),0_14px_28px_-12px_rgba(198,242,78,0.3)] active:bg-[color-mix(in_srgb,var(--fog)_22%,transparent)] active:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12)]";
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -60,6 +60,6 @@ export function MagneticButton({ href, children, variant = "solid" }: MagneticBu
         <span className="card-shine" style={{ "--shine-delay": "0s" } as React.CSSProperties} />
         <span className="relative z-10 inline-flex items-center gap-2">{children}</span>
       </Link>
-    </motion.div>
+    </m.div>
   );
 }

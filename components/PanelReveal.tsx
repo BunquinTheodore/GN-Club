@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useContext, type ReactNode } from "react";
+import { m } from "framer-motion";
+import { useContext, type CSSProperties, type ReactNode } from "react";
 import { HorizontalScrollViewportContext } from "@/components/HorizontalScroll";
 
 type PanelRevealProps = {
@@ -9,6 +9,9 @@ type PanelRevealProps = {
   delay?: number;
   className?: string;
   from?: "up" | "left" | "right";
+  /** Above-the-fold content: plays the same fade and slide as a CSS animation that runs from first
+   * paint, instead of waiting for hydration to start it. Use for the first heading on a page. */
+  eager?: boolean;
 };
 
 const offsets = {
@@ -29,12 +32,29 @@ const offsets = {
  * or anywhere else in the app) the context is null and this behaves
  * exactly like Reveal, checking visibility against the window.
  */
-export function PanelReveal({ children, delay = 0, className = "", from = "up" }: PanelRevealProps) {
+export function PanelReveal({ children, delay = 0, className = "", from = "up", eager = false }: PanelRevealProps) {
   const viewportRef = useContext(HorizontalScrollViewportContext);
   const offset = offsets[from];
 
+  if (eager) {
+    return (
+      <div
+        className={`reveal-el gn-reveal-in ${className}`}
+        style={
+          {
+            "--gn-x": `${offset.x}px`,
+            "--gn-y": `${offset.y}px`,
+            "--gn-delay": `${delay}s`,
+          } as CSSProperties
+        }
+      >
+        {children}
+      </div>
+    );
+  }
+
   return (
-    <motion.div
+    <m.div
       className={`reveal-el ${className}`}
       initial={{ opacity: 0, x: offset.x, y: offset.y, scale: 0.97 }}
       whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
@@ -49,6 +69,6 @@ export function PanelReveal({ children, delay = 0, className = "", from = "up" }
       transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

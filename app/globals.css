@@ -62,9 +62,11 @@
   --color-amber: var(--amber);
   --color-fog: var(--fog);
   --color-fog-dim: var(--fog-dim);
-  --font-display: var(--font-space-grotesk);
-  --font-sans: var(--font-sans);
-  --font-heading: var(--font-sans);
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-ui: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-title: var(--font-josefin), ui-sans-serif, system-ui, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -110,24 +112,32 @@
 }
 
 html {
+  /* Canvas colour; the body is transparent so the fixed constellation layer
+     (z-index -1) shows between this and the page content. */
   background: var(--ink);
   scroll-behavior: smooth;
 }
 
 body {
-  background: var(--ink);
+  background: transparent;
   color: var(--fog);
-  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  /* Custom site-wide cursor: the GN mascot mid-point, hotspot set at its
-     fingertip (top-right of the 44px art) so clicks register where the
-     finger actually is, not the image's top-left corner. */
-  cursor: url("/cursor/gn-mascot-cursor.png") 36 6, auto;
-  cursor: image-set(
-        url("/cursor/gn-mascot-cursor.png") 1x,
-        url("/cursor/gn-mascot-cursor@2x.png") 2x
-      )
-      36 6,
-    auto;
+  font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Custom site-wide cursor: the GN mascot mid-point, hotspot set at its fingertip (top-right of the
+   44px art) so clicks register where the finger actually is, not the image's top-left corner.
+   Only on devices with a real pointer: touch screens never draw a cursor, so phones skip the
+   PNG request (12 KB at 2x) that competed with the first paint. */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: url("/cursor/gn-mascot-cursor.png") 36 6, auto;
+    cursor: image-set(
+          url("/cursor/gn-mascot-cursor.png") 1x,
+          url("/cursor/gn-mascot-cursor@2x.png") 2x
+        )
+        36 6,
+      auto;
+  }
 }
 
 ::selection {
@@ -156,8 +166,8 @@ body {
 }
 
 .gn-splash__title {
-  font-family: var(--font-display), var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  font-weight: 600;
+  font-family: var(--font-josefin), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
   font-size: clamp(1.75rem, 5.25vw, 3.125rem);
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -448,4 +458,199 @@ html {
     outline: 2px solid var(--lime);
     outline-offset: 3px;
   }
+}
+/* Type system. Titles: Josefin Sans 300, all caps via CSS. UI text: Poppins.
+   Everything else inherits Manrope from body. These rules are unlayered on
+   purpose so they beat the layered Tailwind utilities (font-display,
+   tracking-tight, leading-*) already on every heading. Opt out of the title
+   treatment with the heading-plain class. */
+h1:not(.heading-plain),
+h2:not(.heading-plain) {
+  font-family: var(--font-josefin), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  overflow-wrap: break-word;
+}
+
+button,
+input,
+textarea,
+select,
+label,
+aside,
+header,
+a[class*="rounded-full"],
+[class*="uppercase"]:not(h1):not(h2),
+[data-slot="badge"],
+[data-slot="button"] {
+  font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Eager version of <PanelReveal>: the same fade, slide and 0.97 scale-up, as a CSS animation. */
+@keyframes gn-reveal-in {
+  from {
+    opacity: 0;
+    transform: translate(var(--gn-x, 0), var(--gn-y, 40px)) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.gn-reveal-in {
+  animation: gn-reveal-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--gn-delay, 0s) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gn-reveal-in {
+    animation: none;
+  }
+}
+
+/* Above-the-fold portfolio tile: the same 0.4 to 1 fade and 12px rise the JS version used, running from first paint. */
+@keyframes gn-tile-in {
+  from {
+    opacity: 0.4;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.gn-tile-in {
+  animation: gn-tile-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gn-tile-in {
+    animation: none;
+  }
+}
+
+/* Route change fade: opacity 0 -> 1 with an 8px rise, 0.35s, running from first paint (see app/template.tsx). */
+@keyframes gn-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.gn-page-enter {
+  animation: gn-page-enter 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gn-page-enter {
+    animation: none;
+  }
+}
+
+/* Hero entrance: fade and rise on the compositor, visible from first paint (no JS needed). */
+@keyframes gn-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--gn-rise-y, 10px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes gn-word-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px) rotateX(-25deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.gn-rise {
+  animation: gn-rise var(--gn-rise-d, 0.5s) cubic-bezier(0.16, 1, 0.3, 1) var(--gn-delay, 0s) both;
+}
+
+.gn-word {
+  transform-origin: 50% 100%;
+  animation: gn-word-rise 0.45s cubic-bezier(0.16, 1, 0.3, 1) var(--gn-delay, 0s) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gn-rise,
+  .gn-word {
+    animation: none;
+  }
+}
+
+/* Hero photo: slow zoom, 1.05 -> 1 -> 1.09 and back, on the compositor. Same motion the old
+   framer-motion loop produced, without keeping the main thread awake. */
+@keyframes gn-hero-drift {
+  0% {
+    transform: scale(1.05);
+    animation-timing-function: ease-out;
+  }
+  4.5% {
+    transform: scale(1);
+    animation-timing-function: ease-in-out;
+  }
+  100% {
+    transform: scale(1.09);
+  }
+}
+
+.gn-hero-drift {
+  transform: scale(1.05);
+  animation: gn-hero-drift 26s infinite alternate;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gn-hero-drift {
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+}
+
+/* Constellation poster: fixed, behind all content, never intercepts input. This gradient is the
+   finished no-JS and no-input look; the live canvas fades in above the page on first input. */
+.gn-constellation {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 82% 8%, color-mix(in srgb, var(--cyan) 11%, transparent), transparent 70%),
+    radial-gradient(55% 45% at 12% 92%, color-mix(in srgb, var(--lime) 8%, transparent), transparent 70%),
+    var(--ink);
+}
+
+/* Live three.js layer: above the page content so it shows over the hero photo and the
+   sidebar blur, below the sidebar (z-50) and the splash (z-100). It composites normally (no CSS
+   mix-blend-mode, which would re-blend the whole viewport every frame); the additive,
+   light-only look is done inside three.js. Never intercepts input. */
+.gn-constellation-live {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+}
+
+.gn-constellation-live canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
 }

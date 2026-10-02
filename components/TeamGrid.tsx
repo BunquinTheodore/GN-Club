@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { team } from "@/lib/team";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -31,7 +31,7 @@ export function TeamGrid() {
         // visible-but-unsettled opacity instead of fully invisible, so it
         // still reads without a live scroll trigger (slow JS, print, a
         // capture tool, an anchor/landmark jump).
-        <motion.div
+        <m.div
           key={member.name}
           initial={reduceMotion ? false : { opacity: 0.5, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -68,7 +68,7 @@ export function TeamGrid() {
               </p>
             </HoverCardContent>
           </HoverCard>
-        </motion.div>
+        </m.div>
       ))}
     </div>
   );

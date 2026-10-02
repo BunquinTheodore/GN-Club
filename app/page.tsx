@@ -1,12 +1,16 @@
-"use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Hero } from "@/components/Hero";
-import { ServiceBento } from "@/components/ServiceBento";
-import { PortfolioGrid } from "@/components/PortfolioGrid";
-import { Testimonials } from "@/components/Testimonials";
-import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
+
+// Below-the-fold sections load as their own chunks. They are still server-rendered into the HTML
+// (no layout shift, nothing hidden), but React hydrates each one in its own time-sliced task after
+// the hero is interactive instead of one long blocking hydration of the whole page.
+const ServiceBento = dynamic(() => import("@/components/ServiceBento").then((mod) => mod.ServiceBento));
+const PortfolioGrid = dynamic(() => import("@/components/PortfolioGrid").then((mod) => mod.PortfolioGrid));
+const Testimonials = dynamic(() => import("@/components/Testimonials").then((mod) => mod.Testimonials));
+const CTASection = dynamic(() => import("@/components/CTASection").then((mod) => mod.CTASection));
 
 export default function Home() {
   return (
