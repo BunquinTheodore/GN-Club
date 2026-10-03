@@ -42,6 +42,7 @@ export const metadata: Metadata = {
   title: "GN Club: Activations, Events & Full Production",
   description:
     "From concept to full production and execution. GN Club creates high impact event activations for tech and Web3 brands in the Philippines and globally.",
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
