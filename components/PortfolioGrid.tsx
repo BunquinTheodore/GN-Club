@@ -158,10 +158,10 @@ export function PortfolioGrid({ priorityCount = 0, featuredOnly = false }: Portf
             <div className="pointer-events-none absolute inset-x-0 bottom-0 p-3 transition-transform duration-300 group-hover:-translate-y-1 md:p-4">
               <p className="flex flex-wrap items-baseline gap-x-1.5 text-[10px] [text-shadow:0_1px_6px_rgb(0_0_0/0.7)] md:text-xs">
                 <span className="text-lime opacity-90 transition-opacity duration-300 group-hover:opacity-100">{item.tag}</span>
-                {item.date && (
+                {item.abroad && (
                   <>
                     <span aria-hidden="true" className="text-fog-dim">·</span>
-                    <span className="text-fog-dim">{item.date}</span>
+                    <span className="text-fog-dim">Abroad</span>
                   </>
                 )}
               </p>

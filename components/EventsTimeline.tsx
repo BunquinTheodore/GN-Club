@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, CalendarClock } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { GlassPanel } from "@/components/GlassPanel";
 import { DuotoneImage } from "@/components/DuotoneImage";
 import { EventPhotoPlaceholder } from "@/components/EventPhotoPlaceholder";
@@ -10,34 +10,25 @@ import { Reveal } from "@/components/Reveal";
 import { events, type TimelineEvent } from "@/lib/events";
 import { getMedia } from "@/lib/media";
 
-type YearGroup = { label: string; items: TimelineEvent[] };
+type EventGroup = { id: string; label: string; items: TimelineEvent[] };
 
-/** Heading for entries with no `isoDate` (e.g. Join Mazal, an ongoing
- * program). `events` already sorts these last, so this group always closes
- * the list. */
-const UNDATED_LABEL = "Ongoing";
-
-// `events` is already ordered newest first, so consecutive runs of the same
-// year become one group. Built once at module load since the data is static.
-const groups = events.reduce<YearGroup[]>((acc, event) => {
-  const label = event.isoDate ? event.isoDate.slice(0, 4) : UNDATED_LABEL;
-  const last = acc[acc.length - 1];
-  return last && last.label === label
-    ? [...acc.slice(0, -1), { ...last, items: [...last.items, event] }]
-    : [...acc, { label, items: [event] }];
-}, []);
+// Dates are deliberately not shown (client request), so the list is split
+// into home-base events and the international ones instead of by year.
+const groups: EventGroup[] = [
+  { id: "local", label: "Home base", items: events.filter((e) => !e.abroad) },
+  { id: "abroad", label: "Abroad", items: events.filter((e) => e.abroad) },
+].filter((group) => group.items.length > 0);
 
 /**
- * Events timeline for /work: every real GN Club event, newest first and
- * grouped by year, distinct from the full case-study grid above it. Reuses
- * `GlassPanel` for every card surface (no bespoke glass treatment) and
- * `Reveal` for entrance motion, matching the rest of the site.
+ * Events timeline for /work: every real GN Club event, newest first, split
+ * into local and abroad groups, distinct from the full case-study grid above
+ * it. Reuses `GlassPanel` for every card surface (no bespoke glass treatment)
+ * and `Reveal` for entrance motion, matching the rest of the site.
  *
- * Cards sit in a two-column grid from xl up so ~20 entries read as a
- * scannable spread rather than one tall stack. Events without a confirmed
- * date render "Date TBC" instead of a fabricated one, and events without a
- * real photo get the shared `EventPhotoPlaceholder` instead of a stock
- * photo, so nothing on this list pretends to be documented that isn't.
+ * Cards sit in a two-column grid from xl up so ~30 entries read as a
+ * scannable spread rather than one tall stack. Events without a real photo
+ * get the shared `EventPhotoPlaceholder` instead of a stock photo, so nothing
+ * on this list pretends to be documented that isn't.
  */
 export function EventsTimeline() {
   return (
@@ -51,21 +42,21 @@ export function EventsTimeline() {
           The events behind the case studies.
         </h2>
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-fog-dim">
-          Every tournament, campus talk, meetup, and launch GN Club has run, newest first. Dates and write-ups fill in as they&apos;re confirmed. Nothing here is guessed.
+          Every tournament, campus talk, meetup, and launch GN Club has run, newest first, at home and abroad. Write-ups fill in as they&apos;re confirmed. Nothing here is guessed.
         </p>
       </Reveal>
 
       <div className="mt-8 flex flex-col gap-10 md:mt-10 md:gap-12">
         {groups.map((group) => (
-          <YearSection key={group.label} group={group} />
+          <GroupSection key={group.id} group={group} />
         ))}
       </div>
     </section>
   );
 }
 
-function YearSection({ group }: { group: YearGroup }) {
-  const headingId = `events-year-${group.label.toLowerCase()}`;
+function GroupSection({ group }: { group: EventGroup }) {
+  const headingId = `events-group-${group.id}`;
   const count = group.items.length;
 
   return (
@@ -96,7 +87,6 @@ function YearSection({ group }: { group: YearGroup }) {
 
 function TimelineCard({ event, shineDelay }: { event: TimelineEvent; shineDelay: number }) {
   const hasCaseStudy = event.status === "confirmed" && event.slug;
-  const dateLabel = event.date === "TODO" ? "Date TBC" : event.date;
 
   const card = (
     <GlassPanel
@@ -133,10 +123,6 @@ function TimelineCard({ event, shineDelay }: { event: TimelineEvent; shineDelay:
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="outline">{event.tag}</Badge>
-          <span className="inline-flex items-center gap-1 text-xs font-medium text-fog-dim">
-            <CalendarClock className="h-3.5 w-3.5" strokeWidth={2} />
-            {dateLabel}
-          </span>
           {event.status === "todo" && (
             <Badge className="border-amber/40 bg-amber/10 text-amber">Write up pending</Badge>
           )}

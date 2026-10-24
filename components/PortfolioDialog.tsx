@@ -61,7 +61,7 @@ export default function PortfolioDialog({ activeItem, onClose }: PortfolioDialog
                 <DialogHeader>
                   <div className="flex items-center gap-2">
                     <Badge variant="outline">{activeItem.tag}</Badge>
-                    {activeItem.date && <span className="text-xs text-fog-dim">{activeItem.date}</span>}
+                    {activeItem.abroad && <span className="text-xs text-fog-dim">Abroad</span>}
                   </div>
                   <DialogTitle>{activeItem.title}</DialogTitle>
                   <DialogDescription>{activeItem.description}</DialogDescription>

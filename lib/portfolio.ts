@@ -6,10 +6,8 @@ export type CaseStudy = {
   slot: string | null;
   title: string;
   tag: string;
-  /** Human display date, e.g. "Nov 15, 2025". Set on real GN Club events,
-   * omitted on the seed entries and on Join Mazal (an ongoing program with
-   * no single date). Never invent one. */
-  date?: string;
+  /** International events from the "Mark" tab of the events sheet. */
+  abroad?: boolean;
   /** The original hand-picked set shown on the homepage grid and in the
    * Sidebar's Work submenu. /work itself shows every entry. */
   featured?: boolean;
@@ -27,7 +25,10 @@ export type CaseStudy = {
  * any time.
  *
  * Order: the three original real events, then every other event from GN
- * Club's own events sheet (newest first), then the six seed entries.
+ * Club's own events sheet (newest first), then the international events
+ * from the sheet's "Mark" tab (newest first, undated Web3 Berlin last), then
+ * the six seed entries. No dates are shown anywhere on the site (client
+ * request), so entries carry none.
  *
  * The sheet events carry only facts stated in that sheet: no attendance
  * numbers, outcomes, or quotes. Where the sheet gives no basis for a
@@ -45,7 +46,6 @@ export const portfolio: CaseStudy[] = [
     slot: "wocee.1",
     title: "WOCEE 2026",
     tag: "Consumer Electronics Expo",
-    date: "Aug 5 to 8, 2026",
     description:
       "GN Club produced and activated \"The Nexus Stage\" for the World of Consumer Electronics Expo: programming, branded staging, and on ground crew for a multi day convention floor.",
     challenge:
@@ -65,7 +65,6 @@ export const portfolio: CaseStudy[] = [
     slot: "pickleball.1",
     title: "GN Club Lifestyle: Pickleball Edition",
     tag: "Community Activation",
-    date: "Aug 15, 2026",
     description:
       "GN Club ran a community pickleball activation on court for LBank Academy: a branded pop up, player giveaways, and on site content capture.",
     challenge:
@@ -114,7 +113,6 @@ export const portfolio: CaseStudy[] = [
     slot: null,
     title: "FundedXYZ Online Trading Competition",
     tag: "Trading & Esports",
-    date: "Oct 9, 2026",
     description:
       "GN Club and Mazal led an online trading tournament in partnership with FundedXYZ, where community traders competed virtually for the top performance rankings.",
     challenge:
@@ -133,7 +131,6 @@ export const portfolio: CaseStudy[] = [
     slot: null,
     title: "LBank Coffee Consensus: Aster Business Center",
     tag: "Community & Meetup",
-    date: "Sep 27, 2026",
     description:
       "An intimate Coffee Consensus community gathering at the Aster Business Center in partnership with LBank, built around live chart analysis and networking over coffee.",
     challenge:
@@ -152,7 +149,6 @@ export const portfolio: CaseStudy[] = [
     slot: null,
     title: "BSU Lipa Web3 Seminar",
     tag: "Educational & Campus",
-    date: "Sep 26, 2026",
     description:
       "An educational campus outreach seminar at Batangas State University Lipa covering blockchain fundamentals and the career paths opening up in Web3.",
     challenge:
@@ -171,7 +167,6 @@ export const portfolio: CaseStudy[] = [
     slot: null,
     title: "Cryptita Showcase",
     tag: "Conferences & Expos",
-    date: "Sep 23, 2026",
     description:
       "GN Club and Mazal co-led the Cryptita Showcase with CrypTita Plays: a Builder Highlight session that brought the local Web3 ecosystem, software developers, and decentralized tech enthusiasts together to test emerging builds.",
     challenge:
@@ -190,7 +185,6 @@ export const portfolio: CaseStudy[] = [
     slot: null,
     title: "CJC Race Launch",
     tag: "Product Launch",
-    date: "Aug 29, 2026",
     description:
       "GN Club and CrypTita Plays led the CJC Race Philippines Grand Launch in collaboration with host CJC Race Philippines: the on ground event marking the regional rollout of CJC Race, an Arbitrum based, play to earn NFT horse racing platform.",
     challenge:
@@ -209,7 +203,6 @@ export const portfolio: CaseStudy[] = [
     slot: null,
     title: "LBank Coffee Consensus: Alabang",
     tag: "Community & Meetup",
-    date: "Aug 2, 2026",
     description:
       "GN Club and Mazal hosted the LBank Coffee Consensus at Coffee Syndicate in Alabang alongside LBank Labs, LBank Academy, and the Mazal ecosystem: an in person educational workshop for Web3 traders and enthusiasts over artisan brews.",
     challenge:
@@ -228,7 +221,6 @@ export const portfolio: CaseStudy[] = [
     slot: null,
     title: "TraderFest 2026",
     tag: "Conferences & Expos",
-    date: "Jul 30, 2026",
     description:
       "GN Club joined TraderFest 2026 as Industry Partner: an esports style live trading tournament that brought a competitive video game format to crypto and forex markets, presented by Ultima Markets and organized by Crypto Esports League PH.",
     challenge:
@@ -247,7 +239,6 @@ export const portfolio: CaseStudy[] = [
     slot: null,
     title: "WOCEE 2026 Radio Guesting",
     tag: "Media & PR",
-    date: "Jul 29, 2026",
     description:
       "GN Club co-organized a live radio guesting from the Magic 89.9 studio with Worldbex and Museigen.io, kicking off the countdown to WOCEE 2026.",
     challenge:
@@ -266,7 +257,6 @@ export const portfolio: CaseStudy[] = [
     slot: null,
     title: "LBank Coffee Consensus: Las Piñas",
     tag: "Community & Meetup",
-    date: "Jun 13, 2026",
     description:
       "GN Club hosted the LBank Coffee Consensus at Unlikely Coffee in Las Piñas alongside LBank Academy, BUDI, and Tela Park Pickleball Center: an in person educational workshop for Web3 traders and enthusiasts over artisan brews.",
     challenge:
@@ -285,7 +275,6 @@ export const portfolio: CaseStudy[] = [
     slot: null,
     title: "2026 Global Pizza Party",
     tag: "Community & Meetup",
-    date: "May 22, 2026",
     description:
       "GN Club led a hub of PizzaDAO's 6th annual Global Pizza Party, the worldwide celebration marking the anniversary of the first commercial Bitcoin transaction.",
     challenge:
@@ -304,7 +293,6 @@ export const portfolio: CaseStudy[] = [
     slot: null,
     title: "BlockForge Code Camp",
     tag: "Educational & Campus",
-    date: "Apr 18, 2026",
     description:
       "GN Club partnered on BlockForge Code Camp, a hands on blockchain and Web3 boot camp organized by Cryptita Plays with local student organizations and supported by the MEXC SEA Foundation.",
     challenge:
@@ -323,7 +311,6 @@ export const portfolio: CaseStudy[] = [
     slot: null,
     title: "BITCON 2026",
     tag: "Event",
-    date: "Mar 28, 2026",
     description:
       "BITCON 2026 was a regional technology convention organized by the Batangas Information Technology Society (BITS), focused on putting AI and blockchain to practical use in smart cities, businesses, and governance.",
     challenge:
@@ -342,7 +329,6 @@ export const portfolio: CaseStudy[] = [
     slot: null,
     title: "GATE Campus Talk: Web3 Simplified",
     tag: "Educational & Campus",
-    date: "Mar 18, 2026",
     description:
       "GN Club partnered on GATE Campus Talk: Web3 Simplified, an educational blockchain seminar at the University of the East Manila organized by GATE Web3, Cryptita Plays, and the UE CCSS Student Council.",
     challenge:
@@ -361,13 +347,12 @@ export const portfolio: CaseStudy[] = [
     slot: null,
     title: "OKX Wallet Trading Battlegrounds",
     tag: "Trading & Esports",
-    date: "Jan 30, 2026",
     description:
       "GN Club hosted the Trading Battlegrounds in partnership with OKX Wallet: a live crypto trading tournament where community traders showcased their strategies on stage.",
     challenge:
       "A trading tournament had to turn individual strategy into something an audience could watch, taking community traders from online qualifiers to live, on stage finals.",
     approach:
-      "Virtual qualifiers ran on January 21, 2026, and the finalists traded live on stage at the in person finals at High Grounds Cafe in Quezon City, where Aldrin \"Crypto4chun\" Rabino was crowned champion.",
+      "Virtual qualifiers ran first, and the finalists traded live on stage at the in person finals at High Grounds Cafe in Quezon City, where Aldrin \"Crypto4chun\" Rabino was crowned champion.",
     results: [
       { label: "Champion", value: "Aldrin \"Crypto4chun\" Rabino" },
       { label: "Finals venue", value: "High Grounds Cafe, Quezon City" },
@@ -380,7 +365,6 @@ export const portfolio: CaseStudy[] = [
     slot: null,
     title: "Bull vs Bear Run",
     tag: "Trading & Esports",
-    date: "Nov 15, 2025",
     description:
       "GN Club co-hosted the inaugural Bull vs Bear Run with Trade Paradex: a live, real money crypto trading esports competition presented by Paradex.",
     challenge:
@@ -391,6 +375,156 @@ export const portfolio: CaseStudy[] = [
       { label: "Prize pool", value: "1,000 USDC" },
       { label: "Format", value: "Live team trading" },
       { label: "Venue", value: "The Company Manila, Makati" },
+    ],
+    gallery: [],
+  },
+  {
+    slug: "bitunix-trader-meetup-malaysia-vietnam",
+    slot: null,
+    title: "Buidlers/Bitunix Trader Meetup",
+    tag: "Community & Meetup",
+    abroad: true,
+    description:
+      "The Buidlers/Bitunix Trader Meetup brought together local crypto traders and Web3 developers across Malaysia and Vietnam for community networking and market strategy discussions.",
+    challenge:
+      "Full case study write up in progress. Check back soon for the story behind this trip.",
+    approach:
+      "Part of GN Club's international circuit in Malaysia & Vietnam. A full breakdown of GN Club's involvement is coming soon.",
+    results: [
+      { label: "Location", value: "Kuala Lumpur, Malaysia & Ho Chi Minh City, Vietnam" },
+      { label: "Format", value: "Meetup series" },
+    ],
+    gallery: [],
+  },
+  {
+    slug: "futurum-georgia",
+    slot: null,
+    title: "FUTURUM Georgia",
+    tag: "Conferences & Expos",
+    abroad: true,
+    description:
+      "FUTURUM Payments Georgia brought together banking, fintech, payments, and digital asset leaders in the Caucasus for panel discussions, roundtables, and executive networking sessions.",
+    challenge:
+      "Full case study write up in progress. Check back soon for the story behind this trip.",
+    approach:
+      "Part of GN Club's international circuit in Georgia. A full breakdown of GN Club's involvement is coming soon.",
+    results: [
+      { label: "Location", value: "Tbilisi, Georgia" },
+      { label: "Venue", value: "Paragraph Golf & Spa Resort Tabori" },
+      { label: "Format", value: "International conference" },
+    ],
+    gallery: [],
+  },
+  {
+    slug: "global-blockchain-show-2025",
+    slot: null,
+    title: "Global Blockchain Show 2025",
+    tag: "Conferences & Expos",
+    abroad: true,
+    description:
+      "The Global Blockchain Show Abu Dhabi convened institutional investors, Web3 founders, and policymakers to discuss digital assets, DeFi, and blockchain technology adoption.",
+    challenge:
+      "Full case study write up in progress. Check back soon for the story behind this trip.",
+    approach:
+      "Part of GN Club's international circuit in UAE. A full breakdown of GN Club's involvement is coming soon.",
+    results: [
+      { label: "Location", value: "Abu Dhabi, UAE" },
+      { label: "Venue", value: "Space42 Arena" },
+      { label: "Format", value: "International conference" },
+    ],
+    gallery: [],
+  },
+  {
+    slug: "global-games-show-2025",
+    slot: null,
+    title: "Global Games Show 2025",
+    tag: "Conferences & Expos",
+    abroad: true,
+    description:
+      "The Global Games Show Abu Dhabi brought together video game studios, publishers, investors, and esports leaders to showcase next generation gaming and interactive tech.",
+    challenge:
+      "Full case study write up in progress. Check back soon for the story behind this trip.",
+    approach:
+      "Part of GN Club's international circuit in UAE. A full breakdown of GN Club's involvement is coming soon.",
+    results: [
+      { label: "Location", value: "Abu Dhabi, UAE" },
+      { label: "Venue", value: "Space42 Arena" },
+      { label: "Format", value: "International conference" },
+    ],
+    gallery: [],
+  },
+  {
+    slug: "global-ai-show-2025",
+    slot: null,
+    title: "Global AI Show 2025",
+    tag: "Conferences & Expos",
+    abroad: true,
+    description:
+      "The Global AI Show Abu Dhabi connected artificial intelligence pioneers, enterprise leaders, and researchers to explore AI governance frameworks, generative AI, and intelligent systems.",
+    challenge:
+      "Full case study write up in progress. Check back soon for the story behind this trip.",
+    approach:
+      "Part of GN Club's international circuit in UAE. A full breakdown of GN Club's involvement is coming soon.",
+    results: [
+      { label: "Location", value: "Abu Dhabi, UAE" },
+      { label: "Venue", value: "Space42 Arena" },
+      { label: "Format", value: "International conference" },
+    ],
+    gallery: [],
+  },
+  {
+    slug: "web3-amsterdam",
+    slot: null,
+    title: "Web3 Amsterdam",
+    tag: "Conferences & Expos",
+    abroad: true,
+    description:
+      "Web3 Amsterdam is an annual conference centered on inclusivity, networking, education, and onboarding into the Web3 ecosystem, bringing together industry professionals and builders.",
+    challenge:
+      "Full case study write up in progress. Check back soon for the story behind this trip.",
+    approach:
+      "Part of GN Club's international circuit in Netherlands. A full breakdown of GN Club's involvement is coming soon.",
+    results: [
+      { label: "Location", value: "Amsterdam, Netherlands" },
+      { label: "Venue", value: "Circa Amsterdam" },
+      { label: "Format", value: "International conference" },
+    ],
+    gallery: [],
+  },
+  {
+    slug: "web3-dubai",
+    slot: null,
+    title: "Web3 Dubai",
+    tag: "Conferences & Expos",
+    abroad: true,
+    description:
+      "Web3 Dubai is an annual international conference focused on digital assets, networking, education, and onboarding into the Web3 and blockchain ecosystem, with global experts and founders.",
+    challenge:
+      "Full case study write up in progress. Check back soon for the story behind this trip.",
+    approach:
+      "Part of GN Club's international circuit in UAE. A full breakdown of GN Club's involvement is coming soon.",
+    results: [
+      { label: "Location", value: "Dubai, UAE" },
+      { label: "Venue", value: "Le Méridien Dubai Hotel & Conference Centre" },
+      { label: "Format", value: "International conference" },
+    ],
+    gallery: [],
+  },
+  {
+    slug: "web3-berlin",
+    slot: null,
+    title: "Web3 Berlin",
+    tag: "Conferences & Expos",
+    abroad: true,
+    description:
+      "Web3 Berlin brings together developers, researchers, founders, and creators across the decentralized ecosystem, featuring workshops, unconference sessions, open collaboration spaces, and networking.",
+    challenge:
+      "Full case study write up in progress. Check back soon for the story behind this trip.",
+    approach:
+      "Part of GN Club's international circuit in Germany. A full breakdown of GN Club's involvement is coming soon.",
+    results: [
+      { label: "Location", value: "Berlin, Germany" },
+      { label: "Format", value: "International conference" },
     ],
     gallery: [],
   },

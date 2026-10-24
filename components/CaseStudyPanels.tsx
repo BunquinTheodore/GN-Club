@@ -133,10 +133,8 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
               </Link>
               <div className="mt-3 flex items-center gap-2">
                 <Badge variant="outline">{caseStudy.tag}</Badge>
-                {caseStudy.date && (
-                  <span className="text-xs font-medium uppercase tracking-[0.12em] text-fog-dim">
-                    {caseStudy.date}
-                  </span>
+                {caseStudy.abroad && (
+                  <span className="text-xs font-medium uppercase tracking-[0.12em] text-fog-dim">Abroad</span>
                 )}
               </div>
               <h1 className="mt-3 text-balance font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-5xl">{caseStudy.title}</h1>
