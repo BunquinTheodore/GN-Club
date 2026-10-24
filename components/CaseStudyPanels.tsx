@@ -12,6 +12,7 @@ import { GlassPanel } from "@/components/GlassPanel";
 import { Badge } from "@/components/ui/badge";
 import { ScrollJackTrack, type ScrollJackPanel } from "@/components/ScrollJackTrack";
 import { PanelReveal } from "@/components/PanelReveal";
+import { EventPhotoPlaceholder } from "@/components/EventPhotoPlaceholder";
 
 type CaseStudyPanelsProps = {
   caseStudy: CaseStudy;
@@ -38,6 +39,27 @@ const positions: Record<string, string> = {
 // panel content must stay to a single row).
 const GALLERY_ROW_SIZE = 3;
 
+// Backdrop for a case study with no confirmed photo yet (`slot: null`).
+// Same two-glow recipe as EventPhotoPlaceholder, but text-free and a touch
+// stronger: its "Photos coming soon" lettering would sit dead behind the H1
+// here, and each panel's own ink scrim knocks the glow back down anyway.
+// Deliberately NOT getMedia(slot), whose unknown-slot fallback is the
+// homepage hero photo, which would pass that photo off as this event's.
+const NO_PHOTO_BACKDROP = [
+  "radial-gradient(60% 55% at 15% 20%, color-mix(in srgb, var(--cyan) 20%, transparent), transparent 70%)",
+  "radial-gradient(55% 50% at 88% 85%, color-mix(in srgb, var(--lime) 16%, transparent), transparent 70%)",
+].join(", ");
+
+function NoPhotoBackdrop() {
+  return (
+    <div
+      aria-hidden="true"
+      className="absolute inset-0 bg-ink-raised"
+      style={{ backgroundImage: NO_PHOTO_BACKDROP }}
+    />
+  );
+}
+
 function chunkGallery(slots: string[], size: number): string[][] {
   const chunks: string[][] = [];
   for (let i = 0; i < slots.length; i += size) {
@@ -50,11 +72,12 @@ function chunkGallery(slots: string[], size: number): string[][] {
  * Result value with a lightweight count-up: parses a leading numeric run
  * (allowing commas, e.g. "2,400") and animates it in once the tile scrolls
  * into view, preserving any surrounding text ("350+", "3 days"). Values
- * with no leading digits (e.g. "TBD", "Recurring") just render as-is.
+ * with no leading digits (e.g. "TBD", "Recurring") or that are clock
+ * times ("11:00 AM to 7:00 PM") just render as-is.
  * Skips the animation under prefers-reduced-motion.
  */
 function StatValue({ value, className }: { value: string; className?: string }) {
-  const match = value.match(/^([\d,]+)(.*)$/);
+  const match = value.match(/^([\d,]+)(?![\d:])(.*)$/);
   const reducedMotion = useReducedMotion();
   const [display, setDisplay] = useState(reducedMotion || !match ? value : `0${match[2]}`);
   const animated = useRef(false);
@@ -86,6 +109,7 @@ function StatValue({ value, className }: { value: string; className?: string }) 
 }
 
 export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
+  const { slot } = caseStudy;
   const panels: ScrollJackPanel[] = [
     {
       label: "Overview",
@@ -109,6 +133,11 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
               </Link>
               <div className="mt-3 flex items-center gap-2">
                 <Badge variant="outline">{caseStudy.tag}</Badge>
+                {caseStudy.date && (
+                  <span className="text-xs font-medium uppercase tracking-[0.12em] text-fog-dim">
+                    {caseStudy.date}
+                  </span>
+                )}
               </div>
               <h1 className="mt-3 text-balance font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-5xl">{caseStudy.title}</h1>
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-fog-dim">{caseStudy.description}</p>
@@ -164,6 +193,17 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
                 <p className="mt-3 text-base leading-relaxed text-fog-dim sm:text-lg">{caseStudy.approach}</p>
               </PanelReveal>
             </div>
+            {/* No gallery panel exists without confirmed photos (see
+                chunkGallery below), so say so honestly here instead of
+                ending the track with no sign of imagery at all. Kept to a
+                short strip so this panel still fits one viewport. */}
+            {caseStudy.gallery.length === 0 && (
+              <PanelReveal delay={0.16} className="mt-10">
+                <div className="relative h-24 overflow-hidden rounded-2xl border border-glass-border sm:h-28">
+                  <EventPhotoPlaceholder size="sm" tag={caseStudy.tag} />
+                </div>
+              </PanelReveal>
+            )}
           </div>
         </section>
       ),
@@ -244,11 +284,11 @@ export function CaseStudyPanels({ caseStudy }: CaseStudyPanelsProps) {
     <ScrollJackTrack
       panels={panels}
       background={
-        <PersistentPanelBackground
-          src={getMedia(caseStudy.slot)}
-          alt={caseStudy.title}
-          position={positions[caseStudy.slot]}
-        />
+        slot === null ? (
+          <NoPhotoBackdrop />
+        ) : (
+          <PersistentPanelBackground src={getMedia(slot)} alt={caseStudy.title} position={positions[slot]} />
+        )
       }
     />
   );

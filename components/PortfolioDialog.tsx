@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { AnimatePresence, m } from "framer-motion";
 import { DuotoneImage } from "./DuotoneImage";
+import { EventPhotoPlaceholder } from "./EventPhotoPlaceholder";
 import { getMedia } from "@/lib/media";
 import type { portfolio } from "@/lib/portfolio";
 import { slotPosition } from "./portfolioSlots";
@@ -46,15 +47,21 @@ export default function PortfolioDialog({ activeItem, onClose }: PortfolioDialog
                 className="grid gap-4"
               >
                 <div className="relative aspect-video w-full overflow-hidden rounded-xl">
-                  <DuotoneImage
-                    src={getMedia(activeItem.slot)}
-                    alt={activeItem.title}
-                    position={slotPosition[activeItem.slot]}
-                  />
+                  {activeItem.slot ? (
+                    <DuotoneImage
+                      src={getMedia(activeItem.slot)}
+                      alt={activeItem.title}
+                      position={slotPosition[activeItem.slot]}
+                    />
+                  ) : (
+                    // No confirmed photo yet: never fall back to getMedia's hero image.
+                    <EventPhotoPlaceholder size="md" />
+                  )}
                 </div>
                 <DialogHeader>
                   <div className="flex items-center gap-2">
                     <Badge variant="outline">{activeItem.tag}</Badge>
+                    {activeItem.date && <span className="text-xs text-fog-dim">{activeItem.date}</span>}
                   </div>
                   <DialogTitle>{activeItem.title}</DialogTitle>
                   <DialogDescription>{activeItem.description}</DialogDescription>

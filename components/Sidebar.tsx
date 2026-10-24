@@ -13,10 +13,15 @@ import { socialIcons } from "@/components/Footer";
 
 const SIDEBAR_WIDTH = 260;
 
-/** Sub-items shown in the accordion submenu under a given nav item's href. */
+/** Sub-items shown in the accordion submenu under a given nav item's href.
+ * Work lists featured case studies only (the full set is too long for a
+ * nav and lives on /work itself), closed by an "All events" link there. */
 const SUBMENUS: Record<string, { label: string; href: string }[]> = {
   "/services": services.map((s) => ({ label: s.title, href: `/services/${s.slug}` })),
-  "/work": portfolio.map((p) => ({ label: p.title, href: `/work/${p.slug}` })),
+  "/work": [
+    ...portfolio.filter((p) => p.featured).map((p) => ({ label: p.title, href: `/work/${p.slug}` })),
+    { label: "All events", href: "/work" },
+  ],
 };
 
 export function Sidebar() {
@@ -167,7 +172,10 @@ function SidebarNav({ pathname }: { pathname: string }) {
                   >
                     <ul className="flex flex-col gap-0.5 py-1">
                       {subItems.map((sub) => {
-                        const subActive = pathname === sub.href;
+                        // A sub-item pointing back at its own section (Work's
+                        // "All events") never lights up: the parent item
+                        // already marks that page, so it would double-highlight.
+                        const subActive = sub.href !== item.href && pathname === sub.href;
                         return (
                           <li key={sub.href}>
                             <Link

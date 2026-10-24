@@ -8,10 +8,13 @@ export default function WorkPage() {
       <section className="px-6 pt-24 pb-10 sm:pt-28 sm:pb-16 md:pt-0 lg:px-10">
         <div className="mx-auto w-full max-w-7xl">
           <PanelReveal eager>
-            <p className="text-sm font-medium text-fog-dim">Selected work</p>
+            <p className="text-sm font-medium text-fog-dim">Our work</p>
             <h1 className="mt-2 max-w-2xl text-balance font-display text-4xl leading-[1.05] tracking-tight text-fog sm:text-5xl">
-              A few rooms we&apos;ve built.
+              The rooms we&apos;ve built.
             </h1>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-fog-dim">
+              Trading tournaments, campus talks, community meetups, launches, and expo stages. Filter by event type below, or scroll on for the full timeline.
+            </p>
           </PanelReveal>
         </div>
       </section>

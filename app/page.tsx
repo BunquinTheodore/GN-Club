@@ -62,7 +62,7 @@ export default function Home() {
             </div>
           </Reveal>
           <div className="mt-10 md:mt-14">
-            <PortfolioGrid />
+            <PortfolioGrid featuredOnly />
           </div>
         </div>
       </section>
