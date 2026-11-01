@@ -190,6 +190,36 @@ export const media: Record<string, string> = {
   "aster.4": "/images/coffee-consensus-aster/coffee-consensus-aster-04-attendees-seated-venue.jpg",
   "aster.5": "/images/coffee-consensus-aster/coffee-consensus-aster-05-networking-table-discussion.jpg",
 
+  // Coinfest Asia, Bali: the FundedXYZ esport trading competition activation
+  // (shared FundedXYZ Coinfest Bali folder).
+  "coinfest.1": "/images/coinfest-bali/coinfest-bali-01-trading-competition-winner.jpg",
+  "coinfest.2": "/images/coinfest-bali/coinfest-bali-02-panel-speaker.jpg",
+  "coinfest.3": "/images/coinfest-bali/coinfest-bali-03-fundedxyz-booth.jpg",
+  "coinfest.4": "/images/coinfest-bali/coinfest-bali-04-competition-awards.jpg",
+
+  // Web3 On Campus at NU Lipa (Cryptita Plays), cropped from the event's
+  // recap images, so these are smaller than the rest.
+  "nulipa.1": "/images/web3-on-campus-nu-lipa/web3-on-campus-nu-lipa-01-seated-crowd-cryptita-banners.jpg",
+  "nulipa.2": "/images/web3-on-campus-nu-lipa/web3-on-campus-nu-lipa-02-full-group-photo.jpg",
+  "nulipa.3": "/images/web3-on-campus-nu-lipa/web3-on-campus-nu-lipa-03-speaker-with-mic.jpg",
+
+  // GATE Campus Talk: Web3 Simplified, UE Manila, cropped from the event's
+  // recap image.
+  "gate.1": "/images/gate-campus-talk-web3-simplified/gate-campus-talk-web3-simplified-01-ue-classroom-group-photo.jpg",
+  "gate.2": "/images/gate-campus-talk-web3-simplified/gate-campus-talk-web3-simplified-02-ue-classroom-attendees.jpg",
+
+  // FUTURUM Georgia, Tbilisi (Marky Abroad folder).
+  "futurum.1": "/images/futurum-georgia/futurum-georgia-01-caucasus-crypto-panel.jpg",
+
+  // Global AI Show 2025, Abu Dhabi (Marky Abroad folder).
+  "aishow.1": "/images/global-ai-show-2025/global-ai-show-2025-01-chief-ai-officer-panel.jpg",
+
+  // Web3 Amsterdam (Marky Abroad folder).
+  "w3ams.1": "/images/web3-amsterdam/web3-amsterdam-01-panel-discussion-stage.jpg",
+  "w3ams.2": "/images/web3-amsterdam/web3-amsterdam-02-expo-hall-crowd.jpg",
+  "w3ams.3": "/images/web3-amsterdam/web3-amsterdam-03-main-hall-screen.jpg",
+  "w3ams.4": "/images/web3-amsterdam/web3-amsterdam-04-official-after-party.jpg",
+
   // Sister-brand marks for the "trusted by" strip.
   "brand.gnMedia": "/images/brands/gn-media-logo.jpg",
   "brand.gnVentures": "/images/brands/gn-ventures-logo.jpg",

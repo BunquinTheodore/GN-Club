@@ -110,7 +110,7 @@ export const events: TimelineEvent[] = [
     summary:
       "Coinfest in Bali. The write up for this event is still pending, so no details have been added yet.",
     status: "todo",
-    slot: null,
+    slot: "coinfest.1",
   },
   {
     slug: "coffee-consensus-alabang",
@@ -164,7 +164,7 @@ export const events: TimelineEvent[] = [
     summary:
       "A Web3 campus event at National University Lipa. The write up for this event is still pending, so no further details have been added yet.",
     status: "todo",
-    slot: null,
+    slot: "nulipa.1",
   },
   {
     slug: "blockforge-code-camp",
@@ -191,7 +191,7 @@ export const events: TimelineEvent[] = [
     summary:
       "An educational blockchain seminar at the University of the East Manila covering blockchain fundamentals, DeFi, and digital security, with GN Club as partner.",
     status: "confirmed",
-    slot: null,
+    slot: "gate.1",
   },
   {
     slug: "okx-wallet-trading-battlegrounds",
@@ -238,7 +238,7 @@ export const events: TimelineEvent[] = [
     summary:
       "A payments and digital asset forum in Tbilisi for banking, fintech, and payments leaders across the Caucasus.",
     status: "confirmed",
-    slot: null,
+    slot: "futurum.1",
   },
   {
     slug: "global-blockchain-show-2025",
@@ -268,7 +268,7 @@ export const events: TimelineEvent[] = [
     summary:
       "AI pioneers, enterprise leaders, and researchers in Abu Dhabi, exploring AI governance, generative AI, and intelligent systems.",
     status: "confirmed",
-    slot: null,
+    slot: "aishow.1",
   },
   {
     slug: "web3-amsterdam",
@@ -278,7 +278,7 @@ export const events: TimelineEvent[] = [
     summary:
       "An annual Web3 conference in Amsterdam centered on inclusivity, education, and onboarding, bringing industry professionals and builders together.",
     status: "confirmed",
-    slot: null,
+    slot: "w3ams.1",
   },
   {
     slug: "web3-dubai",

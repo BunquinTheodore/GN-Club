@@ -34,8 +34,9 @@ export type CaseStudy = {
  * numbers, outcomes, or quotes. Where the sheet gives no basis for a
  * challenge or approach, the copy says the write up is in progress rather
  * than guessing. Bull vs Bear Run, OKX Wallet Trading Battlegrounds, CJC
- * Race Launch, and Coffee Consensus Aster now carry real photos from their
- * own Drive folders (see lib/media.ts). The rest have no confirmed photos
+ * Race Launch, Coffee Consensus Aster, GATE Campus Talk, FUTURUM Georgia,
+ * Global AI Show, and Web3 Amsterdam now carry real photos found in GN
+ * Club's Drive (see lib/media.ts). The rest have no confirmed photos
  * yet (`slot: null`, `gallery: []`), and photos from a different event must
  * never be reused for them.
  *
@@ -329,7 +330,7 @@ export const portfolio: CaseStudy[] = [
   },
   {
     slug: "gate-campus-talk-web3-simplified",
-    slot: null,
+    slot: "gate.1",
     title: "GATE Campus Talk: Web3 Simplified",
     tag: "Educational & Campus",
     description:
@@ -343,7 +344,7 @@ export const portfolio: CaseStudy[] = [
       { label: "Organizers", value: "GATE Web3, Cryptita Plays & UE CCSS" },
       { label: "GN Club role", value: "Partner" },
     ],
-    gallery: [],
+    gallery: ["gate.1", "gate.2"],
   },
   {
     slug: "okx-wallet-trading-battlegrounds",
@@ -401,7 +402,7 @@ export const portfolio: CaseStudy[] = [
   },
   {
     slug: "futurum-georgia",
-    slot: null,
+    slot: "futurum.1",
     title: "FUTURUM Georgia",
     tag: "Conferences & Expos",
     abroad: true,
@@ -416,7 +417,7 @@ export const portfolio: CaseStudy[] = [
       { label: "Venue", value: "Paragraph Golf & Spa Resort Tabori" },
       { label: "Format", value: "International conference" },
     ],
-    gallery: [],
+    gallery: ["futurum.1"],
   },
   {
     slug: "global-blockchain-show-2025",
@@ -458,7 +459,7 @@ export const portfolio: CaseStudy[] = [
   },
   {
     slug: "global-ai-show-2025",
-    slot: null,
+    slot: "aishow.1",
     title: "Global AI Show 2025",
     tag: "Conferences & Expos",
     abroad: true,
@@ -473,11 +474,11 @@ export const portfolio: CaseStudy[] = [
       { label: "Venue", value: "Space42 Arena" },
       { label: "Format", value: "International conference" },
     ],
-    gallery: [],
+    gallery: ["aishow.1"],
   },
   {
     slug: "web3-amsterdam",
-    slot: null,
+    slot: "w3ams.1",
     title: "Web3 Amsterdam",
     tag: "Conferences & Expos",
     abroad: true,
@@ -492,7 +493,7 @@ export const portfolio: CaseStudy[] = [
       { label: "Venue", value: "Circa Amsterdam" },
       { label: "Format", value: "International conference" },
     ],
-    gallery: [],
+    gallery: ["w3ams.1", "w3ams.2", "w3ams.3", "w3ams.4"],
   },
   {
     slug: "web3-dubai",
