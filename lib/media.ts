@@ -149,6 +149,47 @@ export const media: Record<string, string> = {
   "mazal.8": "/images/mazal/mazal-08-join-mazal-qr.png",
   "mazal.9": "/images/mazal/mazal-09-beginner-trading-submit.png",
 
+  // Real GN Club event photography from each event's own Google Drive
+  // folder (linked in the "Every GN Event" sheet). Where a folder only held
+  // a few usable stills, the gallery is filled out with the same event's
+  // photos already in drive/ (OKX banners, CJC Race backdrop, Paradex
+  // group), never with photos from a different event.
+  // Bull vs Bear Run (Paradex x GN Club), The Company Manila, Makati.
+  "bvb.1": "/images/bull-vs-bear-run/bull-vs-bear-run-01-traders-at-laptops.jpg",
+  "bvb.2": "/images/drive/drive-work-2.jpg",
+  "bvb.3": "/images/bull-vs-bear-run/bull-vs-bear-run-02-live-commentary.jpg",
+  "bvb.4": "/images/bull-vs-bear-run/bull-vs-bear-run-03-trader-reaction.jpg",
+  "bvb.5": "/images/bull-vs-bear-run/bull-vs-bear-run-04-1000-usdc-winner.jpg",
+  "bvb.6": "/images/bull-vs-bear-run/bull-vs-bear-run-05-paradex-screen-branding.jpg",
+
+  // GN Club x OKX Wallet Trading Battlegrounds, High Grounds Cafe. The
+  // event's Drive folder only had press graphics plus originals over the
+  // connector's download limit, so this set is the OKX shots in drive/.
+  "okx.1": "/images/drive/drive-logistics.jpg",
+  "okx.2": "/images/drive/drive-work-3.jpg",
+  "okx.3": "/images/drive/drive-digital-gallery-2.jpg",
+  "okx.4": "/images/drive/drive-work-6.jpg",
+  "okx.5": "/images/drive/drive-activations-gallery-2.jpg",
+  "okx.6": "/images/drive/drive-others-gallery-2.jpg",
+
+  // CJC Race Philippines Grand Launch, NAOS Esports Arena.
+  "cjc.1": "/images/drive/drive-work-4.jpg",
+  "cjc.2": "/images/drive/drive-merch.jpg",
+  "cjc.3": "/images/drive/drive-work-5.jpg",
+  "cjc.4": "/images/cjc-race-launch/cjc-race-launch-01-team-and-cosplayer-with-flag.jpg",
+  "cjc.5": "/images/drive/drive-merch-gallery-2.jpg",
+  "cjc.6": "/images/drive/drive-merch-gallery-3.jpg",
+  "cjc.7": "/images/cjc-race-launch/cjc-race-launch-02-gn-club-crew-in-arena.jpg",
+  "cjc.8": "/images/cjc-race-launch/cjc-race-launch-03-host-at-production-desk.jpg",
+  "cjc.9": "/images/cjc-race-launch/cjc-race-launch-06-keyboard-and-phone-closeup.jpg",
+
+  // LBank Coffee Consensus, Aster Business Center.
+  "aster.1": "/images/coffee-consensus-aster/coffee-consensus-aster-01-wide-room-chart-session.jpg",
+  "aster.2": "/images/coffee-consensus-aster/coffee-consensus-aster-02-host-lbank-chart-screen.jpg",
+  "aster.3": "/images/coffee-consensus-aster/coffee-consensus-aster-03-live-chart-analysis-whiteboard.jpg",
+  "aster.4": "/images/coffee-consensus-aster/coffee-consensus-aster-04-attendees-seated-venue.jpg",
+  "aster.5": "/images/coffee-consensus-aster/coffee-consensus-aster-05-networking-table-discussion.jpg",
+
   // Sister-brand marks for the "trusted by" strip.
   "brand.gnMedia": "/images/brands/gn-media-logo.jpg",
   "brand.gnVentures": "/images/brands/gn-ventures-logo.jpg",

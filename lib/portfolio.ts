@@ -33,8 +33,11 @@ export type CaseStudy = {
  * The sheet events carry only facts stated in that sheet: no attendance
  * numbers, outcomes, or quotes. Where the sheet gives no basis for a
  * challenge or approach, the copy says the write up is in progress rather
- * than guessing. None of them have confirmed photos yet (`slot: null`,
- * `gallery: []`), and existing photos must not be reused for them.
+ * than guessing. Bull vs Bear Run, OKX Wallet Trading Battlegrounds, CJC
+ * Race Launch, and Coffee Consensus Aster now carry real photos from their
+ * own Drive folders (see lib/media.ts). The rest have no confirmed photos
+ * yet (`slot: null`, `gallery: []`), and photos from a different event must
+ * never be reused for them.
  *
  * The six seed entries (Founders Summit through Regional Roadshow) are
  * placeholder sample content, not real GN Club events: their copy and
@@ -128,7 +131,7 @@ export const portfolio: CaseStudy[] = [
   },
   {
     slug: "coffee-consensus-aster",
-    slot: null,
+    slot: "aster.1",
     title: "LBank Coffee Consensus: Aster Business Center",
     tag: "Community & Meetup",
     description:
@@ -142,7 +145,7 @@ export const portfolio: CaseStudy[] = [
       { label: "Partner", value: "LBank" },
       { label: "Format", value: "Live chart analysis" },
     ],
-    gallery: [],
+    gallery: ["aster.1", "aster.2", "aster.3", "aster.4", "aster.5"],
   },
   {
     slug: "bsu-lipa-web3-seminar",
@@ -182,7 +185,7 @@ export const portfolio: CaseStudy[] = [
   },
   {
     slug: "cjc-race-launch",
-    slot: null,
+    slot: "cjc.1",
     title: "CJC Race Launch",
     tag: "Product Launch",
     description:
@@ -196,7 +199,7 @@ export const portfolio: CaseStudy[] = [
       { label: "Event hours", value: "11:00 AM to 7:00 PM" },
       { label: "Led by", value: "GN Club & CrypTita Plays" },
     ],
-    gallery: [],
+    gallery: ["cjc.1", "cjc.2", "cjc.3", "cjc.4", "cjc.5", "cjc.6", "cjc.7", "cjc.8", "cjc.9"],
   },
   {
     slug: "coffee-consensus-alabang",
@@ -344,7 +347,7 @@ export const portfolio: CaseStudy[] = [
   },
   {
     slug: "okx-wallet-trading-battlegrounds",
-    slot: null,
+    slot: "okx.1",
     title: "OKX Wallet Trading Battlegrounds",
     tag: "Trading & Esports",
     description:
@@ -358,11 +361,11 @@ export const portfolio: CaseStudy[] = [
       { label: "Finals venue", value: "High Grounds Cafe, Quezon City" },
       { label: "Partner", value: "OKX Wallet" },
     ],
-    gallery: [],
+    gallery: ["okx.1", "okx.2", "okx.3", "okx.4", "okx.5", "okx.6"],
   },
   {
     slug: "bull-vs-bear-run",
-    slot: null,
+    slot: "bvb.1",
     title: "Bull vs Bear Run",
     tag: "Trading & Esports",
     description:
@@ -376,7 +379,7 @@ export const portfolio: CaseStudy[] = [
       { label: "Format", value: "Live team trading" },
       { label: "Venue", value: "The Company Manila, Makati" },
     ],
-    gallery: [],
+    gallery: ["bvb.1", "bvb.2", "bvb.3", "bvb.4", "bvb.5", "bvb.6"],
   },
   {
     slug: "bitunix-trader-meetup-malaysia-vietnam",

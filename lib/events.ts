@@ -56,7 +56,7 @@ export const events: TimelineEvent[] = [
     summary:
       "An intimate community gathering with LBank at the Aster Business Center: live chart analysis and networking over coffee.",
     status: "confirmed",
-    slot: null,
+    slot: "aster.1",
   },
   {
     slug: "bsu-lipa-web3-seminar",
@@ -83,7 +83,7 @@ export const events: TimelineEvent[] = [
     summary:
       "The CJC Race Philippines Grand Launch at the NAOS Esports Arena, led with CrypTita Plays for CJC Race Philippines: live gameplay demos, race brackets, and community meetups for the NFT horse racing platform.",
     status: "confirmed",
-    slot: null,
+    slot: "cjc.1",
   },
   {
     slug: "pickleball-edition",
@@ -200,7 +200,7 @@ export const events: TimelineEvent[] = [
     summary:
       "A live crypto trading tournament hosted with OKX Wallet, from virtual qualifiers to on stage finals at High Grounds Cafe, Quezon City.",
     status: "confirmed",
-    slot: null,
+    slot: "okx.1",
   },
   {
     slug: "bull-vs-bear-run",
@@ -209,7 +209,7 @@ export const events: TimelineEvent[] = [
     summary:
       "The inaugural live, real money crypto trading esports competition, co-hosted with Trade Paradex in Makati, with local trading teams competing for a 1,000 USDC prize pool.",
     status: "confirmed",
-    slot: null,
+    slot: "bvb.1",
   },
   {
     slug: "join-mazal-activation",
