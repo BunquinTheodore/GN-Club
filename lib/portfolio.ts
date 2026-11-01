@@ -34,7 +34,7 @@ export type CaseStudy = {
  * numbers, outcomes, or quotes. Where the sheet gives no basis for a
  * challenge or approach, the copy says the write up is in progress rather
  * than guessing. Bull vs Bear Run, OKX Wallet Trading Battlegrounds, CJC
- * Race Launch, Coffee Consensus Aster, GATE Campus Talk, FUTURUM Georgia,
+ * Race Launch, Coffee Consensus Aster and Las Pinas, GATE Campus Talk, FUTURUM Georgia,
  * Global AI Show, and Web3 Amsterdam now carry real photos found in GN
  * Club's Drive (see lib/media.ts). The rest have no confirmed photos
  * yet (`slot: null`, `gallery: []`), and photos from a different event must
@@ -258,7 +258,7 @@ export const portfolio: CaseStudy[] = [
   },
   {
     slug: "coffee-consensus-las-pinas",
-    slot: null,
+    slot: "laspinas.1",
     title: "LBank Coffee Consensus: Las Piñas",
     tag: "Community & Meetup",
     description:
@@ -272,7 +272,7 @@ export const portfolio: CaseStudy[] = [
       { label: "Partner", value: "LBank" },
       { label: "Hosted by", value: "GN Club" },
     ],
-    gallery: [],
+    gallery: ["laspinas.1", "laspinas.2", "laspinas.3", "laspinas.4"],
   },
   {
     slug: "global-pizza-party-2026",

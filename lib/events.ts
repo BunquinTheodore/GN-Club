@@ -146,7 +146,7 @@ export const events: TimelineEvent[] = [
     summary:
       "An in person Web3 trading workshop with LBank Academy at Unlikely Coffee, Las Piñas: live chart reading, risk management, and an open Q&A over free coffee.",
     status: "confirmed",
-    slot: null,
+    slot: "laspinas.1",
   },
   {
     slug: "global-pizza-party-2026",

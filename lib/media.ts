@@ -190,6 +190,14 @@ export const media: Record<string, string> = {
   "aster.4": "/images/coffee-consensus-aster/coffee-consensus-aster-04-attendees-seated-venue.jpg",
   "aster.5": "/images/coffee-consensus-aster/coffee-consensus-aster-05-networking-table-discussion.jpg",
 
+  // LBank Coffee Consensus, Unlikely Coffee x Cocktails, Las Pinas
+  // (PHOTOS FOR WEBSITE / coffee concensus; storefront and LBank Academy
+  // standee confirm the venue).
+  "laspinas.1": "/images/coffee-consensus-las-pinas/coffee-consensus-las-pinas-01-group-photo-unlikely-coffee.jpg",
+  "laspinas.2": "/images/coffee-consensus-las-pinas/coffee-consensus-las-pinas-02-attendees-at-table.jpg",
+  "laspinas.3": "/images/coffee-consensus-las-pinas/coffee-consensus-las-pinas-03-hosts-under-neon.jpg",
+  "laspinas.4": "/images/coffee-consensus-las-pinas/coffee-consensus-las-pinas-04-outdoor-networking.jpg",
+
   // Coinfest Asia, Bali: the FundedXYZ esport trading competition activation
   // (shared FundedXYZ Coinfest Bali folder).
   "coinfest.1": "/images/coinfest-bali/coinfest-bali-01-trading-competition-winner.jpg",
